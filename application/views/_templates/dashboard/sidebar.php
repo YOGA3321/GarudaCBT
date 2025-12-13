@@ -120,6 +120,12 @@
             ]
         },
         {
+            'header': 'INFORMASI PUBLIK', 'cbt': '1',
+            'menu': [
+                {'name': 'Manajemen Artikel', 'link': 'post', 'icon': 'fas fa-newspaper', 'cbt': '1'},
+            ]
+        },
+        {
             'header': 'PENGATURAN',  'cbt': '1',
             'menu': [
                 {'name': 'Profile Sekolah', 'link': 'settings', 'icon': 'fas fa-university', 'cbt': '1',},

@@ -4,7 +4,8 @@
     |    https://github.com/garudacbt/cbt    |
     |________________________________________|
 */
- defined("\102\105\x53\105\120\x41\124\x48") or exit("\x4e\157\x20\144\x69\162\145\143\x74\40\163\143\162\x69\x70\x74\x20\141\143\143\x65\163\163\x20\141\x6c\x6c\x6f\x77\x65\x64"); class Dashboard_model extends CI_Model { 	public function getSetting() {
+ defined('BASEPATH') OR exit('No direct script access allowed');
+ class Dashboard_model extends CI_Model { 	public function getSetting() {
 		$setting = $this->db->get("\163\145\164\x74\151\156\147")->row();
 		$profile = $this->db->get("\163\143\150\157\157\154\137\160\162\157\146\151\154\145")->row();
 		

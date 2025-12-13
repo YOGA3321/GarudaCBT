@@ -21,6 +21,7 @@ class Post extends CI_Controller {
 
         $data = [
             'user' => $user,
+            'setting' => $this->dashboard->getSetting(),
             'judul' => 'Manajemen Artikel',
             'subjudul' => 'Daftar Berita/Artikel',
             'posts' => $posts,
@@ -40,6 +41,7 @@ class Post extends CI_Controller {
         $user = $this->ion_auth->user()->row();
         $data = [
              'user' => $user,
+            'setting' => $this->dashboard->getSetting(),
             'judul' => 'Tambah Artikel',
             'subjudul' => 'Tulis Berita Baru',
             'tp' => $this->dashboard->getTahun(),
@@ -95,7 +97,8 @@ class Post extends CI_Controller {
 
         $data = [
              'user' => $user,
-            'judul' => 'Edit Artikel',
+            'setting' => $this->dashboard->getSetting(),
+            'judul' => 'Manajemen Artikel',
             'subjudul' => 'Edit Berita',
             'post' => $post,
             'tp' => $this->dashboard->getTahun(),

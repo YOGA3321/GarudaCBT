@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $title ?> - <?= $setting->sekolah ?></title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -48,49 +49,44 @@
     <div class="bg-slate-900 py-16 relative overflow-hidden">
         <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(#059669 1px, transparent 1px); background-size: 20px 20px;"></div>
         <div class="container mx-auto px-6 relative z-10 text-center">
-            <h1 class="text-4xl md:text-5xl font-black text-white mb-4">Direktori Siswa</h1>
-            <p class="text-slate-400 text-lg max-w-2xl mx-auto">Daftar peserta didik aktif tahun ajaran ini.</p>
+            <h1 class="text-4xl md:text-5xl font-black text-white mb-4"><?= $page_title ?></h1>
+            <p class="text-slate-400 text-lg max-w-2xl mx-auto">Wadah pengembangan bakat dan minat peserta didik di luar jam pelajaran akademik.</p>
         </div>
     </div>
 
+    <!-- Content -->
     <div class="container mx-auto px-6 py-12 flex-grow">
-        <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4 bg-white p-4 rounded-xl shadow-sm border border-slate-100">
-            <div>
-                <h2 class="font-bold text-slate-900 text-lg">Filter Pencarian</h2>
-            </div>
-            <div class="relative w-full md:w-80">
-                <input type="text" placeholder="Cari nama atau NIS..." class="w-full pl-10 pr-4 py-3 bg-slate-50 border-none rounded-xl focus:ring-2 focus:ring-emerald-500 text-sm font-medium transition-all">
-                <i class="ri-search-line absolute left-3 top-3.5 text-gray-400"></i>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
-            <?php if(!empty($students)): ?>
-                <?php foreach($students as $student): ?>
-                    <div class="bg-white rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-slate-100 p-6 text-center group">
-                        <div class="w-24 h-24 mx-auto rounded-full overflow-hidden bg-slate-100 mb-4 relative ring-4 ring-white shadow-lg group-hover:scale-105 transition-transform">
-                            <?php if(!empty($student->foto) && file_exists('uploads/foto_siswa/'.$student->foto)): ?>
-                                <img src="<?= base_url('uploads/foto_siswa/'.$student->foto) ?>" class="w-full h-full object-cover">
-                            <?php else: ?>
-                                <div class="w-full h-full flex items-center justify-center text-slate-300 bg-slate-50">
-                                    <i class="ri-user-smile-line text-4xl"></i>
-                                </div>
-                            <?php endif; ?>
+        <?php if(!empty($ekstras)): ?>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <?php foreach($ekstras as $ex): ?>
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg shadow-slate-200/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-slate-100 flex flex-col">
+                        <div class="h-48 bg-slate-100 relative items-center justify-center flex">
+                            <!-- Placeholder Icon if no image -->
+                             <i class="ri-basketball-line text-6xl text-slate-300"></i>
+                             <!-- If you have images in database, uncomment below -->
+                             <!-- <img src="..." class="w-full h-full object-cover"> -->
+                             <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-lg text-xs font-bold text-emerald-600 shadow-sm uppercase tracking-wide">
+                                Aktif
+                            </div>
                         </div>
-                        <h3 class="font-bold text-slate-900 text-sm truncate mb-1"><?= $student->nama ?></h3>
-                        <div class="inline-block px-2 py-0.5 rounded bg-emerald-50 text-emerald-600 text-[10px] font-bold uppercase tracking-wider mb-2">
-                            <?= $student->nama_kelas ?? 'Kelas -' ?>
+                        <div class="p-8 flex-grow">
+                            <h3 class="text-2xl font-bold text-slate-900 mb-2"><?= $ex->nama_ekstra ?></h3>
+                            <p class="text-slate-500 text-sm mb-6">Kegiatan ekstrakurikuler unggulan untuk mengembangkan potensi siswa.</p>
+                            <div class="flex items-center gap-2 text-sm font-bold text-slate-700">
+                                <i class="ri-calendar-check-line text-primary"></i> <span>Jadwal: -</span>
+                            </div>
                         </div>
-                        <p class="text-[10px] text-slate-400 font-mono"><?= $student->nis ?></p>
                     </div>
                 <?php endforeach; ?>
-            <?php else: ?>
-                <div class="col-span-full text-center py-20 bg-white rounded-3xl border-2 border-dashed border-slate-200">
-                    <i class="ri-user-unfollow-line text-4xl text-slate-300 mb-4 block"></i>
-                    <p class="text-slate-500 font-medium">Data siswa tidak ditemukan.</p>
+            </div>
+        <?php else: ?>
+            <div class="text-center py-20 bg-white rounded-3xl border-2 border-dashed border-slate-200">
+                <div class="w-16 h-16 rounded-full bg-slate-50 flex items-center justify-center mx-auto mb-4 text-slate-400 text-2xl">
+                    <i class="ri-flag-off-line"></i>
                 </div>
-            <?php endif; ?>
-        </div>
+                <p class="text-slate-500 font-medium text-lg">Belum ada data ekstrakurikuler.</p>
+            </div>
+        <?php endif; ?>
     </div>
 
     <!-- Footer -->

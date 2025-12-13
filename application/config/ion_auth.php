@@ -19,7 +19,7 @@
  * @link       http://github.com/benedmunds/CodeIgniter-Ion-Auth
  * @filesource
  */
-defined('BASEPATH') OR exit('Ion_auth Config: No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------------

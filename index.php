@@ -1,4 +1,4 @@
-<?php echo "DEBUG: INDEX IS RUNNING<br>";
+<?php
 /**
  * CodeIgniter
  *
@@ -149,9 +149,7 @@ if (!isset($view_folder[0]) && is_dir(APPPATH . 'views' . DIRECTORY_SEPARATOR)) 
 define('VIEWPATH', $view_folder . DIRECTORY_SEPARATOR);
 //require_once BASEPATH . 'core/CodeIgniter.php';
 
-echo "DEBUG: Loading Database Config...<br>";
 include 'application/config/database.php';
-echo "DEBUG: Database Config Loaded.<br>";
 $database = $db['default']['database'];
 if ($database == '') {
     header("Location: installer");
@@ -167,7 +165,6 @@ if ($database == '') {
     else
     {
         $mysqli->close();
-        echo "DEBUG: Loading CI Core...<br>";
         require_once BASEPATH . 'core/CodeIgniter.php';
     }
 }

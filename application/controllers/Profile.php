@@ -47,7 +47,7 @@ class Profile extends CI_Controller {
         $smt = $this->dashboard->getSemesterActive();
         // Pagination logic or simple list
         // Fetch students (limit 50 for demo)
-        $students = $this->db->select('nama_siswa, nis, foto, nama_kelas')
+        $students = $this->db->select('nama, nis, foto, nama_kelas')
                              ->from('master_siswa')
                              ->join('kelas_siswa', 'master_siswa.id_siswa = kelas_siswa.id_siswa', 'left')
                              ->join('master_kelas', 'kelas_siswa.id_kelas = master_kelas.id_kelas', 'left')
@@ -63,5 +63,17 @@ class Profile extends CI_Controller {
             'title' => 'Direktori Peserta Didik'
         ];
         $this->load->view('profile/directory', $data);
+    }
+    public function ekskul() {
+        $setting = $this->dashboard->getSetting();
+        $ekstras = $this->master->getAllEkstra();
+        
+        $data = [
+            'setting' => $setting,
+            'ekstras' => $ekstras,
+            'title' => 'Ekstrakurikuler',
+            'page_title' => 'Kegiatan Ekstrakurikuler'
+        ];
+        $this->load->view('profile/ekskul', $data);
     }
 }
