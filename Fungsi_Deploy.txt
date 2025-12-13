@@ -1,0 +1,7 @@
+git add .
+git commit -m "coba update"
+git push origin main
+
+git push origin profil
+
+git push origin --delete profil

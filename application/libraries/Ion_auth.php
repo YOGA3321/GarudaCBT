@@ -20,7 +20,7 @@
  * @filesource
  * @property Ion_auth_model $ion_auth_model
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') OR exit('Ion_auth Library: No direct script access allowed');
 
 /**
  * Class Ion_auth

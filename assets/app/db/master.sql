@@ -2540,3 +2540,23 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `posts`
+--
+
+CREATE TABLE `posts` (
+  `id_post` int NOT NULL AUTO_INCREMENT,
+  `judul` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `isi` longtext NOT NULL,
+  `gambar` varchar(255) DEFAULT NULL,
+  `id_user` int NOT NULL,
+  `tanggal` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` int NOT NULL DEFAULT '1' COMMENT '1=publish, 0=draft',
+  `kategori` varchar(50) DEFAULT 'Berita',
+  `views` int NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id_post`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;

@@ -144,6 +144,10 @@ $satuan = ["1" => ["SD", "MI"], "2" => ["SMP", "MTS"], "3" => ["SMA", "MA", "SMK
                             <label>NIP</label>
                             <input type="number" name="nip" class="form-control" value="<?= $setting->nip ?>">
                         </div>
+                        <div class="col-md-12 mb-4">
+                            <label>Sambutan Kepala Sekolah</label>
+                            <textarea class="form-control" name="sambutan" rows="5" placeholder="Masukkan kata sambutan kepala sekolah disini..."><?= isset($setting->sambutan) ? $setting->sambutan : '' ?></textarea>
+                        </div>
                     </div>
                     <?= form_close() ?>
                     <div class="row">

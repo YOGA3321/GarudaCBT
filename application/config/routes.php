@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') OR exit('Routes: No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------------
@@ -53,8 +53,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 //$route['404_override'] = '';
 //$route['translate_uri_dashes'] = FALSE;
 
-$route['default_controller'] = 'auth'; //'install';
-$route['login'] = 'Auth/index';
+$route['default_controller'] = 'home';
+$route['login'] = 'auth/index';
+$route['auth'] = 'auth/index';
+
+// Blog Routes
+$route['blog'] = 'blog';
+$route['blog/read/(:any)'] = 'blog/read/$1';
+$route['berita'] = 'blog'; // Alias
+
+// Profile Routes
+$route['sejarah'] = 'profile/sejarah';
+$route['visi_misi'] = 'profile/visimisi';
+$route['struktur'] = 'profile/struktur';
+$route['direktori'] = 'profile/direktori';
 $route['logout'] = 'Auth/logout';
 $route['404_override'] = 'auth';
 $route['translate_uri_dashes'] = FALSE;

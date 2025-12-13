@@ -1,7 +1,211 @@
 <?php
-/*   ________________________________________
-    |                 GarudaCBT              |
-    |    https://github.com/garudacbt/cbt    |
-    |________________________________________|
-*/
- defined("\x42\101\x53\x45\120\101\x54\x48") or exit("\116\x6f\x20\x64\151\x72\145\x63\x74\x20\163\143\x72\151\x70\164\40\x61\143\143\x65\163\x73\40\x61\x6c\154\157\167\145\x64"); class Settings extends CI_Controller { public function __construct() { goto jL85J; tpGNS: $this->load->model("\104\x61\163\x68\142\x6f\x61\162\144\137\155\x6f\144\145\154", "\x64\141\x73\150\142\x6f\x61\x72\144"); goto LYhPG; fA862: show_error("\x48\x61\x6e\x79\141\x20\x41\x64\155\x69\156\40\171\141\x6e\x67\40\142\157\x6c\x65\x68\40\x6d\145\x6e\147\x61\153\163\145\x73\40\x68\141\154\141\155\x61\x6e\40\x69\x6e\151", 403, "\x41\153\163\x65\x73\40\x64\x69\154\x61\162\x61\156\x67"); goto FhbSA; M741r: if (!$this->ion_auth->logged_in()) { goto F8A6Y; } goto gTG_U; SwNh6: goto AlA2r; goto q3Fqr; LYhPG: $this->load->helper("\144\x69\x72\145\143\x74\157\162\x79"); goto HoFXc; gTG_U: if ($this->ion_auth->is_admin()) { goto iTcOh; } goto fA862; jL85J: parent::__construct(); goto M741r; MqTi_: $this->load->model("\123\x65\164\164\151\156\147\163\137\155\157\144\x65\154", "\x73\145\164\x74\151\x6e\x67\x73"); goto tpGNS; jG3i3: redirect("\x61\x75\164\150"); goto ik0Rs; q3Fqr: F8A6Y: goto jG3i3; vTP3r: $this->load->library("\x75\160\154\x6f\x61\144"); goto MqTi_; FhbSA: iTcOh: goto SwNh6; ik0Rs: AlA2r: goto vTP3r; HoFXc: } public function output_json($data, $encode = true) { goto pEmkA; GPOyI: $data = json_encode($data); goto iXSi0; c9AL1: $this->output->set_content_type("\141\160\160\154\151\143\x61\x74\151\157\x6e\x2f\152\163\157\156")->set_output($data); goto FfH1m; iXSi0: z0seR: goto c9AL1; pEmkA: if (!$encode) { goto z0seR; } goto GPOyI; FfH1m: } public function index() { goto NcLb0; tXwg1: $data["\163\x6d\164\137\141\x63\164\x69\x76\x65"] = $this->dashboard->getSemesterActive(); goto RcB3e; IKXue: $data = ["\x75\x73\145\162" => $user, "\x6a\x75\x64\x75\154" => "\x50\162\157\146\x69\x6c\x65\x20\123\145\153\157\154\141\x68", "\x73\165\142\x6a\165\144\165\154" => '', "\x70\x72\157\x66\x69\x6c\x65" => $this->dashboard->getProfileAdmin($user->id), "\x73\145\164\164\x69\156\147" => $this->dashboard->getSetting()]; goto Kt0NV; LqGzf: $data["\164\160\137\141\x63\164\151\166\x65"] = $this->dashboard->getTahunActive(); goto F9tGn; KgWtO: $this->load->view("\x5f\x74\145\x6d\x70\154\x61\x74\145\x73\x2f\x64\141\163\x68\142\157\141\x72\x64\x2f\x5f\x66\157\x6f\164\x65\x72"); goto EPuIe; F9tGn: $data["\x73\x6d\x74"] = $this->dashboard->getSemester(); goto tXwg1; z4YLa: $this->load->view("\163\x65\x74\164\151\x6e\x67\57\144\x61\x74\141"); goto KgWtO; Kt0NV: $data["\164\x70"] = $this->dashboard->getTahun(); goto LqGzf; RcB3e: $this->load->view("\x5f\x74\145\155\160\x6c\x61\164\x65\163\x2f\x64\x61\163\x68\142\x6f\x61\x72\144\57\137\x68\145\x61\144\x65\162", $data); goto z4YLa; NcLb0: $user = $this->ion_auth->user()->row(); goto IKXue; EPuIe: } public function dbManager() { goto B0dtx; AWIPy: $data["\x73\155\164"] = $this->dashboard->getSemester(); goto qyKKI; MGJ2W: $this->load->view("\137\x74\145\x6d\160\154\141\164\145\x73\x2f\144\x61\163\x68\x62\157\141\162\x64\57\x5f\150\x65\x61\144\x65\162", $data); goto gGE3E; B0dtx: $data = ["\165\163\x65\162" => $this->ion_auth->user()->row(), "\x6a\x75\x64\165\x6c" => "\x42\141\x63\153\165\160\x20\x64\141\156\40\x52\x65\163\x74\x6f\x72\145", "\x73\165\142\x6a\x75\x64\x75\x6c" => "\x42\141\x63\153\165\160\x20\x64\x61\x6e\x20\122\145\163\164\157\162\145"]; goto ZYw3N; I_Is7: $data["\x73\145\164\x74\x69\x6e\x67"] = $this->settings->getSetting(); goto OKRg9; OKRg9: $data["\154\151\x73\x74"] = directory_map("\x2e\57\142\x61\143\x6b\165\160\x73\x2f"); goto MGJ2W; ZYw3N: $data["\164\160"] = $this->dashboard->getTahun(); goto hXzk3; hXzk3: $data["\164\160\x5f\141\x63\164\x69\x76\x65"] = $this->dashboard->getTahunActive(); goto AWIPy; TgaLt: $this->load->view("\x5f\x74\x65\155\x70\154\141\x74\x65\163\57\144\141\163\150\x62\157\141\162\144\x2f\x5f\x66\157\x6f\x74\x65\162"); goto LJc2E; gGE3E: $this->load->view("\x73\145\164\x74\151\x6e\147\57\144\142"); goto TgaLt; qyKKI: $data["\163\155\x74\137\141\x63\x74\x69\166\145"] = $this->dashboard->getSemesterActive(); goto I_Is7; LJc2E: } function uploadFile($logo) { goto wA3fj; bbFfa: goto Gd08_; goto ihRjp; QfGMi: $data["\x73\151\x7a\145"] = $_FILES["\154\x6f\147\157"]["\163\151\x7a\145"]; goto CqAeT; RV1TE: $data["\x73\164\141\164\x75\x73"] = false; goto pAVZU; cnEn0: $data["\x66\x69\x6c\x65\x6e\141\155\145"] = pathinfo($result["\146\151\154\x65\x5f\156\x61\155\145"], PATHINFO_FILENAME); goto rP1ct; lpejS: $data["\x74\171\x70\145"] = $_FILES["\x6c\157\147\157"]["\164\171\160\145"]; goto QfGMi; xkPFC: $result = $this->upload->data(); goto iHYip; bdNK7: x5Aan: goto LnMJ2; Cn3ks: $config["\157\x76\x65\x72\167\x72\151\x74\x65"] = true; goto jqZCH; akxrX: if (!$this->upload->do_upload("\x6c\157\x67\157")) { goto gDTwW; } goto xkPFC; jqZCH: $config["\x66\x69\154\145\x5f\x6e\x61\155\145"] = $logo; goto ASIcr; J8iuK: Gd08_: goto lpejS; ihRjp: gDTwW: goto RV1TE; iHYip: $data["\x73\x72\143"] = base_url() . "\x75\160\154\157\x61\x64\x73\x2f\163\x65\164\164\151\x6e\x67\x73\57" . $result["\x66\x69\x6c\145\x5f\x6e\141\155\x65"]; goto cnEn0; CqAeT: KNd_9: goto CVnip; Sr_YY: $data["\163\162\x63"] = ''; goto elIYb; wA3fj: if (isset($_FILES["\154\x6f\147\x6f"]["\x6e\141\x6d\x65"])) { goto x5Aan; } goto Sr_YY; LnMJ2: $config["\x75\160\154\157\141\144\137\160\x61\164\150"] = "\x2e\57\x75\x70\x6c\x6f\141\144\x73\57\163\x65\164\x74\x69\x6e\147\163\x2f"; goto wBJA3; CVnip: $this->output_json($data); goto COs1A; rP1ct: $data["\163\x74\x61\x74\x75\163"] = true; goto bbFfa; pAVZU: $data["\x73\x72\143"] = $this->upload->display_errors(); goto J8iuK; ASIcr: $this->upload->initialize($config); goto akxrX; wBJA3: $config["\141\154\x6c\x6f\167\145\144\137\164\171\x70\145\163"] = "\x67\151\x66\174\x6a\x70\x67\x7c\160\156\x67\174\152\x70\x65\147\x7c\112\x50\105\107\174\x4a\x50\107\x7c\120\116\107\174\107\x49\x46"; goto Cn3ks; elIYb: goto KNd_9; goto bdNK7; COs1A: } function deleteFile() { goto gIKZ5; N86_m: DY8jU: goto Ok7yA; HLnex: $file_name = str_replace(base_url(), '', $src ?? ''); goto uRcUQ; uRcUQ: if (!unlink($file_name)) { goto DY8jU; } goto Ctw_R; gIKZ5: $src = $this->input->post("\163\x72\x63"); goto HLnex; Ctw_R: echo "\106\x69\x6c\x65\x20\x44\x65\154\145\164\x65\40\123\165\x63\x63\x65\163\x73\x66\x75\154\x6c\x79"; goto N86_m; Ok7yA: } public function saveSetting() { goto RowSv; V8pfl: $insert = ["\163\145\x6b\x6f\154\141\x68" => $sekolah, "\156\163\x73" => $nss, "\x6e\160\163\156" => $npsn, "\x6a\145\156\152\141\x6e\x67" => $jenjang, "\x73\141\164\x75\141\x6e\x5f\160\x65\156\144\x69\144\151\x6b\x61\156" => $satuan_pendidikan, "\x61\154\x61\x6d\141\x74" => $alamat, "\144\145\163\x61" => $desa, "\153\x6f\x74\x61" => $kota, "\153\x65\143\x61\x6d\x61\164\141\156" => $kec, "\x6b\157\x64\x65\137\160\x6f\163" => $kodepos, "\x70\162\x6f\x76\x69\156\x73\x69" => $prov, "\x77\145\x62" => $web, "\146\x61\170" => $fax, "\145\x6d\141\151\x6c" => $email, "\164\145\154\x70" => $tlp, "\153\145\x70\163\x65\x6b" => $kepsek, "\x6e\151\x70" => $nip, "\164\x61\x6e\x64\141\x5f\164\141\156\x67\x61\156" => str_replace(base_url(), '', $tanda_tangan ?? ''), "\x6e\141\155\141\137\141\160\154\151\x6b\x61\x73\151" => $nama_aplikasi, "\154\157\x67\x6f\x5f\x6b\x61\156\141\x6e" => str_replace(base_url(), '', $logo_kanan ?? ''), "\154\157\x67\x6f\x5f\153\151\162\151" => str_replace(base_url(), '', $logo_kiri ?? '')]; goto TZWZ3; skh4D: $prov = $this->input->post("\160\x72\157\x76\x69\156\163\x69", true); goto RHb8x; o1iuv: $tlp = $this->input->post("\164\154\160", true); goto I_tk7; NlbJb: $kota = $this->input->post("\153\x6f\x74\x61", true); goto G7rgA; GPVPo: $update = $this->db->update("\163\145\x74\x74\x69\x6e\147", $insert); goto RCQsu; RowSv: $sekolah = $this->input->post("\x6e\141\155\141\137\163\x65\153\157\154\x61\x68", true); goto GlgUg; G7rgA: $desa = $this->input->post("\x64\x65\x73\141", true); goto hp9iI; JIP2Y: $nip = $this->input->post("\156\151\160", true); goto U80xL; U80xL: $tanda_tangan = $this->input->post("\x74\x61\156\144\141\x5f\x74\x61\x6e\147\141\156", true); goto IIa_0; I_tk7: $web = $this->input->post("\167\145\142", true); goto dFVa3; OtgKi: $email = $this->input->post("\x65\155\x61\x69\x6c", true); goto pL91I; GGm49: $npsn = $this->input->post("\156\160\163\156", true); goto eA2oz; aszqs: $satuan_pendidikan = $this->input->post("\x73\x61\164\165\x61\156\x5f\160\145\x6e\x64\151\x64\x69\153\141\x6e", true); goto l3YSU; U0qOg: $logo_kiri = $this->input->post("\154\157\147\x6f\x5f\153\151\162\x69", true); goto V8pfl; pL91I: $kepsek = $this->input->post("\x6b\145\160\x73\145\153", true); goto JIP2Y; l3YSU: $alamat = $this->input->post("\141\x6c\141\x6d\x61\164", true); goto NlbJb; GlgUg: $nss = $this->input->post("\x6e\163\163", true); goto GGm49; RHb8x: $kodepos = $this->input->post("\x6b\x6f\144\145\137\x70\x6f\x73", true); goto o1iuv; TZWZ3: $this->db->where("\151\x64\x5f\163\145\164\164\x69\156\x67", 1); goto GPVPo; RCQsu: $this->output_json($update); goto B7v_z; tzmjU: $logo_kanan = $this->input->post("\154\x6f\x67\x6f\137\153\141\156\141\x6e", true); goto U0qOg; hp9iI: $kec = $this->input->post("\153\x65\x63", true); goto skh4D; eA2oz: $jenjang = $this->input->post("\x6a\x65\156\152\x61\x6e\147", true); goto aszqs; dFVa3: $fax = $this->input->post("\146\x61\170", true); goto OtgKi; IIa_0: $nama_aplikasi = $this->input->post("\x6e\141\x6d\x61\137\141\160\154\x69\153\x61\x73\x69", true); goto tzmjU; B7v_z: } }
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Settings extends CI_Controller {
+
+    public function __construct() {
+        parent::__construct();
+        if (!$this->ion_auth->logged_in()) {
+            redirect('auth');
+        } else if (!$this->ion_auth->is_admin()) {
+            show_error('Hanya Admin yang boleh mengakses halaman ini', 403, 'Akses Dilarang');
+        }
+        $this->load->model('Dashboard_model', 'dashboard');
+        $this->load->model('Settings_model', 'settings');
+        $this->load->helper('directory');
+        $this->load->library('upload');
+    }
+
+    public function output_json($data, $encode = true) {
+        if ($encode) $data = json_encode($data);
+        $this->output->set_content_type('application/json')->set_output($data);
+    }
+
+    public function index() {
+        $user = $this->ion_auth->user()->row();
+        $data = [
+            'user' => $user,
+            'judul' => 'Profile Sekolah',
+            'subjudul' => '',
+            'profile' => $this->dashboard->getProfileAdmin($user->id),
+            'setting' => $this->dashboard->getSetting(),
+            'tp' => $this->dashboard->getTahun(),
+            'tp_active' => $this->dashboard->getTahunActive(),
+            'smt' => $this->dashboard->getSemester(),
+            'smt_active' => $this->dashboard->getSemesterActive()
+        ];
+        $this->load->view('_templates/dashboard/_header', $data);
+        $this->load->view('setting/data');
+        $this->load->view('_templates/dashboard/_footer');
+    }
+
+    public function dbManager() { 
+        $user = $this->ion_auth->user()->row();
+        $data = [
+            'user' => $user,
+            'judul' => 'Backup dan Restore',
+            'subjudul' => 'Backup dan Restore',
+            'setting' => $this->settings->getSetting(),
+            'list' => directory_map('./backups/'),
+            'tp' => $this->dashboard->getTahun(),
+            'tp_active' => $this->dashboard->getTahunActive(),
+            'smt' => $this->dashboard->getSemester(),
+            'smt_active' => $this->dashboard->getSemesterActive()
+        ];
+        
+        $this->load->view('_templates/dashboard/_header', $data);
+        $this->load->view('setting/db');
+        $this->load->view('_templates/dashboard/_footer');
+    }
+
+    public function saveSetting() {
+        // Collect Input
+        $sekolah = $this->input->post('nama_sekolah', true);
+        $nss = $this->input->post('nss', true);
+        $npsn = $this->input->post('npsn', true);
+        $jenjang = $this->input->post('jenjang', true);
+        $satuan_pendidikan = $this->input->post('satuan_pendidikan', true);
+        $alamat = $this->input->post('alamat', true);
+        $desa = $this->input->post('desa', true);
+        $kec = $this->input->post('kec', true);
+        $kota = $this->input->post('kota', true);
+        $kodepos = $this->input->post('kode_pos', true);
+        $prov = $this->input->post('provinsi', true);
+        $web = $this->input->post('web', true);
+        $fax = $this->input->post('fax', true);
+        $email = $this->input->post('email', true);
+        $tlp = $this->input->post('tlp', true);
+        $kepsek = $this->input->post('kepsek', true);
+        $nip = $this->input->post('nip', true);
+        $nama_aplikasi = $this->input->post('nama_aplikasi', true);
+        $sambutan = $this->input->post('sambutan', true); // New Field
+
+        // Clean up file paths from base_url()
+        $tanda_tangan = str_replace(base_url(), '', $this->input->post('tanda_tangan', true) ?? '');
+        $logo_kanan = str_replace(base_url(), '', $this->input->post('logo_kanan', true) ?? '');
+        $logo_kiri = str_replace(base_url(), '', $this->input->post('logo_kiri', true) ?? '');
+
+        $insert = [
+            'sekolah' => $sekolah,
+            'nss' => $nss,
+            'npsn' => $npsn,
+            'jenjang' => $jenjang,
+            'satuan_pendidikan' => $satuan_pendidikan,
+            'alamat' => $alamat,
+            'desa' => $desa,
+            'kecamatan' => $kec,
+            'kota' => $kota,
+            'kode_pos' => $kodepos,
+            'provinsi' => $prov,
+            'web' => $web,
+            'fax' => $fax,
+            'email' => $email,
+            'telp' => $tlp,
+            'kepsek' => $kepsek,
+            'nip' => $nip,
+            'nama_aplikasi' => $nama_aplikasi,
+            'sambutan' => $sambutan,
+            'tanda_tangan' => $tanda_tangan,
+            'logo_kanan' => $logo_kanan,
+            'logo_kiri' => $logo_kiri
+        ];
+
+        $this->db->where('id_setting', 1);
+        $update = $this->db->update('setting', $insert);
+        $this->output_json($update);
+    }
+
+    public function uploadFile($name) {
+        if(isset($_FILES['logo']['name'])){
+            $config['upload_path'] = './uploads/settings/';
+            $config['allowed_types'] = 'gif|jpg|png|jpeg|JPEG|JPG|PNG|GIF';
+            $config['overwrite'] = true;
+            $config['file_name'] = $name;
+
+            $this->upload->initialize($config);
+            if(!$this->upload->do_upload('logo')){
+                $data['status'] = false;
+                $data['src'] = $this->upload->display_errors();
+            }else{
+                $result = $this->upload->data();
+                $data['src'] = base_url().'uploads/settings/'.$result['file_name'];
+                $data['filename'] = pathinfo($result['file_name'], PATHINFO_FILENAME);
+                $data['status'] = true;
+            }
+            $data['size'] = $_FILES['logo']['size'];
+            $data['type'] = $_FILES['logo']['type'];
+        }else{
+             $data['src'] = '';
+        }
+        $this->output_json($data);
+    }
+
+    public function deleteFile() {
+        $src = $this->input->post('src');
+        $file_name = str_replace(base_url(), '', $src ?? '');
+        if (unlink($file_name)) {
+            echo "File Delete Successfully";
+        }
+    }
+
+    public function profile() {
+        $user = $this->ion_auth->user()->row();
+        $data = [
+            'user' => $user,
+            'judul' => 'Profile Sekolah',
+            'subjudul' => 'Sejarah, Visi Misi, & Struktur',
+            'setting' => $this->dashboard->getSetting(), // This now includes profile data merged
+            'tp' => $this->dashboard->getTahun(),
+            'tp_active' => $this->dashboard->getTahunActive(),
+            'smt' => $this->dashboard->getSemester(),
+            'smt_active' => $this->dashboard->getSemesterActive()
+        ];
+        $this->load->view('_templates/dashboard/_header', $data);
+        $this->load->view('setting/profile'); // View to create
+        $this->load->view('_templates/dashboard/_footer');
+    }
+
+    public function saveProfile() {
+        $sejarah = $this->input->post('sejarah', false);
+        $visi_misi = $this->input->post('visi_misi', false);
+        $link_fb = $this->input->post('link_fb', true);
+        $link_ig = $this->input->post('link_ig', true);
+        $link_yt = $this->input->post('link_yt', true);
+        
+        $struktur_organisasi = $this->input->post('struktur_organisasi_old');
+
+        // Handle Image Upload for Org Structure
+        if(!empty($_FILES['struktur_organisasi']['name'])) {
+            $config['upload_path'] = './uploads/settings/';
+            $config['allowed_types'] = 'gif|jpg|png|jpeg';
+            $config['file_name'] = 'struktur_'.time();
+            $this->upload->initialize($config);
+            
+            if($this->upload->do_upload('struktur_organisasi')){
+                $uploadData = $this->upload->data();
+                $struktur_organisasi = 'uploads/settings/'.$uploadData['file_name'];
+            }
+        }
+
+        $data = [
+            'sejarah' => $sejarah,
+            'visi_misi' => $visi_misi,
+            'link_fb' => $link_fb,
+            'link_ig' => $link_ig,
+            'link_yt' => $link_yt,
+            'struktur_organisasi' => $struktur_organisasi
+        ];
+
+        // Ensure row exists
+        $check = $this->db->get('school_profile');
+        if($check->num_rows() > 0) {
+            $this->db->where('id_profile', 1);
+            $this->db->update('school_profile', $data);
+        } else {
+            $data['id_profile'] = 1;
+            $this->db->insert('school_profile', $data);
+        }
+
+        redirect('settings/profile');
+    }
+}
