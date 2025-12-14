@@ -32,6 +32,14 @@ class Home extends CI_Controller {
 						 ->get('posts')
 						 ->result();
 
+		// Stats
+		$stats = [
+			'guru' => $this->dashboard->totalGuruAktif($tp->id_tp, $smt->id_smt),
+			'siswa' => $this->dashboard->totalSiswaAktif($tp->id_tp, $smt->id_smt),
+			'ekstra' => $this->dashboard->totalEkstra(),
+			'prestasi' => $this->dashboard->totalPrestasi()
+		];
+
 		$data = [
 			'setting' => $setting,
 			'tp_active' => $tp,
@@ -39,6 +47,7 @@ class Home extends CI_Controller {
 			'teachers' => $teachers,
 			'ekstras' => $ekstras,
 			'news' => $news,
+			'stats' => $stats,
 			'title' => $setting->sekolah ?? 'School Profile'
 		];
 

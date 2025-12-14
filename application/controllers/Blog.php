@@ -7,6 +7,7 @@ class Blog extends CI_Controller {
         parent::__construct();
         $this->load->model('Dashboard_model', 'dashboard');
         $this->load->library('pagination');
+        $this->load->library('ion_auth');
     }
 
     public function index() {
@@ -64,9 +65,34 @@ class Blog extends CI_Controller {
             'setting' => $setting,
             'author' => $author,
             'title' => $post->judul . ' - ' . ($setting->sekolah ?? 'School'),
-             'recent_posts' => $this->db->where('status', 1)->order_by('tanggal', 'DESC')->limit(5)->get('posts')->result()
+            'recent_posts' => $this->db->where('status', 1)->order_by('tanggal', 'DESC')->limit(5)->get('posts')->result(),
+            'comments' => $this->dashboard->getComments($post->id_post),
+            'recent_comments' => $this->dashboard->getRecentComments()
         ];
 
-        $this->load->view('blog/read', $data); // To be created
+        $this->load->view('blog/read', $data);
+    }
+
+    public function post_comment() {
+        $id_post = $this->input->post('id_post');
+        $slug = $this->input->post('slug');
+        $name = $this->input->post('name', true);
+        $email = $this->input->post('email', true);
+        $body = $this->input->post('body', true);
+
+        if ($name && $body) {
+            $data = [
+                'id_post' => $id_post,
+                'name' => $name,
+                'email' => $email,
+                'body' => $body,
+                'status' => 1 // Auto approve for now, or 0 if moderation needed
+            ];
+            $this->db->insert('comments', $data);
+            $this->session->set_flashdata('success', 'Komentar berhasil dikirim!');
+        } else {
+            $this->session->set_flashdata('error', 'Nama dan Komentar wajib diisi.');
+        }
+        redirect('blog/read/'.$slug);
     }
 }

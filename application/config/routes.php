@@ -66,6 +66,7 @@ $route['berita'] = 'blog'; // Alias
 $route['sejarah'] = 'profile/sejarah';
 $route['visi_misi'] = 'profile/visimisi';
 $route['struktur'] = 'profile/struktur';
+$route['ekskul'] = 'profile/ekskul';
 $route['direktori'] = 'profile/direktori';
 $route['logout'] = 'Auth/logout';
 $route['404_override'] = 'auth';

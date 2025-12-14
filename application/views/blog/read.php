@@ -88,11 +88,92 @@
                         <?= $post->isi ?>
                     </div>
                 </article>
+
+                <!-- Share Section -->
+                <div class="mt-8 mb-12">
+                    <h3 class="font-bold text-slate-800 mb-4">Bagikan Artikel Ini:</h3>
+                    <div class="flex flex-wrap gap-2">
+                         <a href="https://wa.me/?text=<?= urlencode($post->judul . ' ' . current_url()) ?>" target="_blank" class="px-4 py-2 bg-green-500 text-white rounded-lg font-bold text-sm hover:opacity-90 transition flex items-center gap-2"><i class="ri-whatsapp-line"></i> WhatsApp</a>
+                         <a href="https://www.facebook.com/sharer/sharer.php?u=<?= urlencode(current_url()) ?>" target="_blank" class="px-4 py-2 bg-blue-600 text-white rounded-lg font-bold text-sm hover:opacity-90 transition flex items-center gap-2"><i class="ri-facebook-fill"></i> Facebook</a>
+                         <a href="https://twitter.com/intent/tweet?text=<?= urlencode($post->judul) ?>&url=<?= urlencode(current_url()) ?>" target="_blank" class="px-4 py-2 bg-sky-500 text-white rounded-lg font-bold text-sm hover:opacity-90 transition flex items-center gap-2"><i class="ri-twitter-x-line"></i> Twitter</a>
+                         <a href="https://t.me/share/url?url=<?= urlencode(current_url()) ?>&text=<?= urlencode($post->judul) ?>" target="_blank" class="px-4 py-2 bg-blue-400 text-white rounded-lg font-bold text-sm hover:opacity-90 transition flex items-center gap-2"><i class="ri-telegram-fill"></i> Telegram</a>
+                    </div>
+                </div>
+
+                <!-- Comments Section -->
+                <div class="bg-white rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 p-8 md:p-12 mb-12">
+                     <h3 class="text-2xl font-black text-slate-900 mb-8 flex items-center gap-2"><i class="ri-chat-1-line text-emerald-600"></i> Komentar (<?= count($comments) ?>)</h3>
+                     
+                     <!-- List Comments -->
+                     <ul class="space-y-8 mb-12">
+                        <?php if(!empty($comments)): ?>
+                            <?php foreach($comments as $comment): ?>
+                                <li class="flex gap-4">
+                                    <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center font-bold text-slate-500 flex-shrink-0 border border-slate-200">
+                                        <?= substr($comment->name, 0, 1) ?>
+                                    </div>
+                                    <div class="flex-grow">
+                                        <div class="bg-slate-50 p-4 rounded-xl rounded-tl-none border border-slate-100">
+                                            <div class="flex justify-between items-start mb-2">
+                                                <h5 class="font-bold text-slate-900"><?= $comment->name ?></h5>
+                                                <span class="text-xs text-slate-400 font-medium"><?= date('d M Y H:i', strtotime($comment->created_at)) ?></span>
+                                            </div>
+                                            <p class="text-slate-600 text-sm leading-relaxed"><?= nl2br(htmlspecialchars($comment->body)) ?></p>
+                                        </div>
+                                    </div>
+                                </li>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <li class="text-center py-8 text-slate-400 italic">Belum ada komentar. Jadilah yang pertama berkomentar!</li>
+                        <?php endif; ?>
+                     </ul>
+
+                     <!-- Comment Form -->
+                     <div class="border-t border-slate-100 pt-8">
+                        <h4 class="font-bold text-lg text-slate-900 mb-6">Tulis Komentar</h4>
+                        <?php if($this->session->flashdata('success')): ?>
+                            <div class="p-4 mb-6 bg-emerald-50 text-emerald-700 rounded-xl border border-emerald-100 text-sm font-bold flex items-center gap-2">
+                                <i class="ri-checkbox-circle-fill text-lg"></i>
+                                <?= $this->session->flashdata('success') ?>
+                            </div>
+                        <?php endif; ?>
+                         <?php if($this->session->flashdata('error')): ?>
+                            <div class="p-4 mb-6 bg-red-50 text-red-700 rounded-xl border border-red-100 text-sm font-bold flex items-center gap-2">
+                                <i class="ri-error-warning-fill text-lg"></i>
+                                <?= $this->session->flashdata('error') ?>
+                            </div>
+                        <?php endif; ?>
+
+                        <form action="<?= base_url('blog/post_comment') ?>" method="post">
+                            <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>">
+                            <input type="hidden" name="id_post" value="<?= $post->id_post ?>">
+                            <input type="hidden" name="slug" value="<?= $post->slug ?>">
+                            <div class="grid md:grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label class="block text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">Nama Lengkap</label>
+                                    <input type="text" name="name" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-emerald-500 transition-colors" placeholder="Nama Anda" required>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">Email (Tidak dipublikasikan)</label>
+                                    <input type="email" name="email" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-emerald-500 transition-colors" placeholder="email@contoh.com">
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-xs font-bold uppercase tracking-widest text-slate-500 mb-2">Komentar</label>
+                                <textarea name="body" rows="4" class="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:outline-none focus:border-emerald-500 transition-colors" placeholder="Tulis komentar anda disini..." required></textarea>
+                            </div>
+                            <button type="submit" class="px-8 py-3 bg-slate-900 text-white font-bold rounded-xl hover:bg-emerald-600 transition-all shadow-lg hover:shadow-emerald-500/20 active:scale-95">
+                                Kirim Komentar
+                            </button>
+                        </form>
+                     </div>
+                </div>
             </div>
 
             <!-- Sidebar -->
             <div class="w-full lg:w-4/12 space-y-8">
-                <div class="bg-white rounded-2xl shadow-lg shadow-slate-200/50 border border-slate-100 p-8 sticky top-32">
+                <!-- Recent Posts -->
+                <div class="bg-white rounded-2xl shadow-lg shadow-slate-200/50 border border-slate-100 p-8">
                     <h3 class="font-black text-xl text-slate-900 mb-6 flex items-center gap-2">
                         <i class="ri-fire-line text-orange-500"></i> Berita Terbaru
                     </h3>
@@ -108,6 +189,31 @@
                                 </div>
                             </a>
                         <?php endforeach; ?>
+                    </div>
+                </div>
+
+                <!-- Recent Comments -->
+                <div class="bg-white rounded-2xl shadow-lg shadow-slate-200/50 border border-slate-100 p-8">
+                    <h3 class="font-black text-xl text-slate-900 mb-6 flex items-center gap-2">
+                        <i class="ri-chat-quote-line text-blue-500"></i> Komentar Terbaru
+                    </h3>
+                    <div class="space-y-6">
+                        <?php if(!empty($recent_comments)): ?>
+                            <?php foreach($recent_comments as $rc): ?>
+                                <div class="border-b border-slate-50 last:border-0 pb-4 last:pb-0">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-xs font-bold text-slate-900"><?= $rc->name ?></span>
+                                        <span class="text-[10px] text-slate-400"><?= date('d/m/y', strtotime($rc->created_at)) ?></span>
+                                    </div>
+                                    <p class="text-xs text-slate-500 italic line-clamp-2 mb-2">"<?= htmlspecialchars($rc->body) ?>"</p>
+                                    <a href="<?= base_url('blog/read/'.$rc->slug) ?>" class="text-[10px] font-bold text-emerald-600 hover:text-emerald-500 uppercase tracking-wider flex items-center gap-1">
+                                        Lihat Post <i class="ri-arrow-right-line"></i>
+                                    </a>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <p class="text-sm text-slate-400 italic">Belum ada komentar.</p>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

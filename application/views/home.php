@@ -20,17 +20,31 @@
                         secondary: '#0F172A', // Slate 900
                         accent: '#F59E0B', // Amber 500
                     },
+                    backgroundSize: {
+                        '300%': '300%',
+                    },
                     animation: {
                         'float': 'float 6s ease-in-out infinite',
                         'float-delayed': 'float 6s ease-in-out 3s infinite',
                         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                         'spin-slow': 'spin 12s linear infinite',
+                        'gradient-x': 'gradient-x 15s ease infinite',
                     },
                     keyframes: {
                         float: {
                             '0%, 100%': { transform: 'translateY(0)' },
                             '50%': { transform: 'translateY(-20px)' },
-                        }
+                        },
+                        'gradient-x': {
+                            '0%, 100%': {
+                                'background-size': '200% 200%',
+                                'background-position': 'left center'
+                            },
+                            '50%': {
+                                'background-size': '200% 200%',
+                                'background-position': 'right center'
+                            },
+                        },
                     }
                 }
             }
@@ -231,25 +245,26 @@
         <div class="container mx-auto px-6 relative z-10 text-center">
             <div data-aos="fade-up" data-aos-duration="1200" data-aos-easing="ease-out-cubic">
                 <!-- Badge -->
-                <div class="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-emerald-300 font-semibold mb-8 hover:bg-white/10 transition-colors shadow-2xl">
+                <div class="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-emerald-300 font-semibold mb-8 hover:bg-white/20 transition-all shadow-2xl hover:shadow-emerald-500/20 group cursor-pointer">
                     <span class="relative flex h-3 w-3">
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                        <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500 group-hover:bg-emerald-400 transition-colors"></span>
                     </span>
-                    <span class="uppercase tracking-wider text-xs">Website Resmi Sekolah</span>
+                    <span class="uppercase tracking-wider text-xs group-hover:tracking-widest transition-all">Website Resmi Sekolah</span>
                 </div>
 
                 <!-- Headline -->
                 <h1 class="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-[1.1] tracking-tight drop-shadow-2xl">
                     Mewujudkan Generasi <br>
-                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 via-teal-300 to-white animate-text">
+                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-300 animate-text bg-300% animate-gradient-x">
                          <?= $setting->sekolah ?? 'School Name' ?>
                     </span>
                 </h1>
 
                 <!-- Subheadline -->
-                <p class="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto mb-12 leading-relaxed font-light mix-blend-plus-lighter" data-aos="fade-up" data-aos-delay="200">
-                    Pendidikan berkualitas untuk mencetak siswa yang <span class="font-bold text-white border-b-2 border-emerald-500" id="typing-text"></span>
+                <p class="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto mb-12 leading-relaxed font-light mix-blend-plus-lighter backdrop-blur-sm rounded-2xl p-4 bg-white/5 border border-white/5" data-aos="fade-up" data-aos-delay="200">
+                    Pendidikan berkualitas untuk mencetak siswa yang <br class="hidden md:block">
+                    <span class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-300 border-b-2 border-emerald-500/50 pb-1" id="typing-text"></span>
                 </p>
 
                 <!-- CTA Buttons -->
@@ -278,11 +293,12 @@
         <div class="glass-card rounded-3xl p-8 lg:p-12 shadow-2xl border border-white/40">
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 divide-x divide-slate-100">
                 <!-- Item -->
+                <!-- Item -->
                 <div class="text-center group p-4" data-aos="fade-up" data-aos-delay="0">
                     <div class="mb-4 inline-block p-4 rounded-2xl bg-emerald-50 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-500 shadow-sm">
                         <i class="ri-user-smile-line text-3xl"></i>
                     </div>
-                    <div class="text-4xl lg:text-5xl font-black text-slate-800 mb-1 counter" data-count="1250">0</div>
+                    <div class="text-4xl lg:text-5xl font-black text-slate-800 mb-1 counter" data-count="<?= $stats['siswa'] ?>">0</div>
                     <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Siswa Aktif</span>
                 </div>
                 <!-- Item -->
@@ -290,7 +306,7 @@
                     <div class="mb-4 inline-block p-4 rounded-2xl bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-500 shadow-sm">
                         <i class="ri-presentation-line text-3xl"></i>
                     </div>
-                    <div class="text-4xl lg:text-5xl font-black text-slate-800 mb-1 counter" data-count="<?= count($teachers) > 0 ? count($teachers) : '45' ?>">0</div>
+                    <div class="text-4xl lg:text-5xl font-black text-slate-800 mb-1 counter" data-count="<?= $stats['guru'] ?>">0</div>
                     <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Guru & Staff</span>
                 </div>
                 <!-- Item -->
@@ -298,7 +314,7 @@
                     <div class="mb-4 inline-block p-4 rounded-2xl bg-purple-50 text-purple-600 group-hover:bg-purple-600 group-hover:text-white transition-colors duration-500 shadow-sm">
                         <i class="ri-basketball-line text-3xl"></i>
                     </div>
-                    <div class="text-4xl lg:text-5xl font-black text-slate-800 mb-1 counter" data-count="<?= count($ekstras) > 0 ? count($ekstras) : '18' ?>">0</div>
+                    <div class="text-4xl lg:text-5xl font-black text-slate-800 mb-1 counter" data-count="<?= $stats['ekstra'] ?>">0</div>
                     <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Ekstrakurikuler</span>
                 </div>
                 <!-- Item -->
@@ -306,7 +322,7 @@
                     <div class="mb-4 inline-block p-4 rounded-2xl bg-orange-50 text-orange-600 group-hover:bg-orange-600 group-hover:text-white transition-colors duration-500 shadow-sm">
                         <i class="ri-trophy-line text-3xl"></i>
                     </div>
-                    <div class="text-4xl lg:text-5xl font-black text-slate-800 mb-1 counter" data-count="50">0</div>
+                    <div class="text-4xl lg:text-5xl font-black text-slate-800 mb-1 counter" data-count="<?= $stats['prestasi'] ?>">0</div>
                     <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Prestasi</span>
                 </div>
             </div>
@@ -436,8 +452,44 @@
         </div>
     </section>
 
+    <!-- Quotes Section -->
+    <section class="py-20 bg-slate-900 relative overflow-hidden text-white border-b border-white/5">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="text-emerald-400 font-bold tracking-widest uppercase text-xs mb-2 block">Dinding Inspirasi</span>
+                <h2 class="text-3xl md:text-5xl font-black mb-4">Kata Mutiara</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-emerald-500 to-cyan-500 mx-auto rounded-full"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <?php if(!empty($quotes)): ?>
+                    <?php foreach($quotes as $quote): ?>
+                    <div class="bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-3xl hover:bg-white/10 transition-colors shadow-xl group" data-aos="fade-up">
+                        <i class="ri-double-quotes-l text-4xl text-emerald-500 mb-6 block group-hover:scale-110 transition-transform origin-left"></i>
+                        <p class="text-slate-300 italic mb-8 leading-relaxed text-lg font-light">"<?= $quote->content ?>"</p>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-400 to-cyan-400 flex items-center justify-center font-bold text-white shadow-lg text-lg">
+                                <?= substr($quote->author, 0, 1) ?>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white text-lg leading-tight"><?= $quote->author ?></h4>
+                                <span class="text-xs text-emerald-400 font-bold uppercase tracking-wider block mt-1"><?= $quote->role ?></span>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="col-span-full text-center text-slate-500 italic py-12 bg-white/5 rounded-3xl border border-white/5">
+                        Belum ada kutipan yang ditambahkan.
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
-    <footer class="bg-slate-900 text-slate-300 pt-24 pb-10 relative overflow-hidden">
+    <footer class="bg-[#0B1120] text-slate-300 pt-24 pb-10 relative overflow-hidden">
         <!-- Decoration Map/Grid -->
         <div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 40px 40px;"></div>
         
@@ -446,21 +498,27 @@
                 <!-- Branding -->
                 <div class="md:col-span-2" data-aos="fade-up">
                     <div class="flex items-center gap-4 mb-8">
-                        <div class="h-16 w-16 bg-gradient-to-br from-primary to-emerald-400 rounded-2xl flex items-center justify-center text-white font-bold text-3xl shadow-lg shadow-emerald-900/50">
-                             <?= substr($setting->sekolah ?? 'S', 0, 1) ?>
-                        </div>
+                        <?php if (!empty($setting->logo)): ?>
+                             <img src="<?= base_url().$setting->logo ?>" alt="Logo" class="h-16 w-auto brightness-0 invert">
+                        <?php else: ?>
+                            <div class="h-16 w-16 bg-gradient-to-br from-emerald-500 to-cyan-500 rounded-2xl flex items-center justify-center text-white font-bold text-3xl shadow-lg shadow-emerald-900/50">
+                                <?= substr($setting->sekolah ?? 'S', 0, 1) ?>
+                            </div>
+                        <?php endif; ?>
                         <div>
                             <span class="font-bold text-2xl text-white block leading-none tracking-tight"><?= $setting->sekolah ?? 'School Name' ?></span>
                             <span class="text-[10px] text-emerald-400 font-bold tracking-[0.2em] uppercase mt-1 block">Official Website</span>
                         </div>
                     </div>
                     <p class="leading-relaxed mb-8 max-w-md text-slate-400 font-light text-lg">
-                        Membangun generasi <span class="text-emerald-400 font-medium highlight-anim">cerdas</span>, <span class="text-emerald-400 font-medium highlight-anim">berkarakter</span>, dan <span class="text-emerald-400 font-medium highlight-anim">berakhlak mulia</span>.
+                        <?= $setting->motto ?? 'Membangun generasi cerdas, berkarakter, dan berakhlak mulia.' ?>
                     </p>
                     <div class="flex gap-4">
                         <?php if(!empty($setting->link_fb)): ?><a href="<?= $setting->link_fb ?>" class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#1877F2] hover:text-white hover:border-[#1877F2] transition-all text-slate-400" title="Facebook"><i class="ri-facebook-fill text-xl"></i></a><?php endif; ?>
                         <?php if(!empty($setting->link_yt)): ?><a href="<?= $setting->link_yt ?>" class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#FF0000] hover:text-white hover:border-[#FF0000] transition-all text-slate-400" title="YouTube"><i class="ri-youtube-fill text-xl"></i></a><?php endif; ?>
                         <?php if(!empty($setting->link_ig)): ?><a href="<?= $setting->link_ig ?>" class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#E4405F] hover:text-white hover:border-[#E4405F] transition-all text-slate-400" title="Instagram"><i class="ri-instagram-fill text-xl"></i></a><?php endif; ?>
+                        <?php if(!empty($setting->link_twitter)): ?><a href="<?= $setting->link_twitter ?>" class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#1DA1F2] hover:text-white hover:border-[#1DA1F2] transition-all text-slate-400" title="Twitter"><i class="ri-twitter-x-line text-xl"></i></a><?php endif; ?>
+                        <?php if(!empty($setting->link_linkedin)): ?><a href="<?= $setting->link_linkedin ?>" class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#0A66C2] hover:text-white hover:border-[#0A66C2] transition-all text-slate-400" title="LinkedIn"><i class="ri-linkedin-fill text-xl"></i></a><?php endif; ?>
                     </div>
                 </div>
 
@@ -468,11 +526,11 @@
                 <div data-aos="fade-up" data-aos-delay="100">
                     <h4 class="font-bold text-white text-lg mb-8">Jelajahi</h4>
                     <ul class="space-y-4">
-                        <li><a href="#beranda" class="hover:text-primary transition-colors flex items-center gap-2 group"><i class="ri-arrow-right-line text-slate-600 group-hover:text-primary transition-colors"></i> Beranda</a></li>
-                        <li><a href="<?= base_url('sejarah') ?>" class="hover:text-primary transition-colors flex items-center gap-2 group"><i class="ri-arrow-right-line text-slate-600 group-hover:text-primary transition-colors"></i> Profil Sekolah</a></li>
-                        <li><a href="<?= base_url('blog') ?>" class="hover:text-primary transition-colors flex items-center gap-2 group"><i class="ri-arrow-right-line text-slate-600 group-hover:text-primary transition-colors"></i> Berita</a></li>
-                        <li><a href="<?= base_url('direktori') ?>" class="hover:text-primary transition-colors flex items-center gap-2 group"><i class="ri-arrow-right-line text-slate-600 group-hover:text-primary transition-colors"></i> Direktori Siswa</a></li>
-                         <li><a href="<?= base_url('login') ?>" class="hover:text-primary transition-colors flex items-center gap-2 group"><i class="ri-arrow-right-line text-slate-600 group-hover:text-primary transition-colors"></i> Login Portal</a></li>
+                        <li><a href="<?= base_url() ?>" class="hover:text-emerald-400 transition-colors flex items-center gap-2 group"><i class="ri-arrow-right-line text-slate-600 group-hover:text-emerald-400 transition-colors"></i> Beranda</a></li>
+                        <li><a href="<?= base_url('sejarah') ?>" class="hover:text-emerald-400 transition-colors flex items-center gap-2 group"><i class="ri-arrow-right-line text-slate-600 group-hover:text-emerald-400 transition-colors"></i> Profil Sekolah</a></li>
+                        <li><a href="<?= base_url('blog') ?>" class="hover:text-emerald-400 transition-colors flex items-center gap-2 group"><i class="ri-arrow-right-line text-slate-600 group-hover:text-emerald-400 transition-colors"></i> Berita</a></li>
+                        <li><a href="<?= base_url('direktori') ?>" class="hover:text-emerald-400 transition-colors flex items-center gap-2 group"><i class="ri-arrow-right-line text-slate-600 group-hover:text-emerald-400 transition-colors"></i> Direktori Siswa</a></li>
+                         <li><a href="<?= base_url('login') ?>" class="hover:text-emerald-400 transition-colors flex items-center gap-2 group"><i class="ri-arrow-right-line text-slate-600 group-hover:text-emerald-400 transition-colors"></i> Login Portal</a></li>
                     </ul>
                 </div>
 
@@ -481,19 +539,19 @@
                     <h4 class="font-bold text-white text-lg mb-8">Hubungi Kami</h4>
                     <ul class="space-y-6">
                         <li class="flex items-start gap-4 group">
-                            <div class="w-10 h-10 rounded-lg bg-white/5 text-primary flex items-center justify-center flex-shrink-0 group-hover:bg-primary group-hover:text-white transition-colors border border-white/10">
+                            <div class="w-10 h-10 rounded-lg bg-white/5 text-emerald-400 flex items-center justify-center flex-shrink-0 group-hover:bg-emerald-500 group-hover:text-white transition-colors border border-white/10">
                                 <i class="ri-map-pin-line"></i>
                             </div>
                             <span class="text-sm leading-relaxed text-slate-400 group-hover:text-slate-200 transition-colors"><?= $setting->alamat ?? 'Alamat Sekolah Belum Diatur' ?></span>
                         </li>
                         <li class="flex items-center gap-4 group">
-                            <div class="w-10 h-10 rounded-lg bg-white/5 text-primary flex items-center justify-center flex-shrink-0 group-hover:bg-primary group-hover:text-white transition-colors border border-white/10">
+                            <div class="w-10 h-10 rounded-lg bg-white/5 text-emerald-400 flex items-center justify-center flex-shrink-0 group-hover:bg-emerald-500 group-hover:text-white transition-colors border border-white/10">
                                 <i class="ri-phone-line"></i>
                             </div>
                             <span class="font-medium text-slate-400 group-hover:text-slate-200 transition-colors"><?= $setting->telp ?? '-' ?></span>
                         </li>
                         <li class="flex items-center gap-4 group">
-                             <div class="w-10 h-10 rounded-lg bg-white/5 text-primary flex items-center justify-center flex-shrink-0 group-hover:bg-primary group-hover:text-white transition-colors border border-white/10">
+                             <div class="w-10 h-10 rounded-lg bg-white/5 text-emerald-400 flex items-center justify-center flex-shrink-0 group-hover:bg-emerald-500 group-hover:text-white transition-colors border border-white/10">
                                 <i class="ri-mail-line"></i>
                             </div>
                             <span class="text-slate-400 group-hover:text-slate-200 transition-colors"><?= $setting->email ?? '-' ?></span>

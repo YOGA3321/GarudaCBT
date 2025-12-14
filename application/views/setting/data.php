@@ -145,6 +145,10 @@ $satuan = ["1" => ["SD", "MI"], "2" => ["SMP", "MTS"], "3" => ["SMA", "MA", "SMK
                             <input type="number" name="nip" class="form-control" value="<?= $setting->nip ?>">
                         </div>
                         <div class="col-md-12 mb-4">
+                            <label>Motto Sekolah</label>
+                            <input type="text" name="motto" class="form-control" value="<?= isset($setting->motto) ? $setting->motto : '' ?>" placeholder="Motto sekolah...">
+                        </div>
+                        <div class="col-md-12 mb-4">
                             <label>Sambutan Kepala Sekolah</label>
                             <textarea class="form-control" name="sambutan" rows="5" placeholder="Masukkan kata sambutan kepala sekolah disini..."><?= isset($setting->sambutan) ? $setting->sambutan : '' ?></textarea>
                         </div>
@@ -317,11 +321,18 @@ $satuan = ["1" => ["SD", "MI"], "2" => ["SMP", "MTS"], "3" => ["SMA", "MA", "SMK
                         });
                     },
                     error: function (xhr, error, status) {
-                        console.log(xhr.responseText);
-                        const err = JSON.parse(xhr.responseText)
+                        // console.log(xhr.responseText);
+                        let errMsg = "Terjadi kesalahan server.";
+                        try {
+                            const err = JSON.parse(xhr.responseText);
+                            errMsg = err.Message || JSON.stringify(err);
+                        } catch (e) {
+                            errMsg = xhr.responseText || "Error tidak diketahui.";
+                        }
+                        
                         swal.fire({
                             title: "Error",
-                            text: err.Message,
+                            html: errMsg,
                             icon: "error"
                         });
                     }

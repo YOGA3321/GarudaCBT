@@ -78,7 +78,8 @@ class Settings extends CI_Controller {
         $kepsek = $this->input->post('kepsek', true);
         $nip = $this->input->post('nip', true);
         $nama_aplikasi = $this->input->post('nama_aplikasi', true);
-        $sambutan = $this->input->post('sambutan', true); // New Field
+        $sambutan = $this->input->post('sambutan', true); 
+        $motto = $this->input->post('motto', true);
 
         // Clean up file paths from base_url()
         $tanda_tangan = str_replace(base_url(), '', $this->input->post('tanda_tangan', true) ?? '');
@@ -105,6 +106,7 @@ class Settings extends CI_Controller {
             'nip' => $nip,
             'nama_aplikasi' => $nama_aplikasi,
             'sambutan' => $sambutan,
+            'motto' => $motto,
             'tanda_tangan' => $tanda_tangan,
             'logo_kanan' => $logo_kanan,
             'logo_kiri' => $logo_kiri

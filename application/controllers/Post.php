@@ -22,6 +22,7 @@ class Post extends CI_Controller {
         $data = [
             'user' => $user,
             'setting' => $this->dashboard->getSetting(),
+            'profile' => $this->dashboard->getProfileAdmin($user->id),
             'judul' => 'Manajemen Artikel',
             'subjudul' => 'Daftar Berita/Artikel',
             'posts' => $posts,
@@ -42,6 +43,7 @@ class Post extends CI_Controller {
         $data = [
              'user' => $user,
             'setting' => $this->dashboard->getSetting(),
+            'profile' => $this->dashboard->getProfileAdmin($user->id),
             'judul' => 'Tambah Artikel',
             'subjudul' => 'Tulis Berita Baru',
             'tp' => $this->dashboard->getTahun(),
@@ -98,6 +100,7 @@ class Post extends CI_Controller {
         $data = [
              'user' => $user,
             'setting' => $this->dashboard->getSetting(),
+            'profile' => $this->dashboard->getProfileAdmin($user->id),
             'judul' => 'Manajemen Artikel',
             'subjudul' => 'Edit Berita',
             'post' => $post,
