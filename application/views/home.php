@@ -1,8 +1,6 @@
 <?php $this->load->view('_templates/public/header'); ?>
 
-    <!-- HERO SECTION -->
     <section class="relative bg-slate-900 pt-32 pb-32 lg:pt-48 lg:pb-48 overflow-hidden">
-        <!-- Background Slider/Image -->
         <div class="absolute inset-0 z-0">
             <div class="swiper heroSwiper h-full w-full">
                 <div class="swiper-wrapper">
@@ -23,7 +21,6 @@
             </div>
         </div>
 
-        <!-- Content -->
         <div class="container mx-auto px-4 relative z-20">
             <div class="max-w-3xl" data-aos="fade-up">
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold uppercase tracking-wider mb-6 border border-emerald-500/30">
@@ -49,10 +46,8 @@
         </div>
     </section>
 
-    <!-- STATS & FEATURES (Floating) -->
     <section class="relative z-30 -mt-16 px-4 mb-20">
         <div class="container mx-auto">
-            <!-- Stats -->
             <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/50 p-8 md:p-12 mb-20 border border-slate-100" data-aos="fade-up">
                 <div class="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-slate-100 gap-8 md:gap-0">
                     <div class="text-center px-4 py-4 md:py-0">
@@ -70,7 +65,6 @@
                 </div>
             </div>
 
-            <!-- Features -->
             <div class="grid md:grid-cols-3 gap-8">
                 <div class="bg-white p-8 rounded-2xl shadow-lg border border-slate-100 hover:border-emerald-500/30 hover:shadow-emerald-100/50 transition-all group" data-aos="fade-up" data-aos-delay="0">
                     <div class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
@@ -97,11 +91,9 @@
         </div>
     </section>
 
-    <!-- SAMBUTAN -->
     <section id="profil" class="py-20 bg-slate-50 overflow-hidden">
         <div class="container mx-auto px-4">
             <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
-                <!-- Text -->
                 <div class="w-full lg:w-1/2 order-2 lg:order-1" data-aos="fade-right">
                     <span class="text-emerald-600 font-bold tracking-widest uppercase text-sm mb-2 block">Sambutan Kepala Sekolah</span>
                     <h2 class="text-3xl md:text-4xl font-black text-slate-900 mb-6">
@@ -119,7 +111,6 @@
                         Baca Selengkapnya <i class="ri-arrow-right-line"></i>
                     </a>
                 </div>
-                <!-- Image -->
                 <div class="w-full lg:w-1/2 order-1 lg:order-2" data-aos="fade-left">
                     <div class="relative">
                         <div class="absolute inset-0 bg-emerald-200 rounded-[2rem] transform rotate-3 translate-x-2 translate-y-2"></div>
@@ -136,7 +127,6 @@
         </div>
     </section>
 
-    <!-- NEWS SECTION -->
     <section id="berita" class="py-24 bg-white">
         <div class="container mx-auto px-4">
             <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
@@ -188,7 +178,6 @@
         </div>
     </section>
 
-    <!-- GALLERY SECTION -->
     <section class="py-24 bg-slate-900 text-white overflow-hidden">
         <div class="container mx-auto px-4 relative z-10">
             <div class="text-center mb-16">
@@ -199,7 +188,6 @@
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[200px]">
                 <?php if(!empty($gallery)): ?>
                     <?php foreach($gallery as $i => $g): ?>
-                        <!-- First item is large -->
                         <div class="<?= ($i == 0) ? 'col-span-2 row-span-2' : 'col-span-1 row-span-1' ?> relative rounded-2xl overflow-hidden group cursor-pointer" data-aos="zoom-in" data-aos-delay="<?= $i * 50 ?>">
                             <img src="<?= base_url($g->gambar) ?>" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="<?= $g->judul ?>">
                             <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">

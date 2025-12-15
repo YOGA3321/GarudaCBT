@@ -43,24 +43,111 @@ class Profile extends CI_Controller {
     }
 
     public function direktori() {
+        // 1. Load Library Pagination
+        $this->load->library('pagination');
+        
+        // Fix duplicate/missing data: Filter by Active Year & Semester
         $tp = $this->dashboard->getTahunActive();
         $smt = $this->dashboard->getSemesterActive();
-        // Pagination logic or simple list
-        // Fetch students (limit 50 for demo)
-        $students = $this->db->select('nama, nis, foto, nama_kelas')
-                             ->from('master_siswa')
-                             ->join('kelas_siswa', 'master_siswa.id_siswa = kelas_siswa.id_siswa', 'left')
-                             ->join('master_kelas', 'kelas_siswa.id_kelas = master_kelas.id_kelas', 'left')
-                             ->limit(24) // Grid 4x6
-                             ->get()
-                             ->result();
+        $id_tp = $tp->id_tp ?? 1;
+        $id_smt = $smt->id_smt ?? 1;
+
+        // 2. Ambil Query Pencarian
+        $search = $this->input->get('q', TRUE);
+        $search = $search ? $this->security->xss_clean($search) : ''; // Security fix for PHP 8.1
         
+        // 3. Konfigurasi Pagination
+        $config['base_url'] = base_url('direktori');
+        
+        // Count Total Rows (with search & active year filter)
+        $this->db->select('count(DISTINCT master_siswa.id_siswa) as allcount');
+        $this->db->from('master_siswa');
+        // Join with specific TP/SMT to get current class
+        $this->db->join('kelas_siswa', 'master_siswa.id_siswa = kelas_siswa.id_siswa AND kelas_siswa.id_tp = '.$id_tp.' AND kelas_siswa.id_smt = '.$id_smt, 'left');
+        $this->db->join('master_kelas', 'kelas_siswa.id_kelas = master_kelas.id_kelas', 'left');
+        
+        if(!empty($search)){
+            $this->db->group_start();
+            $this->db->like('master_siswa.nama', $search);
+            $this->db->or_like('master_siswa.nis', $search);
+            $this->db->or_like('master_kelas.nama_kelas', $search);
+            $this->db->group_end();
+        }
+        
+        // Only active students usually? Or all? Let's assume all active in master_siswa
+        // $this->db->where('master_siswa.status', 1); // Assuming there is a status column? If not, skip.
+
+        $query = $this->db->get();
+        $result = $query->result_array();
+        $config['total_rows'] = $result[0]['allcount'];
+        
+        $config['per_page'] = 12; // 12 item per halaman
+        $config['page_query_string'] = TRUE;
+        $config['query_string_segment'] = 'p';
+        $config['reuse_query_string'] = TRUE; // Keep search param
+        
+        // Styling Pagination (Tailwind/Bootstrap Friendly)
+        $config['full_tag_open'] = '<nav class="flex items-center gap-2">';
+        $config['full_tag_close'] = '</nav>';
+        
+        $config['first_link'] = '<i class="ri-skip-back-line"></i>';
+        $config['first_tag_open'] = '<span class="w-10 h-10 flex items-center justify-center rounded-xl bg-white text-slate-500 border border-slate-200 hover:bg-slate-50 transition-colors">';
+        $config['first_tag_close'] = '</span>';
+        
+        $config['last_link'] = '<i class="ri-skip-forward-line"></i>';
+        $config['last_tag_open'] = '<span class="w-10 h-10 flex items-center justify-center rounded-xl bg-white text-slate-500 border border-slate-200 hover:bg-slate-50 transition-colors">';
+        $config['last_tag_close'] = '</span>';
+        
+        $config['next_link'] = '<i class="ri-arrow-right-s-line"></i>';
+        $config['next_tag_open'] = '<span class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 text-slate-500 hover:bg-slate-200 transition-colors">';
+        $config['next_tag_close'] = '</span>';
+        
+        $config['prev_link'] = '<i class="ri-arrow-left-s-line"></i>';
+        $config['prev_tag_open'] = '<span class="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 text-slate-500 hover:bg-slate-200 transition-colors">';
+        $config['prev_tag_close'] = '</span>';
+        
+        $config['cur_tag_open'] = '<span class="w-10 h-10 flex items-center justify-center rounded-xl bg-emerald-600 text-white font-bold shadow-lg shadow-emerald-500/30 ring-2 ring-emerald-100">';
+        $config['cur_tag_close'] = '</span>';
+        
+        $config['num_tag_open'] = '<span class="w-10 h-10 flex items-center justify-center rounded-xl bg-white text-slate-500 border border-slate-200 hover:bg-slate-50 transition-colors">';
+        $config['num_tag_close'] = '</span>';
+        
+        $this->pagination->initialize($config);
+        $page = $this->input->get('p');
+        
+        // 4. Fetch Data Real
+        $this->db->select('master_siswa.nama, master_siswa.nis, master_siswa.foto, master_kelas.nama_kelas');
+        $this->db->from('master_siswa');
+        // Filter by Active Year for Class Info
+        $this->db->join('kelas_siswa', 'master_siswa.id_siswa = kelas_siswa.id_siswa AND kelas_siswa.id_tp = '.$id_tp.' AND kelas_siswa.id_smt = '.$id_smt, 'left');
+        $this->db->join('master_kelas', 'kelas_siswa.id_kelas = master_kelas.id_kelas', 'left');
+        
+        if(!empty($search)){
+            $this->db->group_start();
+            $this->db->like('master_siswa.nama', $search);
+            $this->db->or_like('master_siswa.nis', $search);
+            $this->db->or_like('master_kelas.nama_kelas', $search);
+            $this->db->group_end();
+        }
+        
+        $this->db->limit($config['per_page'], $page);
+        $this->db->order_by('master_kelas.nama_kelas', 'ASC'); // Group by class first
+        $this->db->order_by('master_siswa.nama', 'ASC'); 
+        
+        $students = $this->db->get()->result();
         $setting = $this->dashboard->getSetting();
+        // Add profile data which was causing issues properly
+        $profile = $this->dashboard->getProfileAdmin(1); // Fallback profile 1 or handle appropriately? 
+        // Actually Profile::direktori doesn't use $profile var in view usually, just header. But layout might need it.
+        // Let's rely on standard header logic.
 
         $data = [
             'setting' => $setting,
             'students' => $students,
-            'title' => 'Direktori Peserta Didik'
+            'title' => 'Direktori Peserta Didik',
+            'search' => $search, // Untuk value input
+            'pagination' => $this->pagination->create_links(),
+            'total_rows' => $config['total_rows']
         ];
         $this->load->view('profile/directory', $data);
     }

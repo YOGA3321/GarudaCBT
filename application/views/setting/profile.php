@@ -68,6 +68,10 @@
                                         <label><i class="fab fa-youtube text-red"></i> Youtube URL</label>
                                         <input type="text" name="link_yt" class="form-control" value="<?= $setting->link_yt ?? '' ?>" placeholder="https://youtube.com/...">
                                     </div>
+                                    <div class="form-group">
+                                        <label><i class="fab fa-tiktok text-dark"></i> TikTok URL</label>
+                                        <input type="text" name="link_tiktok" class="form-control" value="<?= $setting->link_tiktok ?? '' ?>" placeholder="https://tiktok.com/@...">
+                                    </div>
                                 </div>
                             </div>
                         </div>

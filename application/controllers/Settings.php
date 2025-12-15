@@ -151,12 +151,17 @@ class Settings extends CI_Controller {
         }
     }
 
+    public function school() {
+        $this->index();
+    }
+
     public function profile() {
         $user = $this->ion_auth->user()->row();
         $data = [
             'user' => $user,
             'judul' => 'Profile Sekolah',
             'subjudul' => 'Sejarah, Visi Misi, & Struktur',
+            'profile' => $this->dashboard->getProfileAdmin($user->id),
             'setting' => $this->dashboard->getSetting(), // This now includes profile data merged
             'tp' => $this->dashboard->getTahun(),
             'tp_active' => $this->dashboard->getTahunActive(),
@@ -174,6 +179,7 @@ class Settings extends CI_Controller {
         $link_fb = $this->input->post('link_fb', true);
         $link_ig = $this->input->post('link_ig', true);
         $link_yt = $this->input->post('link_yt', true);
+        $link_tiktok = $this->input->post('link_tiktok', true);
         
         $struktur_organisasi = $this->input->post('struktur_organisasi_old');
 
@@ -196,6 +202,7 @@ class Settings extends CI_Controller {
             'link_fb' => $link_fb,
             'link_ig' => $link_ig,
             'link_yt' => $link_yt,
+            'link_tiktok' => $link_tiktok,
             'struktur_organisasi' => $struktur_organisasi
         ];
 
@@ -222,7 +229,11 @@ class Settings extends CI_Controller {
             'profile' => $this->dashboard->getProfileAdmin($user->id),
             'setting' => $this->dashboard->getSetting(),
             'sliders' => $this->content->getSlider(),
-            'next_urutan' => $this->db->count_all('master_slider') + 1
+            'next_urutan' => $this->db->count_all('master_slider') + 1,
+            'tp' => $this->dashboard->getTahun(),
+            'tp_active' => $this->dashboard->getTahunActive(),
+            'smt' => $this->dashboard->getSemester(),
+            'smt_active' => $this->dashboard->getSemesterActive()
         ];
         $this->load->view('_templates/dashboard/_header', $data);
         $this->load->view('setting/slider');
@@ -323,7 +334,11 @@ class Settings extends CI_Controller {
             'subjudul' => 'Kata Mutiara & Testimoni',
             'profile' => $this->dashboard->getProfileAdmin($user->id),
             'setting' => $this->dashboard->getSetting(),
-            'quotes' => $this->content->getQuotes()
+            'quotes' => $this->content->getQuotes(),
+            'tp' => $this->dashboard->getTahun(),
+            'tp_active' => $this->dashboard->getTahunActive(),
+            'smt' => $this->dashboard->getSemester(),
+            'smt_active' => $this->dashboard->getSemesterActive()
         ];
         $this->load->view('_templates/dashboard/_header', $data);
         $this->load->view('setting/quotes', $data);
@@ -345,6 +360,17 @@ class Settings extends CI_Controller {
         redirect('settings/quotes');
     }
 
+    public function updateQuote() {
+        $id = $this->input->post('id_quote');
+        $data = [
+            'content' => $this->input->post('content'),
+            'author' => $this->input->post('author'),
+            'role' => $this->input->post('role')
+        ];
+        $this->content->updateQuote($id, $data);
+        redirect('settings/quotes');
+    }
+
     // --- GALLERY FUNCTIONS ---
     public function gallery() {
         $user = $this->ion_auth->user()->row();
@@ -354,7 +380,11 @@ class Settings extends CI_Controller {
             'subjudul' => 'Foto Kegiatan Sekolah',
             'profile' => $this->dashboard->getProfileAdmin($user->id),
             'setting' => $this->dashboard->getSetting(),
-            'gallery' => $this->content->getGallery()
+            'gallery' => $this->content->getGallery(),
+            'tp' => $this->dashboard->getTahun(),
+            'tp_active' => $this->dashboard->getTahunActive(),
+            'smt' => $this->dashboard->getSemester(),
+            'smt_active' => $this->dashboard->getSemesterActive()
         ];
         $this->load->view('_templates/dashboard/_header', $data);
         $this->load->view('setting/gallery', $data);
@@ -386,8 +416,89 @@ class Settings extends CI_Controller {
         redirect('settings/gallery');
     }
 
+    public function updateGallery() {
+        $id = $this->input->post('id_gallery');
+        $data = [
+            'judul' => $this->input->post('judul'),
+            'kategori' => $this->input->post('kategori'),
+            'deskripsi' => $this->input->post('deskripsi')
+        ];
+
+        if (!empty($_FILES['gambar']['name'])) {
+            $config['upload_path'] = './uploads/gallery/';
+            $config['allowed_types'] = 'gif|jpg|png|jpeg';
+            $config['file_name'] = 'gallery_'.time();
+            
+            $this->upload->initialize($config);
+
+            if ($this->upload->do_upload('gambar')) {
+                $uploadData = $this->upload->data();
+                $data['gambar'] = 'uploads/gallery/' . $uploadData['file_name'];
+                
+                // Remove old image
+                $old = $this->content->getGalleryById($id);
+                if($old && file_exists($old->gambar)) {
+                    unlink($old->gambar);
+                }
+            }
+        }
+
+        $this->content->updateGallery($id, $data);
+        redirect('settings/gallery');
+    }
+
     public function deleteGallery($id) {
+        $gallery = $this->content->getGalleryById($id);
+        if($gallery && file_exists($gallery->gambar)) {
+            unlink($gallery->gambar);
+        }
         $this->content->deleteGallery($id);
         redirect('settings/gallery');
+    }
+
+    // --- EXTERNAL LINKS FUNCTIONS ---
+    public function links() {
+        $user = $this->ion_auth->user()->row();
+        $data = [
+            'user' => $user,
+            'judul' => 'Tautan Luar',
+            'subjudul' => 'Kelola Link Eksternal Footer',
+            'profile' => $this->dashboard->getProfileAdmin($user->id),
+            'setting' => $this->dashboard->getSetting(),
+            'links' => $this->content->getLinks(),
+            'tp' => $this->dashboard->getTahun(),
+            'tp_active' => $this->dashboard->getTahunActive(),
+            'smt' => $this->dashboard->getSemester(),
+            'smt_active' => $this->dashboard->getSemesterActive()
+        ];
+        $this->load->view('_templates/dashboard/_header', $data);
+        $this->load->view('setting/links', $data);
+        $this->load->view('_templates/dashboard/_footer');
+    }
+
+    public function saveLink() {
+        $data = [
+            'judul' => $this->input->post('judul'),
+            'url' => $this->input->post('url'),
+            'target' => '_blank',
+            'status' => 1
+        ];
+        $this->content->insertLink($data);
+        redirect('settings/links');
+    }
+
+    public function deleteLink($id) {
+        $this->content->deleteLink($id);
+        redirect('settings/links');
+    }
+
+    public function updateLink() {
+        $id = $this->input->post('id_link');
+        $data = [
+            'judul' => $this->input->post('judul'),
+            'url' => $this->input->post('url')
+        ];
+        $this->content->updateLink($id, $data);
+        redirect('settings/links');
     }
 }

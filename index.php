@@ -1,40 +1,110 @@
 <?php
-/**
- * CodeIgniter
- *
- * An open source application development framework for PHP
- *
- * This content is released under the MIT License (MIT)
- *
- * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- * @package    CodeIgniter
- * @author    EllisLab Dev Team
- * @copyright    Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
- * @copyright    Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
- * @license    https://opensource.org/licenses/MIT	MIT License
- * @link    https://codeigniter.com
- * @since    Version 1.0.0
- * @filesource
- */
+// 1. LOAD ENVIRONMENT VARIABLES (Local & Hosting Support)
+// Manual .env Parser (Fallback if Composer Dotenv fails/not used)
+$env_file_path = __DIR__ . '/.env';
+if (file_exists($env_file_path)) {
+    $lines = file($env_file_path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    foreach ($lines as $line) {
+        $line = trim($line);
+        if (empty($line) || strpos($line, '#') === 0 || strpos($line, '//') === 0) continue;
+        
+        if (strpos($line, '=') !== false) {
+            list($name, $value) = explode('=', $line, 2);
+            $name = trim($name);
+            $value = trim($value);
+            // Remove quotes if present
+            $value = trim($value, '"\'');
+            
+            // Set for getenv and $_ENV
+            putenv(sprintf('%s=%s', $name, $value));
+            $_ENV[$name] = $value;
+            $_SERVER[$name] = $value;
+        }
+    }
+}
+
+// 2. DETECTIONS & CONFIG
+$whitelist_ip = array('::1', '127.0.0.1', 'localhost');
+$is_localhost_env = false;
+if (in_array($_SERVER['REMOTE_ADDR'], $whitelist_ip) || strpos($_SERVER['HTTP_HOST'], 'localhost') !== false || strpos($_SERVER['HTTP_HOST'], '192.168.') !== false) {
+    $is_localhost_env = true;
+}
+
+// Protocol & Host
+$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://";
+$host_server = $_SERVER['HTTP_HOST'];
+
+if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+    $protocol = "https://";
+}
+
+// Hosting Domain Override
+if (!$is_localhost_env && !empty($_ENV['HOSTING_DOMAIN'])) {
+    if (strpos($host_server, $_ENV['HOSTING_DOMAIN']) !== false) {
+        $host_server = $_ENV['HOSTING_DOMAIN'];
+        $protocol = "https://"; // Force HTTPS on Hosting
+    }
+}
+
+// Base Path
+$doc_root = str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']);
+$dir_root = str_replace('\\', '/', __DIR__); 
+$base_path = str_replace($doc_root, '', $dir_root);
+if ($base_path == '.') $base_path = '';
+
+$base_url = $protocol . $host_server . $base_path;
+$base_url = rtrim($base_url, '/') . '/';
+
+if (!empty($_ENV['APP_URL'])) {
+    $base_url = rtrim($_ENV['APP_URL'], '/') . '/';
+}
+
+if (!defined('BASE_URL')) {
+    define('BASE_URL', $base_url);
+}
+
+// 3. CHECK DATABASE CONNECTION (Redirect to Install)
+$install_needed = false;
+$db_error_msg = "";
+
+if ($is_localhost_env) {
+    $db_host = $_ENV['LOCALHOST_DB_HOST'] ?? 'localhost';
+    $db_user = $_ENV['LOCALHOST_DB_USER'] ?? 'root';
+    $db_pass = isset($_ENV['LOCALHOST_DB_PASS']) ? $_ENV['LOCALHOST_DB_PASS'] : '';
+    $db_name = $_ENV['LOCALHOST_DB_NAME'] ?? ''; 
+} else {
+    $db_host = $_ENV['HOSTING_DB_HOST'] ?? 'localhost';
+    $db_user = $_ENV['HOSTING_DB_USER'] ?? ''; 
+    $db_pass = $_ENV['HOSTING_DB_PASS'] ?? '';            
+    $db_name = $_ENV['HOSTING_DB_NAME'] ?? ''; 
+}
+
+// Suppress errors for check
+mysqli_report(MYSQLI_REPORT_OFF);
+
+try {
+    $koneksi = @mysqli_connect($db_host, $db_user, $db_pass, $db_name);
+    
+    if (!$koneksi) {
+        $install_needed = true;
+    } else {
+        // Check if critical table exists
+        $check_table = @mysqli_query($koneksi, "SELECT 1 FROM users LIMIT 1");
+        if (!$check_table) {
+            $install_needed = true;
+        }
+        mysqli_close($koneksi); // Close temp connection
+    }
+} catch (Exception $e) {
+    $install_needed = true;
+}
+
+// Bypass check if we are already running the installer
+$current_uri = $_SERVER['REQUEST_URI'];
+if ($install_needed && strpos($current_uri, '/installer/') === false && strpos($current_uri, '/assets/') === false) {
+    header("Location: " . BASE_URL . "installer/");
+    exit;
+}
 
 $envs = ['development', 'testing', 'production'];
 define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : $envs[0]);
@@ -69,7 +139,6 @@ if (defined('STDIN')) {
 if (($_temp = realpath($system_path)) !== FALSE) {
     $system_path = $_temp . DIRECTORY_SEPARATOR;
 } else {
-    // Ensure there's a trailing slash
     $system_path = strtr(
             rtrim($system_path, '/\\'),
             '/\\',
@@ -77,26 +146,17 @@ if (($_temp = realpath($system_path)) !== FALSE) {
         ) . DIRECTORY_SEPARATOR;
 }
 
-// Is the system path correct?
 if (!is_dir($system_path)) {
     header('HTTP/1.1 503 Service Unavailable.', TRUE, 503);
     echo 'Your system folder path does not appear to be set correctly. Please open the following file and correct this: ' . pathinfo(__FILE__, PATHINFO_BASENAME);
     exit(3); // EXIT_CONFIG
 }
 
-// The name of THIS file
 define('SELF', pathinfo(__FILE__, PATHINFO_BASENAME));
-
-// Path to the system directory
 define('BASEPATH', $system_path);
-
-// Path to the front controller (this file) directory
 define('FCPATH', dirname(__FILE__) . DIRECTORY_SEPARATOR);
-
-// Name of the "system" directory
 define('SYSDIR', basename(BASEPATH));
 
-// The path to the "application" directory
 if (is_dir($application_folder)) {
     if (($_temp = realpath($application_folder)) !== FALSE) {
         $application_folder = $_temp;
@@ -121,7 +181,6 @@ if (is_dir($application_folder)) {
 
 define('APPPATH', $application_folder . DIRECTORY_SEPARATOR);
 
-// The path to the "views" directory
 if (!isset($view_folder[0]) && is_dir(APPPATH . 'views' . DIRECTORY_SEPARATOR)) {
     $view_folder = APPPATH . 'views';
 } elseif (is_dir($view_folder)) {
@@ -147,24 +206,5 @@ if (!isset($view_folder[0]) && is_dir(APPPATH . 'views' . DIRECTORY_SEPARATOR)) 
 }
 
 define('VIEWPATH', $view_folder . DIRECTORY_SEPARATOR);
-//require_once BASEPATH . 'core/CodeIgniter.php';
 
-include 'application/config/database.php';
-$database = $db['default']['database'];
-if ($database == '') {
-    header("Location: installer");
-} else {
-    $data = $db['default'];
-    $mysqli = @new mysqli($data['hostname'], $data['username'], $data['password'], '');
-    $dbname = $data['database'];
-    if (empty (mysqli_fetch_array(mysqli_query($mysqli,"SHOW DATABASES LIKE '$dbname'"))))
-    {
-        $mysqli->close();
-        header("Location: installer");
-    }
-    else
-    {
-        $mysqli->close();
-        require_once BASEPATH . 'core/CodeIgniter.php';
-    }
-}
+require_once BASEPATH . 'core/CodeIgniter.php';

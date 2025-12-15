@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $setting->sekolah ?? 'School Profile' ?> - <?= $title ?? 'Official Website' ?></title>
     
-    <!-- Tailwind CSS -->
+    <!-- Favicon -->
+    <?php $favicon = !empty($setting->logo_kiri) ? base_url().$setting->logo_kiri : base_url('assets/img/favicon.png'); ?>
+    <link rel="icon" type="image/png" href="<?= $favicon ?>">
+    <link rel="shortcut icon" type="image/png" href="<?= $favicon ?>">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -29,23 +33,16 @@
         }
     </script>
     
-    <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <style>
-        html, body {
-            height: auto !important;
-            overflow-y: auto !important;
-            min-height: 100vh !important;
-            position: relative !important;
-        }
-
+        /* CSS Reset yang aman */
         body { 
             font-family: 'Outfit', sans-serif; 
-            overflow-x: hidden !important; /* Keep x hidden */
+            overflow-x: hidden; /* Mencegah scroll horizontal yang tidak diinginkan */
         }
         
         /* Glassmorphism Classes */
@@ -62,12 +59,10 @@
         ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased min-h-screen overflow-y-auto overflow-x-hidden selection:bg-emerald-200 selection:text-emerald-900 mx-auto">
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen selection:bg-emerald-200 selection:text-emerald-900 mx-auto">
 
-    <!-- Navbar -->
     <nav class="fixed w-full z-50 transition-all duration-300 glass py-4 shadow-sm" id="navbar">
         <div class="container mx-auto px-6 flex justify-between items-center">
-            <!-- Logo -->
             <a href="<?= base_url() ?>" class="flex items-center gap-3 group relative z-50">
                 <div class="relative">
                      <?php if (!empty($setting->logo_kiri)): ?>
@@ -84,7 +79,6 @@
                 </div>
             </a>
 
-            <!-- Desktop Menu -->
             <div class="hidden md:flex items-center gap-2 bg-slate-100/50 p-1.5 rounded-2xl border border-slate-200">
                 <a href="<?= base_url() ?>" class="px-5 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:text-emerald-600 hover:bg-white transition-all duration-300">Beranda</a>
                 
@@ -92,7 +86,6 @@
                     <button class="px-5 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:text-emerald-600 hover:bg-white transition-all duration-300 flex items-center gap-1">
                         Profil <i class="ri-arrow-down-s-line ml-1 transition-transform duration-300 group-hover:-rotate-180"></i>
                     </button>
-                    <!-- Dropdown -->
                     <div class="absolute top-full left-0 w-64 pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50">
                         <div class="bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden p-2">
                              <a href="<?= base_url('sejarah') ?>" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 transition-colors">
@@ -116,6 +109,7 @@
                 </div>
 
                 <a href="<?= base_url('blog') ?>" class="px-5 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:text-emerald-600 hover:bg-white transition-all duration-300">Berita</a>
+                <a href="<?= base_url('gallery') ?>" class="px-5 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:text-emerald-600 hover:bg-white transition-all duration-300">Galeri</a>
                 <a href="<?= base_url('direktori') ?>" class="px-5 py-2.5 rounded-xl text-sm font-semibold text-slate-600 hover:text-emerald-600 hover:bg-white transition-all duration-300">Direktori</a>
             </div>
             
@@ -126,14 +120,11 @@
                 </a>
             </div>
 
-            <!-- Mobile Hamburger Button -->
             <button id="mobile-menu-button" class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-slate-700" type="button">
                 <i class="ri-menu-4-fill text-2xl"></i>
             </button>
         </div>
-
-    <!-- MOBILE MENU (STANDALONE - OUTSIDE NAV) -->
-    <div id="mobileMenuOverlay" style="display: none !important;">
+    </nav> <div id="mobileMenuOverlay">
         <style>
             #mobileMenuOverlay {
                 position: fixed !important;
@@ -145,12 +136,17 @@
                 z-index: 999999 !important;
                 overflow-y: auto !important; /* The overlay itself scrolls */
                 -webkit-overflow-scrolling: touch !important;
-                display: block !important; /* Back to block */
-                pointer-events: auto !important; /* Force events when open */
+                
+                /* FIX: Default hidden agar tidak menutupi website */
+                display: none; 
             }
-            #mobileMenuOverlay[style*="none"] {
-                pointer-events: none !important; /* Prevent blocking when hidden just in case */
+            
+            /* Class untuk menampilkan menu */
+            #mobileMenuOverlay.active {
+                display: block !important;
+                pointer-events: auto !important;
             }
+
             #mobileMenuOverlay * {
                 box-sizing: border-box !important;
             }
@@ -260,6 +256,11 @@
                 <span>Berita</span>
             </a>
 
+            <a href="<?= base_url('gallery') ?>" class="mobile-menu-item">
+                <i class="ri-image-line" style="color: #ec4899;"></i>
+                <span>Galeri</span>
+            </a>
+
             <a href="<?= base_url('login') ?>" class="mobile-menu-item" style="background: #10b981 !important; color: white !important; margin-top: 20px !important;">
                 <i class="ri-login-circle-line" style="color: white !important;"></i>
                 <span>Masuk Portal</span>
@@ -271,16 +272,16 @@
         function openMobileMenu() {
             var menu = document.getElementById('mobileMenuOverlay');
             if (menu) {
-                menu.style.display = 'block'; // Back to block
-                document.body.style.overflow = 'hidden';
+                menu.classList.add('active'); // Gunakan class active
+                document.body.style.overflow = 'hidden'; // Kunci scroll body
             }
         }
 
         function closeMobileMenu() {
             var menu = document.getElementById('mobileMenuOverlay');
             if (menu) {
-                menu.style.display = 'none';
-                document.body.style.overflow = '';
+                menu.classList.remove('active'); // Hapus class active
+                document.body.style.overflow = 'auto'; // Kembalikan scroll body
             }
         }
 

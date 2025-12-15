@@ -126,12 +126,19 @@
                 {'name': 'Slider Homepage', 'link': 'settings/slider', 'icon': 'fas fa-images', 'cbt': '1'},
                 {'name': 'Galeri Sekolah', 'link': 'settings/gallery', 'icon': 'fas fa-photo-video', 'cbt': '1'},
                 {'name': 'Kutipan / Quotes', 'link': 'settings/quotes', 'icon': 'fas fa-quote-right', 'cbt': '1'},
+                {'name': 'Tautan Luar', 'link': 'settings/links', 'icon': 'fas fa-link', 'cbt': '1'},
             ]
         },
         {
             'header': 'PENGATURAN',  'cbt': '1',
             'menu': [
-                {'name': 'Profile Sekolah', 'link': 'settings', 'icon': 'fas fa-university', 'cbt': '1',},
+                {
+                    'name': 'Profile Sekolah', 'icon': 'fas fa-university', 'cbt': '1',
+                    'submenu': [
+                        {'name': 'Data Sekolah', 'link':"settings/school", 'icon': 'fas fa-school'},
+                        {'name': 'Media Sosial', 'link':"settings/profile", 'icon': 'fas fa-share-alt'},
+                    ]
+                },
                 {
                     'name': 'User Management', 'icon': 'fa fa-users-cog', 'cbt': '1',
                     'submenu': [

@@ -64,7 +64,7 @@ $base_url = str_replace('installer/', '', $base_url);
                                 <div class="form-group col-12" required="">
                                     <label for="input-nama-db">Nama Database</label>
                                     <input type="text" class="form-control db" id="input-nama-db" name="database" value="" placeholder="Nama Database">
-                                    <small class="form-text text-muted">Jangan gunakan spasi.</small>
+                                    <small class="form-text text-muted">Aplikasi akan otomatis membuat file .env</small>
                                 </div>
                             </div>
                             <div class="d-flex flex-wrap align-items-center justify-content-end">

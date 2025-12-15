@@ -66,10 +66,27 @@
                         </div>
                         <div class="flex items-center gap-3">
                             <span class="text-sm font-bold text-slate-400 uppercase">Share:</span>
+                            <?php 
+                                $share_url = urlencode(current_url());
+                                $share_title = urlencode($post->judul);
+                            ?>
                             <div class="flex gap-2">
-                                <button class="w-10 h-10 rounded-full bg-[#1877F2] text-white flex items-center justify-center hover:scale-110 transition-transform"><i class="ri-facebook-fill"></i></button>
-                                <button class="w-10 h-10 rounded-full bg-[#1DA1F2] text-white flex items-center justify-center hover:scale-110 transition-transform"><i class="ri-twitter-x-line"></i></button>
-                                <button class="w-10 h-10 rounded-full bg-[#25D366] text-white flex items-center justify-center hover:scale-110 transition-transform"><i class="ri-whatsapp-line"></i></button>
+                                <!-- Facebook -->
+                                <a href="https://www.facebook.com/sharer/sharer.php?u=<?= $share_url ?>" target="_blank" title="Share on Facebook" class="w-10 h-10 rounded-full bg-[#1877F2] text-white flex items-center justify-center hover:scale-110 transition-transform">
+                                    <i class="ri-facebook-fill"></i>
+                                </a>
+                                <!-- Twitter / X -->
+                                <a href="https://twitter.com/intent/tweet?text=<?= $share_title ?>&url=<?= $share_url ?>" target="_blank" title="Share on X" class="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center hover:scale-110 transition-transform">
+                                    <i class="ri-twitter-x-line"></i>
+                                </a>
+                                <!-- WhatsApp -->
+                                <a href="https://api.whatsapp.com/send?text=<?= $share_title ?>%20<?= $share_url ?>" target="_blank" title="Share on WhatsApp" class="w-10 h-10 rounded-full bg-[#25D366] text-white flex items-center justify-center hover:scale-110 transition-transform">
+                                    <i class="ri-whatsapp-line"></i>
+                                </a>
+                                <!-- Copy Link (Generic/Instagram workaround) -->
+                                <button onclick="copyToClipboard('<?= current_url() ?>')" title="Copy Link" class="w-10 h-10 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center hover:bg-slate-300 hover:scale-110 transition-transform">
+                                    <i class="ri-link"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -153,5 +170,58 @@
             var scrolled = (winScroll / height) * 100;
             document.getElementById("progress-bar").style.width = scrolled + "%";
         };
+
+        // Copy Clipboard with Fallback
+        function copyToClipboard(text) {
+            if (!navigator.clipboard) {
+                fallbackCopyTextToClipboard(text);
+                return;
+            }
+            navigator.clipboard.writeText(text).then(function() {
+                showCopySuccess();
+            }, function(err) {
+                console.error('Async: Could not copy text: ', err);
+                fallbackCopyTextToClipboard(text);
+            });
+        }
+
+        function fallbackCopyTextToClipboard(text) {
+            var textArea = document.createElement("textarea");
+            textArea.value = text;
+            
+            // Avoid scrolling to bottom
+            textArea.style.top = "0";
+            textArea.style.left = "0";
+            textArea.style.position = "fixed";
+
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+                var successful = document.execCommand('copy');
+                if(successful) showCopySuccess();
+                else console.error('Fallback: Copying text command was ' + msg);
+            } catch (err) {
+                console.error('Fallback: Oops, unable to copy', err);
+            }
+
+            document.body.removeChild(textArea);
+        }
+
+        function showCopySuccess() {
+            if(typeof Swal !== 'undefined') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Tautan disalin!',
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            } else {
+                alert('Tautan berhasil disalin!');
+            }
+        }
     </script>
 <?php $this->load->view('_templates/public/footer'); ?>

@@ -59,4 +59,49 @@ class Content_model extends CI_Model {
         $this->db->where('id_quote', $id);
         return $this->db->delete('quotes');
     }
+
+    // --- EXTERNAL LINKS ---
+    public function getLinks() {
+        return $this->db->get('master_link')->result();
+    }
+
+    public function insertLink($data) {
+        return $this->db->insert('master_link', $data);
+    }
+
+    public function deleteLink($id) {
+        return $this->db->delete('master_link', ['id_link' => $id]);
+    }
+
+    // --- GET BY ID & UPDATE METHODS (ADDED) ---
+    
+    // Gallery
+    public function getGalleryById($id) {
+        return $this->db->get_where('master_gallery', ['id_gallery' => $id])->row();
+    }
+
+    public function updateGallery($id, $data) {
+        $this->db->where('id_gallery', $id);
+        return $this->db->update('master_gallery', $data);
+    }
+
+    // Quotes
+    public function getQuoteById($id) {
+        return $this->db->get_where('quotes', ['id_quote' => $id])->row();
+    }
+
+    public function updateQuote($id, $data) {
+        $this->db->where('id_quote', $id);
+        return $this->db->update('quotes', $data);
+    }
+
+    // Links
+    public function getLinkById($id) {
+        return $this->db->get_where('master_link', ['id_link' => $id])->row();
+    }
+
+    public function updateLink($id, $data) {
+        $this->db->where('id_link', $id);
+        return $this->db->update('master_link', $data);
+    }
 }

@@ -4,9 +4,9 @@
         <div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 40px 40px;"></div>
         
         <div class="container mx-auto px-6 relative z-10">
-            <div class="grid md:grid-cols-4 gap-12 lg:gap-20 mb-16">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8 mb-16">
                 <!-- Branding -->
-                <div class="md:col-span-2" data-aos="fade-up">
+                <div class="lg:col-span-2" data-aos="fade-up">
                     <div class="flex items-center gap-4 mb-8">
                         <?php if (!empty($setting->logo)): ?>
                              <img src="<?= base_url().$setting->logo ?>" alt="Logo" class="h-16 w-auto brightness-0 invert">
@@ -27,8 +27,11 @@
                         <?php if(!empty($setting->link_fb)): ?><a href="<?= $setting->link_fb ?>" class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#1877F2] hover:text-white hover:border-[#1877F2] transition-all text-slate-400" title="Facebook"><i class="ri-facebook-fill text-xl"></i></a><?php endif; ?>
                         <?php if(!empty($setting->link_yt)): ?><a href="<?= $setting->link_yt ?>" class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#FF0000] hover:text-white hover:border-[#FF0000] transition-all text-slate-400" title="YouTube"><i class="ri-youtube-fill text-xl"></i></a><?php endif; ?>
                         <?php if(!empty($setting->link_ig)): ?><a href="<?= $setting->link_ig ?>" class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#E4405F] hover:text-white hover:border-[#E4405F] transition-all text-slate-400" title="Instagram"><i class="ri-instagram-fill text-xl"></i></a><?php endif; ?>
-                        <?php if(!empty($setting->link_twitter)): ?><a href="<?= $setting->link_twitter ?>" class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#1DA1F2] hover:text-white hover:border-[#1DA1F2] transition-all text-slate-400" title="Twitter"><i class="ri-twitter-x-line text-xl"></i></a><?php endif; ?>
-                        <?php if(!empty($setting->link_linkedin)): ?><a href="<?= $setting->link_linkedin ?>" class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#0A66C2] hover:text-white hover:border-[#0A66C2] transition-all text-slate-400" title="LinkedIn"><i class="ri-linkedin-fill text-xl"></i></a><?php endif; ?>
+                        <?php if(!empty($setting->link_tiktok)): // Assuming this field might exist or using fallback logic ?>
+                            <a href="<?= $setting->link_tiktok ?>" class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#000000] hover:text-white hover:border-[#000000] transition-all text-slate-400" title="TikTok"><i class="ri-tiktok-fill text-xl"></i></a>
+                        <?php else: // Placeholder for TikTok if user wants it but DB empty ?>
+                             <!-- <a href="#" class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#000000] hover:text-white hover:border-[#000000] transition-all text-slate-400" title="TikTok"><i class="ri-tiktok-fill text-xl"></i></a> -->
+                        <?php endif; ?>
                     </div>
                 </div>
 
@@ -41,6 +44,31 @@
                         <li><a href="<?= base_url('blog') ?>" class="hover:text-emerald-400 transition-colors flex items-center gap-2 group"><i class="ri-arrow-right-line text-slate-600 group-hover:text-emerald-400 transition-colors"></i> Berita</a></li>
                         <li><a href="<?= base_url('direktori') ?>" class="hover:text-emerald-400 transition-colors flex items-center gap-2 group"><i class="ri-arrow-right-line text-slate-600 group-hover:text-emerald-400 transition-colors"></i> Direktori Siswa</a></li>
                          <li><a href="<?= base_url('login') ?>" class="hover:text-emerald-400 transition-colors flex items-center gap-2 group"><i class="ri-arrow-right-line text-slate-600 group-hover:text-emerald-400 transition-colors"></i> Login Portal</a></li>
+                    </ul>
+                </div>
+                
+                
+                <!-- External Links (Dynamic) -->
+                <div data-aos="fade-up" data-aos-delay="150">
+                    <h4 class="font-bold text-white text-lg mb-8">Tautan Luar</h4>
+                    <ul class="space-y-4">
+                        <?php 
+                        // Fetch external links directly for footer consistency across all pages
+                        $ext_links = $this->db->get_where('master_link', ['status' => 1])->result();
+                        if(!empty($ext_links)):
+                            foreach($ext_links as $link):
+                        ?>
+                            <li>
+                                <a href="<?= $link->url ?>" target="<?= $link->target ?>" class="hover:text-emerald-400 transition-colors flex items-center gap-2 group">
+                                    <i class="ri-external-link-line text-slate-600 group-hover:text-emerald-400 transition-colors"></i> <?= $link->judul ?>
+                                </a>
+                            </li>
+                        <?php 
+                            endforeach; 
+                        else:
+                        ?>
+                            <li><span class="text-slate-500 italic text-sm">Belum ada tautan.</span></li>
+                        <?php endif; ?>
                     </ul>
                 </div>
 
@@ -69,6 +97,7 @@
                     </ul>
                 </div>
             </div>
+            </div>
 
             <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
                 <p class="text-sm text-center md:text-left text-slate-500">
@@ -89,11 +118,11 @@
     <script>
         // Init AOS with Global Settings
         AOS.init({
-            disable: 'mobile', // Disable animations on mobile to prevent blank screen issues
-            duration: 1000,
+            disable: false, // Enable on mobile
+            duration: 800, // Slightly faster for better mobile feel
             once: true,
             mirror: false,
-            offset: 80,
+            offset: 50, // Lower offset to trigger earlier on small screens
             easing: 'ease-out-cubic',
             anchorPlacement: 'top-bottom',
         });
