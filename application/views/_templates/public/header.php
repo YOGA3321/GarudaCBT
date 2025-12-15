@@ -36,7 +36,17 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <style>
-        body { font-family: 'Outfit', sans-serif; }
+        html, body {
+            height: auto !important;
+            overflow-y: auto !important;
+            min-height: 100vh !important;
+            position: relative !important;
+        }
+
+        body { 
+            font-family: 'Outfit', sans-serif; 
+            overflow-x: hidden !important; /* Keep x hidden */
+        }
         
         /* Glassmorphism Classes */
         .glass {
@@ -52,7 +62,7 @@
         ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased overflow-x-hidden selection:bg-emerald-200 selection:text-emerald-900 mx-auto">
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen overflow-y-auto overflow-x-hidden selection:bg-emerald-200 selection:text-emerald-900 mx-auto">
 
     <!-- Navbar -->
     <nav class="fixed w-full z-50 transition-all duration-300 glass py-4 shadow-sm" id="navbar">
@@ -136,6 +146,10 @@
                 overflow-y: auto !important; /* The overlay itself scrolls */
                 -webkit-overflow-scrolling: touch !important;
                 display: block !important; /* Back to block */
+                pointer-events: auto !important; /* Force events when open */
+            }
+            #mobileMenuOverlay[style*="none"] {
+                pointer-events: none !important; /* Prevent blocking when hidden just in case */
             }
             #mobileMenuOverlay * {
                 box-sizing: border-box !important;

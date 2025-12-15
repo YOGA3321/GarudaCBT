@@ -89,6 +89,7 @@
     <script>
         // Init AOS with Global Settings
         AOS.init({
+            disable: 'mobile', // Disable animations on mobile to prevent blank screen issues
             duration: 1000,
             once: true,
             mirror: false,
