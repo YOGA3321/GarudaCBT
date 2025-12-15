@@ -12,6 +12,7 @@ class Settings extends CI_Controller {
         }
         $this->load->model('Dashboard_model', 'dashboard');
         $this->load->model('Settings_model', 'settings');
+        $this->load->model('Content_model', 'content');
         $this->load->helper('directory');
         $this->load->library('upload');
     }
@@ -209,5 +210,184 @@ class Settings extends CI_Controller {
         }
 
         redirect('settings/profile');
+    }
+
+    // --- SLIDER FUNCTIONS ---
+    public function slider() {
+        $user = $this->ion_auth->user()->row();
+        $data = [
+            'user' => $user,
+            'judul' => 'Kelola Slider',
+            'subjudul' => 'Gambar Slider Halaman Utama',
+            'profile' => $this->dashboard->getProfileAdmin($user->id),
+            'setting' => $this->dashboard->getSetting(),
+            'sliders' => $this->content->getSlider(),
+            'next_urutan' => $this->db->count_all('master_slider') + 1
+        ];
+        $this->load->view('_templates/dashboard/_header', $data);
+        $this->load->view('setting/slider');
+        $this->load->view('_templates/dashboard/_footer');
+    }
+
+    public function saveSlider() {
+        $config['upload_path'] = './uploads/slider/';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg';
+        $config['file_name'] = 'slider_'.time();
+        
+        if (!is_dir($config['upload_path'])) {
+            mkdir($config['upload_path'], 0777, true);
+        }
+
+        $this->upload->initialize($config);
+
+        if ($this->upload->do_upload('gambar')) {
+            $uploadData = $this->upload->data();
+            $data = [
+                'gambar' => 'uploads/slider/' . $uploadData['file_name'],
+                'caption' => $this->input->post('caption'),
+                'urutan' => $this->input->post('urutan'),
+                'active' => 1
+            ];
+            $this->content->insertSlider($data);
+        }
+        redirect('settings/slider');
+    }
+
+    public function editSlider($id) {
+        $user = $this->ion_auth->user()->row();
+        $data = [
+            'user' => $user,
+            'judul' => 'Edit Slider',
+            'subjudul' => 'Edit Data Slider',
+            'profile' => $this->dashboard->getProfileAdmin($user->id),
+            'setting' => $this->dashboard->getSetting(),
+            'slider' => $this->content->getSliderById($id)
+        ];
+        $this->load->view('_templates/dashboard/_header', $data);
+        $this->load->view('setting/slider_edit', $data);
+        $this->load->view('_templates/dashboard/_footer');
+    }
+
+    public function updateSliderAction() {
+        $id = $this->input->post('id_slider');
+        $config['upload_path'] = './uploads/slider/';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg';
+        $config['file_name'] = 'slider_'.time();
+
+        if (!is_dir($config['upload_path'])) {
+            mkdir($config['upload_path'], 0777, true);
+        }
+
+        $this->upload->initialize($config);
+        
+        $data = [
+            'caption' => $this->input->post('caption'),
+            'urutan' => $this->input->post('urutan')
+        ];
+
+        if (!empty($_FILES['gambar']['name'])) {
+            if ($this->upload->do_upload('gambar')) {
+                $uploadData = $this->upload->data();
+                $data['gambar'] = 'uploads/slider/' . $uploadData['file_name'];
+                
+                // Remove old image
+                $old = $this->content->getSliderById($id);
+                if($old && file_exists($old->gambar)) {
+                    unlink($old->gambar);
+                }
+            }
+        }
+        
+        $this->content->updateSlider($id, $data);
+        redirect('settings/slider');
+    }
+
+    public function deleteSlider($id) {
+        // Get data first to unlink file
+        $slider = $this->db->get_where('master_slider', ['id_slider' => $id])->row();
+        if($slider) {
+            if(file_exists($slider->gambar)) {
+                unlink($slider->gambar);
+            }
+            $this->content->deleteSlider($id);
+        }
+        redirect('settings/slider');
+    }
+
+    // --- QUOTES FUNCTIONS ---
+    public function quotes() {
+        $user = $this->ion_auth->user()->row();
+        $data = [
+            'user' => $user,
+            'judul' => 'Kelola Quotes',
+            'subjudul' => 'Kata Mutiara & Testimoni',
+            'profile' => $this->dashboard->getProfileAdmin($user->id),
+            'setting' => $this->dashboard->getSetting(),
+            'quotes' => $this->content->getQuotes()
+        ];
+        $this->load->view('_templates/dashboard/_header', $data);
+        $this->load->view('setting/quotes', $data);
+        $this->load->view('_templates/dashboard/_footer');
+    }
+
+    public function saveQuote() {
+        $data = [
+            'content' => $this->input->post('content'),
+            'author' => $this->input->post('author'),
+            'role' => $this->input->post('role')
+        ];
+        $this->content->insertQuote($data);
+        redirect('settings/quotes');
+    }
+
+    public function deleteQuote($id) {
+        $this->content->deleteQuote($id);
+        redirect('settings/quotes');
+    }
+
+    // --- GALLERY FUNCTIONS ---
+    public function gallery() {
+        $user = $this->ion_auth->user()->row();
+        $data = [
+            'user' => $user,
+            'judul' => 'Kelola Galeri',
+            'subjudul' => 'Foto Kegiatan Sekolah',
+            'profile' => $this->dashboard->getProfileAdmin($user->id),
+            'setting' => $this->dashboard->getSetting(),
+            'gallery' => $this->content->getGallery()
+        ];
+        $this->load->view('_templates/dashboard/_header', $data);
+        $this->load->view('setting/gallery', $data);
+        $this->load->view('_templates/dashboard/_footer');
+    }
+
+    public function saveGallery() {
+        $config['upload_path'] = './uploads/gallery/';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg';
+        $config['file_name'] = 'gallery_'.time();
+        
+        if (!is_dir($config['upload_path'])) {
+            mkdir($config['upload_path'], 0777, true);
+        }
+
+        $this->upload->initialize($config);
+
+        if ($this->upload->do_upload('gambar')) {
+            $uploadData = $this->upload->data();
+            $data = [
+                'gambar' => 'uploads/gallery/' . $uploadData['file_name'],
+                'judul' => $this->input->post('judul'),
+                'kategori' => $this->input->post('kategori'),
+                'deskripsi' => $this->input->post('deskripsi'),
+                'created_at' => date('Y-m-d H:i:s')
+            ];
+            $this->content->insertGallery($data);
+        }
+        redirect('settings/gallery');
+    }
+
+    public function deleteGallery($id) {
+        $this->content->deleteGallery($id);
+        redirect('settings/gallery');
     }
 }

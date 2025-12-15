@@ -40,6 +40,12 @@ class Home extends CI_Controller {
 			'prestasi' => $this->dashboard->totalPrestasi()
 		];
 
+        // Content
+        $this->load->model('Content_model', 'content');
+        $slider = $this->content->getActiveSlider();
+        $quotes = $this->content->getQuotes();
+        $gallery = $this->content->getGallery(8); // Limit 8 photos
+
 		$data = [
 			'setting' => $setting,
 			'tp_active' => $tp,
@@ -48,6 +54,9 @@ class Home extends CI_Controller {
 			'ekstras' => $ekstras,
 			'news' => $news,
 			'stats' => $stats,
+            'slider' => $slider,
+            'quotes' => $quotes,
+            'gallery' => $gallery,
 			'title' => $setting->sekolah ?? 'School Profile'
 		];
 

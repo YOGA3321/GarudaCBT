@@ -1,100 +1,136 @@
-<!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $title ?> - <?= $setting->sekolah ?></title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Outfit', 'sans-serif'], },
-                    colors: { primary: '#059669', }
-                }
-            }
-        }
-    </script>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-    <style>body { font-family: 'Outfit', sans-serif; }</style>
-</head>
-<body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
+<?php $this->load->view('_templates/public/header'); ?>
 
-    <!-- Navbar -->
-    <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-sm border-b border-slate-100">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="<?= base_url() ?>" class="flex items-center gap-3">
-                 <?php if (!empty($setting->logo_kiri)): ?>
-                    <img src="<?= base_url().$setting->logo_kiri ?>" alt="Logo" class="h-10 w-auto">
-                <?php else: ?>
-                    <div class="h-10 w-10 bg-gradient-to-br from-primary to-emerald-400 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg">
-                        <?= substr($setting->sekolah ?? 'S', 0, 1) ?>
-                    </div>
-                <?php endif; ?>
-                <div class="hidden md:block leading-tight">
-                    <h1 class="font-bold text-lg text-slate-900"><?= $setting->sekolah ?? 'School Name' ?></h1>
-                    <p class="text-[10px] text-primary font-bold tracking-[0.2em] uppercase">Official Website</p>
-                </div>
-            </a>
-            
-            <a href="<?= base_url() ?>" class="px-5 py-2.5 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-primary font-bold transition-all flex items-center gap-2">
-                <i class="ri-arrow-left-line"></i> Kembali
-            </a>
-        </div>
-    </nav>
+    <!-- Header Section (Light Theme) -->
+    <section class="relative pt-32 pb-20 bg-emerald-50 overflow-hidden">
+        <!-- Decoration -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-emerald-100 rounded-full blur-3xl opacity-50 -mr-16 -mt-16"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 bg-blue-100 rounded-full blur-3xl opacity-50 -ml-16 -mb-16"></div>
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
 
-    <!-- Header -->
-    <div class="bg-slate-900 py-16 relative overflow-hidden">
-        <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(#059669 1px, transparent 1px); background-size: 20px 20px;"></div>
         <div class="container mx-auto px-6 relative z-10 text-center">
-            <h1 class="text-4xl md:text-5xl font-black text-white mb-4"><?= $page_title ?></h1>
-            <p class="text-slate-400 text-lg max-w-2xl mx-auto">Wadah pengembangan bakat dan minat peserta didik di luar jam pelajaran akademik.</p>
+            <span class="inline-block py-1 px-3 rounded-full bg-emerald-100 text-emerald-600 text-xs font-bold uppercase tracking-wider mb-4 animate-fade-in-up">
+                Profil Sekolah
+            </span>
+            <h1 class="text-4xl md:text-5xl font-black text-slate-800 mb-4 animate-fade-in-up delay-100">
+                Ekstrakurikuler
+            </h1>
+            <div class="flex items-center justify-center gap-2 text-sm text-slate-500 font-medium animate-fade-in-up delay-200">
+                <a href="<?= base_url() ?>" class="hover:text-emerald-600 transition-colors">Beranda</a>
+                <span class="text-slate-300">/</span>
+                <span class="text-emerald-600 font-bold">Ekstrakurikuler</span>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Content -->
-    <div class="container mx-auto px-6 py-12 flex-grow">
-        <?php if(!empty($ekstras)): ?>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <?php foreach($ekstras as $ex): ?>
-                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg shadow-slate-200/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-slate-100 flex flex-col">
-                        <div class="h-48 bg-slate-100 relative items-center justify-center flex">
-                            <!-- Placeholder Icon if no image -->
-                             <i class="ri-basketball-line text-6xl text-slate-300"></i>
-                             <!-- If you have images in database, uncomment below -->
-                             <!-- <img src="..." class="w-full h-full object-cover"> -->
-                             <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-lg text-xs font-bold text-emerald-600 shadow-sm uppercase tracking-wide">
-                                Aktif
-                            </div>
+    <!-- Main Content Layout -->
+    <section class="py-16 bg-white min-h-screen relative">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row gap-12">
+                
+                <!-- Sidebar Navigation (Reusable) -->
+                <div class="lg:w-1/4">
+                    <div class="sticky top-28 space-y-8" data-aos="fade-right">
+                        <!-- Navigation Menu -->
+                        <div class="bg-white rounded-2xl p-6 shadow-lg shadow-slate-100 border border-slate-100">
+                            <h3 class="font-bold text-slate-900 mb-6 flex items-center gap-2">
+                                <i class="ri-menu-2-line text-emerald-500"></i> Menu Profil
+                            </h3>
+                            <nav class="space-y-2">
+                                <a href="<?= base_url('sejarah') ?>" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all <?= ($this->uri->segment(1) == 'sejarah') ? 'bg-emerald-50 text-emerald-700 font-bold shadow-sm ring-1 ring-emerald-100' : 'text-slate-600 hover:bg-slate-50 hover:text-emerald-600' ?>">
+                                    <i class="ri-history-line <?= ($this->uri->segment(1) == 'sejarah') ? 'text-emerald-600' : 'text-slate-400' ?>"></i>
+                                    Sejarah Sekolah
+                                </a>
+                                <a href="<?= base_url('visi_misi') ?>" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all <?= ($this->uri->segment(1) == 'visi_misi' OR $this->uri->segment(1) == 'visimisi') ? 'bg-emerald-50 text-emerald-700 font-bold shadow-sm ring-1 ring-emerald-100' : 'text-slate-600 hover:bg-slate-50 hover:text-emerald-600' ?>">
+                                    <i class="ri-flag-line <?= ($this->uri->segment(1) == 'visi_misi' OR $this->uri->segment(1) == 'visimisi') ? 'text-emerald-600' : 'text-slate-400' ?>"></i>
+                                    Visi & Misi
+                                </a>
+                                <a href="<?= base_url('struktur') ?>" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all <?= ($this->uri->segment(1) == 'struktur') ? 'bg-emerald-50 text-emerald-700 font-bold shadow-sm ring-1 ring-emerald-100' : 'text-slate-600 hover:bg-slate-50 hover:text-emerald-600' ?>">
+                                    <i class="ri-organization-chart <?= ($this->uri->segment(1) == 'struktur') ? 'text-emerald-600' : 'text-slate-400' ?>"></i>
+                                    Struktur Organisasi
+                                </a>
+                                <a href="<?= base_url('profile/ekskul') ?>" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all <?= ($this->uri->segment(2) == 'ekskul') ? 'bg-emerald-50 text-emerald-700 font-bold shadow-sm ring-1 ring-emerald-100' : 'text-slate-600 hover:bg-slate-50 hover:text-emerald-600' ?>">
+                                    <i class="ri-basketball-line <?= ($this->uri->segment(2) == 'ekskul') ? 'text-emerald-600' : 'text-slate-400' ?>"></i>
+                                    Ekstrakurikuler
+                                </a>
+                            </nav>
                         </div>
-                        <div class="p-8 flex-grow">
-                            <h3 class="text-2xl font-bold text-slate-900 mb-2"><?= $ex->nama_ekstra ?></h3>
-                            <p class="text-slate-500 text-sm mb-6">Kegiatan ekstrakurikuler unggulan untuk mengembangkan potensi siswa.</p>
-                            <div class="flex items-center gap-2 text-sm font-bold text-slate-700">
-                                <i class="ri-calendar-check-line text-primary"></i> <span>Jadwal: -</span>
-                            </div>
+                        
+                         <!-- Quick Info Widget -->
+                        <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-6 shadow-xl text-white relative overflow-hidden group">
+                           <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-110 transition-transform">
+                               <i class="ri-school-line text-8xl"></i>
+                           </div>
+                           <h4 class="font-bold text-lg mb-4 relative z-10">Pendaftaran Siswa Baru</h4>
+                           <p class="text-slate-300 text-sm mb-6 relative z-10">Bergabunglah bersama kami untuk mewujudkan masa depan cerah.</p>
+                           <a href="#" class="inline-block w-full py-3 bg-emerald-500 hover:bg-emerald-400 text-white font-bold text-center rounded-xl transition-colors shadow-lg shadow-emerald-900/50 relative z-10">
+                               Info PPDB <i class="ri-arrow-right-line ml-1"></i>
+                           </a>
                         </div>
                     </div>
-                <?php endforeach; ?>
-            </div>
-        <?php else: ?>
-            <div class="text-center py-20 bg-white rounded-3xl border-2 border-dashed border-slate-200">
-                <div class="w-16 h-16 rounded-full bg-slate-50 flex items-center justify-center mx-auto mb-4 text-slate-400 text-2xl">
-                    <i class="ri-flag-off-line"></i>
                 </div>
-                <p class="text-slate-500 font-medium text-lg">Belum ada data ekstrakurikuler.</p>
+
+                <!-- Main Content Area (Grid) -->
+                <div class="lg:w-3/4">
+                    <div class="bg-white rounded-[2rem] p-8 shadow-xl shadow-slate-200/50 border border-slate-100" data-aos="fade-up">
+                         <div class="flex items-center justify-between mb-8 border-b border-slate-100 pb-4">
+                            <div>
+                                <h2 class="text-2xl font-black text-slate-800">Kegiatan Ekstrakurikuler</h2>
+                                <p class="text-slate-500 text-sm mt-1">Wadah pengembangan bakat dan minat siswa.</p>
+                            </div>
+                            <div class="hidden sm:block">
+                                <span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold"><?= count($ekstras) ?> Kegiatan</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                             <?php if(!empty($ekstras)): ?>
+                                <?php foreach($ekstras as $e): ?>
+                                    <div class="group bg-slate-50 rounded-2xl border border-slate-100 overflow-hidden hover:shadow-lg transition-all duration-300 relative flex flex-col h-full hover:bg-white ring-1 ring-transparent hover:ring-emerald-100">
+                                        <!-- Image Placeholder/Real Image -->
+                                        <div class="h-48 overflow-hidden relative bg-slate-200">
+                                             <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?q=80&w=2070" 
+                                                  class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 filter grayscale group-hover:grayscale-0">
+                                            <div class="absolute top-4 left-4 z-10">
+                                                <span class="bg-white/90 backdrop-blur px-3 py-1 rounded-lg text-xs font-black text-emerald-600 uppercase tracking-widest shadow-sm">
+                                                    <?= $e['kode_ekstra'] ?? 'EKS' ?>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="p-6 flex flex-col flex-grow">
+                                            <h3 class="font-bold text-xl text-slate-900 mb-2 group-hover:text-emerald-600 transition-colors">
+                                                <?= $e['nama_ekstra'] ?>
+                                            </h3>
+                                            
+                                            <div class="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between">
+                                                <div class="flex items-center gap-2">
+                                                    <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-slate-400 shadow-sm border border-slate-100">
+                                                        <i class="ri-user-star-line"></i>
+                                                    </div>
+                                                    <div class="text-xs">
+                                                        <span class="block text-slate-400 font-semibold uppercase text-[10px] tracking-wider">Pembina</span>
+                                                        <span class="block font-bold text-slate-700"><?= $e['nama_guru'] ?? '-' ?></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <div class="col-span-full py-12 text-center">
+                                    <div class="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-300">
+                                        <i class="ri-basketball-line text-4xl"></i>
+                                    </div>
+                                    <h3 class="text-slate-800 font-bold text-xl mb-1">Belum ada data</h3>
+                                    <p class="text-slate-500">Data ekstrakurikuler belum ditambahkan.</p>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
-        <?php endif; ?>
-    </div>
-
-    <!-- Footer -->
-    <footer class="bg-white border-t border-slate-200 py-8 mt-auto">
-        <div class="container mx-auto px-6 text-center text-slate-500 text-sm">
-            &copy; <?= date('Y') ?> <span class="font-bold text-slate-800"><?= $setting->sekolah ?></span>. All rights reserved.
         </div>
-    </footer>
+    </section>
 
-</body>
-</html>
+<?php $this->load->view('_templates/public/footer'); ?>

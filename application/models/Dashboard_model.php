@@ -26,7 +26,11 @@
 		$this->db->where('id_tp', $id_tp);
 		$this->db->where('id_smt', $id_smt);
 		$this->db->from('kelas_siswa');
-		return $this->db->count_all_results();
+		$count = $this->db->count_all_results();
+        if($count == 0) {
+            return $this->db->count_all('master_siswa');
+        }
+        return $count;
 	}
 
 	public function totalGuruAktif($id_tp, $id_smt) {
@@ -34,7 +38,11 @@
 		$this->db->select('id_guru');
 		$this->db->where('id_tp', $id_tp);
 		$this->db->where('id_smt', $id_smt);
-		return $this->db->get('jabatan_guru')->num_rows();
+		$count = $this->db->get('jabatan_guru')->num_rows();
+        if($count == 0) {
+            return $this->db->count_all('master_guru');
+        }
+        return $count;
 	}
 
 	public function totalEkstra() {
@@ -45,7 +53,14 @@
 		$this->db->where('status', 1);
 		$this->db->like('kategori', 'Prestasi'); 
 		$this->db->from('posts');
-		return $this->db->count_all_results();
+		$count = $this->db->count_all_results();
+        if($count == 0) {
+            // Fallback: Count all published posts if no specific 'Prestasi' category found
+             $this->db->where('status', 1);
+             $this->db->from('posts');
+             return $this->db->count_all_results();
+        }
+        return $count;
 	}
 
 	public function getQuotes() {

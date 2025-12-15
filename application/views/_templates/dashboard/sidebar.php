@@ -123,6 +123,9 @@
             'header': 'INFORMASI PUBLIK', 'cbt': '1',
             'menu': [
                 {'name': 'Manajemen Artikel', 'link': 'post', 'icon': 'fas fa-newspaper', 'cbt': '1'},
+                {'name': 'Slider Homepage', 'link': 'settings/slider', 'icon': 'fas fa-images', 'cbt': '1'},
+                {'name': 'Galeri Sekolah', 'link': 'settings/gallery', 'icon': 'fas fa-photo-video', 'cbt': '1'},
+                {'name': 'Kutipan / Quotes', 'link': 'settings/quotes', 'icon': 'fas fa-quote-right', 'cbt': '1'},
             ]
         },
         {
@@ -186,8 +189,15 @@
                     })
                     htmlMenu += `</ul></li>`;
                 } else {
+                    let isActive = false;
+                    if (menu.link === page) {
+                        isActive = pageact ? false : true; 
+                    } else if (menu.link === page + '/' + pageact) {
+                        isActive = true;
+                    }
+                    
                     htmlMenu += `<li class="nav-item"><a href="${base_url + menu.link}"
-                       class="nav-link ${page === menu.link ? "active" : ""}">
+                       class="nav-link ${isActive ? "active" : ""}">
                         <i class="nav-icon ${menu.icon}"></i>
                         <p>${menu.name}</p>
                     </a></li>`
