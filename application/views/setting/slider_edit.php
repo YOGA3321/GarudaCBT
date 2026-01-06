@@ -23,22 +23,19 @@
                             <div class="form-group">
                                 <label>Ganti Gambar (Opsional)</label>
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" name="gambar" accept="image/*">
-                                    <label class="custom-file-label">Pilih file</label>
+                                    <input type="file" class="custom-file-input" id="customFile" name="gambar" accept="image/*">
+                                    <label class="custom-file-label" for="customFile">Pilih file</label>
                                 </div>
                                 <small class="text-muted">Biarkan kosong jika tidak ingin mengganti gambar.</small>
                             </div>
                             <div class="form-group">
-                                <img src="<?= base_url($slider->gambar) ?>" class="img-fluid rounded" style="max-height: 200px">
+                                <img id="preview" src="<?= base_url($slider->gambar) ?>" class="img-fluid rounded" style="max-height: 200px">
                             </div>
                             <div class="form-group">
                                 <label>Caption</label>
                                 <input type="text" class="form-control" name="caption" value="<?= $slider->caption ?>">
                             </div>
-                            <div class="form-group">
-                                <label>Urutan</label>
-                                <input type="number" class="form-control" name="urutan" value="<?= $slider->urutan ?>">
-                            </div>
+
                         </div>
                         <div class="card-footer">
                             <a href="<?= base_url('settings/slider') ?>" class="btn btn-default">Batal</a>
@@ -55,5 +52,16 @@
 <script>
 $(function () {
   bsCustomFileInput.init();
+  
+  // Image Preview
+  $('#customFile').on('change', function() {
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#preview').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(this.files[0]);
+        }
+  });
 });
 </script>

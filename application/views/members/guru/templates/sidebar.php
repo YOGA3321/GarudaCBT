@@ -13,8 +13,9 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 d-flex">
             <div class="image">
-                <img src="<?= $guru->foto != null ? base_url() . $guru->foto : base_url('assets/img/user.jpg') ?>"
-                     class="img-circle elevation-2" alt="User Image" style="height: 40px; width: 40px">
+                <img src="<?= $guru->foto != null ? base_url() . $guru->foto : base_url('assets/img/guru.png') ?>"
+                     class="img-circle elevation-2" alt="User Image" style="height: 40px; width: 40px"
+                     onerror="this.src='<?= base_url('assets/img/guru.png') ?>'">
             </div>
             <div class="info">
                 <a href="#" class="d-block text-wrap">

@@ -792,6 +792,13 @@ $allBanksIds = [];
         opsiMapel.prepend("<option value='' " + selectedM + " disabled='disabled'>Pilih mapel:</option>");
         opsiLevel.prepend("<option value='' " + selectedL + " disabled='disabled'>Pilih level:</option>");
 
+        if (idFilter === '2' && idMapel === '') {
+            var firstVal = opsiMapel.find('option').eq(1).val();
+            if (firstVal) {
+                window.location.href = base_url + 'cbtbanksoal?id=' + firstVal + '&type=2&mode=' + mode;
+            }
+        }
+
         function onChangeFilter(type) {
             if (type == '1') {
                 $('#select-guru').removeClass('d-none');

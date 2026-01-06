@@ -55,8 +55,12 @@
                                             <div class="form-group">
                                                 <label>Gambar Utama</label>
                                                 <?php if(!empty($post->gambar)): ?>
-                                                    <div class="mb-3">
-                                                        <img src="<?= base_url($post->gambar) ?>" class="img-fluid rounded border">
+                                                    <div class="mb-3 text-center">
+                                                        <img id="preview" src="<?= base_url($post->gambar) ?>" class="img-fluid rounded border" style="max-height: 200px;">
+                                                    </div>
+                                                <?php else: ?>
+                                                    <div class="mb-3 text-center">
+                                                        <img id="preview" src="" class="img-fluid rounded border d-none" style="max-height: 200px;">
                                                     </div>
                                                 <?php endif; ?>
                                                 <div class="custom-file">
@@ -95,6 +99,20 @@
     $(document).ready(function() {
         $('#summernote').summernote({
             height: 300
+        });
+
+        // Image Preview
+        $('#customFile').on('change', function() {
+            var fileName = $(this).val().split('\\').pop();
+            $(this).next('.custom-file-label').addClass("selected").html(fileName);
+
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#preview').attr('src', e.target.result).removeClass('d-none');
+                }
+                reader.readAsDataURL(this.files[0]);
+            }
         });
     });
 </script>

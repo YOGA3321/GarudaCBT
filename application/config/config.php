@@ -188,7 +188,9 @@ $config['csrf_regenerate'] = FALSE;
 $config['csrf_exclude_uris'] = array(
     'kelasmateri/saveMateri',
     'kelasmateri/uploadfile',
-    'kelasmateri/deletefile'
+    'kelasmateri/deletefile',
+    'blog/increment_view',
+    'profile/alumni_lookup'
 );
 
 /*

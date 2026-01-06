@@ -53,9 +53,8 @@ class Blog extends CI_Controller {
             show_404();
         }
 
-        // Update views
-        $this->db->where('id_post', $post->id_post);
-        $this->db->update('posts', ['views' => $post->views + 1]);
+        // Views will be incremented via AJAX after 30 seconds of reading
+        // See increment_view() method
 
         $setting = $this->dashboard->getSetting();
         $author = $this->ion_auth->user($post->id_user)->row();
@@ -94,5 +93,34 @@ class Blog extends CI_Controller {
             $this->session->set_flashdata('error', 'Nama dan Komentar wajib diisi.');
         }
         redirect('blog/read/'.$slug);
+    }
+
+    /**
+     * AJAX endpoint to increment views after 30 seconds of reading
+     */
+    public function increment_view() {
+        $id_post = $this->input->post('id_post');
+        
+        if (!$id_post) {
+            echo json_encode(['status' => false, 'message' => 'Invalid post']);
+            return;
+        }
+        
+        // Session key to prevent multiple increments
+        $session_key = 'viewed_post_' . $id_post;
+        
+        // Only increment if not already incremented in this session
+        if (!$this->session->userdata($session_key)) {
+            $post = $this->db->get_where('posts', ['id_post' => $id_post])->row();
+            if ($post) {
+                $this->db->where('id_post', $id_post);
+                $this->db->update('posts', ['views' => $post->views + 1]);
+                $this->session->set_userdata($session_key, time());
+                echo json_encode(['status' => true, 'message' => 'View counted', 'new_views' => $post->views + 1]);
+                return;
+            }
+        }
+        
+        echo json_encode(['status' => false, 'message' => 'Already counted']);
     }
 }

@@ -167,7 +167,56 @@
     }
 
 </script>
+<script>
+    // SweetAlert2 Global Handler for CI Flashdata
+    <?php if ($this->session->flashdata('success')) : ?>
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil!',
+            text: '<?= $this->session->flashdata('success'); ?>',
+            showConfirmButton: false,
+            timer: 2000
+        });
+    <?php endif; ?>
 
+    <?php if ($this->session->flashdata('error')) : ?>
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal!',
+            text: '<?= $this->session->flashdata('error'); ?>',
+            showConfirmButton: true
+        });
+    <?php endif; ?>
+    
+    <?php if ($this->session->flashdata('warning')) : ?>
+        Swal.fire({
+            icon: 'warning',
+            title: 'Peringatan!',
+            text: '<?= $this->session->flashdata('warning'); ?>',
+            showConfirmButton: true
+        });
+    <?php endif; ?>
+
+    // Global Delete Confirmation
+    $(document).on('click', '.btn-delete', function(e) {
+        e.preventDefault();
+        const href = $(this).attr('href');
+
+        Swal.fire({
+            title: 'Apakah anda yakin?',
+            text: "Data yang dihapus tidak dapat dikembalikan!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, hapus!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.value) {
+                document.location.href = href;
+            }
+        });
+    });
+</script>
 </body>
-
 </html>

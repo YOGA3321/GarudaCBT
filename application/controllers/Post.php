@@ -74,7 +74,43 @@ class Post extends CI_Controller {
 
             if($this->upload->do_upload('gambar')){
                 $uploadData = $this->upload->data();
-                $gambar = 'uploads/posts/'.$uploadData['file_name'];
+                $original_path = $uploadData['full_path'];
+                $file_name_no_ext = $uploadData['raw_name'];
+                $new_file_name = $file_name_no_ext . '.webp';
+                $new_path = './uploads/posts/' . $new_file_name;
+
+                // Image Compression & Conversion (Using Updated Image_lib)
+                $config_resize['image_library'] = 'gd2';
+                $config_resize['source_image'] = $original_path;
+                $config_resize['create_thumb'] = FALSE;
+                $config_resize['maintain_ratio'] = TRUE;
+                $config_resize['width']     = 800; // Resize width
+                $config_resize['height']    = 800; // Resize height
+                $config_resize['quality']   = '60%'; // Compression quality
+                $config_resize['new_image'] = $new_path; // Save as WebP
+
+                $this->load->library('image_lib', $config_resize);
+                
+                // Clear previous config if loaded
+                $this->image_lib->clear();
+                $this->image_lib->initialize($config_resize);
+
+                if ($this->image_lib->resize()) {
+                    // Success converting to WebP
+                    $gambar = 'uploads/posts/' . $new_file_name;
+                    // Delete original file (jpg/png) if it's not the same as new file
+                    if ($original_path !== $new_path && file_exists($original_path)) {
+                        unlink($original_path); 
+                    }
+                } else {
+                    // Fallback to original if compression fails
+                    $error_msg = $this->image_lib->display_errors();
+                    log_message('error', 'Image Lib Error (Save): ' . $error_msg);
+                    // Also write to a direct file we can check easily
+                    file_put_contents('./application/logs/image_debug.txt', date('Y-m-d H:i:s') . " - Save Error: " . $error_msg . "\n", FILE_APPEND);
+                    
+                    $gambar = 'uploads/posts/' . $uploadData['file_name'];
+                }
             }
         }
 
@@ -88,6 +124,7 @@ class Post extends CI_Controller {
         ];
 
         $this->db->insert('posts', $data);
+        $this->session->set_flashdata('success', 'Artikel berhasil ditambahkan');
         redirect('post');
     }
 
@@ -137,22 +174,84 @@ class Post extends CI_Controller {
             
             if(!is_dir('./uploads/posts/')) mkdir('./uploads/posts/', 0777, true);
 
+
             if($this->upload->do_upload('gambar')){
                 $uploadData = $this->upload->data();
-                $data['gambar'] = 'uploads/posts/'.$uploadData['file_name'];
+                $original_path = $uploadData['full_path'];
+                $file_name_no_ext = $uploadData['raw_name'];
+                $new_file_name = $file_name_no_ext . '.webp';
+                $new_path = './uploads/posts/' . $new_file_name;
+
+                // Image Compression & Conversion (Using Updated Image_lib)
+                $config_resize['image_library'] = 'gd2';
+                $config_resize['source_image'] = $original_path;
+                $config_resize['create_thumb'] = FALSE;
+                $config_resize['maintain_ratio'] = TRUE;
+                $config_resize['width']     = 800;
+                $config_resize['height']    = 800;
+                $config_resize['quality']   = '60%';
+                $config_resize['new_image'] = $new_path;
+
+                $this->load->library('image_lib', $config_resize);
                 
-                // Remove old image? Ideally yes, but skipping for safety/simplicity now
+                // Clear previous config and initialize
+                $this->image_lib->clear();
+                $this->image_lib->initialize($config_resize);
+
+                if ($this->image_lib->resize()) {
+                    $data['gambar'] = 'uploads/posts/' . $new_file_name;
+                    
+                    // Delete original uploaded file (the jpg/png)
+                    if ($original_path !== $new_path && file_exists($original_path)) {
+                        unlink($original_path); 
+                    }
+
+                    // DELETE OLD IMAGE FROM DATABASE IF EXISTS
+                    $old_post = $this->db->get_where('posts', ['id_post' => $id_post])->row();
+                    if ($old_post && !empty($old_post->gambar)) {
+                        $old_image_path = './' . $old_post->gambar;
+                        if (file_exists($old_image_path)) {
+                            unlink($old_image_path);
+                        }
+                    }
+
+                } else {
+                    // Fallback to original if compression fails, but log it
+                    $error_msg = $this->image_lib->display_errors();
+                    log_message('error', 'Image Lib Error (Update): ' . $error_msg);
+                    file_put_contents('./application/logs/image_debug.txt', date('Y-m-d H:i:s') . " - Update Error: " . $error_msg . "\n", FILE_APPEND);
+
+                    $data['gambar'] = 'uploads/posts/' . $uploadData['file_name'];
+                    
+                    // Logic delete old image even if compression fails (standard update)
+                    $old_post = $this->db->get_where('posts', ['id_post' => $id_post])->row();
+                    if ($old_post && !empty($old_post->gambar)) {
+                        $old_image_path = './' . $old_post->gambar;
+                        if (file_exists($old_image_path)) {
+                            unlink($old_image_path);
+                        }
+                    }
+                }
             }
         }
 
         $this->db->where('id_post', $id_post);
         $this->db->update('posts', $data);
+        $this->session->set_flashdata('success', 'Artikel berhasil diperbarui');
         redirect('post');
     }
 
     public function delete($id) {
+        $post = $this->db->get_where('posts', ['id_post' => $id])->row();
+        if ($post && !empty($post->gambar)) {
+            $path = './' . $post->gambar;
+            if (file_exists($path)) {
+                unlink($path);
+            }
+        }
         $this->db->where('id_post', $id);
         $this->db->delete('posts');
+        $this->session->set_flashdata('success', 'Artikel berhasil dihapus');
         redirect('post');
     }
 }

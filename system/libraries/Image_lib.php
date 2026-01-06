@@ -566,7 +566,7 @@ class CI_Image_lib {
 		else
 		{
 			// Is there a file name?
-			if ( ! preg_match('#\.(jpg|jpeg|gif|png)$#i', $this->new_image))
+			if ( ! preg_match('#\.(jpg|jpeg|gif|png|webp)$#i', $this->new_image))
 			{
 				$this->dest_image  = $this->source_image;
 				$this->dest_folder = $this->new_image;
@@ -1473,6 +1473,14 @@ class CI_Image_lib {
 				}
 
 				return imagecreatefrompng($path);
+            case 18: // IMAGETYPE_WEBP
+                if ( ! function_exists('imagecreatefromwebp'))
+                {
+                    $this->set_error(array('imglib_unsupported_imagecreate', 'imglib_webp_not_supported'));
+                    return FALSE;
+                }
+
+                return imagecreatefromwebp($path);
 			default:
 				$this->set_error(array('imglib_unsupported_imagecreate'));
 				return FALSE;
@@ -1492,6 +1500,25 @@ class CI_Image_lib {
 	 */
 	public function image_save_gd($resource)
 	{
+        // Auto-detect destination format based on extension
+        $ext = pathinfo($this->full_dst_path, PATHINFO_EXTENSION);
+        $ext = strtolower($ext);
+
+        if ($ext === 'webp') {
+             if ( ! function_exists('imagewebp'))
+             {
+                 $this->set_error(array('imglib_unsupported_imagecreate', 'imglib_webp_not_supported'));
+                 return FALSE;
+             }
+
+             if ( ! @imagewebp($resource, $this->full_dst_path, $this->quality))
+             {
+                 $this->set_error('imglib_save_failed');
+                 return FALSE;
+             }
+             return TRUE;
+        }
+
 		switch ($this->image_type)
 		{
 			case 1:
@@ -1533,6 +1560,19 @@ class CI_Image_lib {
 					return FALSE;
 				}
 			break;
+            case 18: // IMAGETYPE_WEBP
+                if ( ! function_exists('imagewebp'))
+                {
+                    $this->set_error(array('imglib_unsupported_imagecreate', 'imglib_webp_not_supported'));
+                    return FALSE;
+                }
+
+                if ( ! @imagewebp($resource, $this->full_dst_path, $this->quality))
+                {
+                    $this->set_error('imglib_save_failed');
+                    return FALSE;
+                }
+            break;
 			default:
 				$this->set_error(array('imglib_unsupported_imagecreate'));
 				return FALSE;
@@ -1565,6 +1605,8 @@ class CI_Image_lib {
 				break;
 			case 3	:	imagepng($resource);
 				break;
+            case 18 :   imagewebp($resource, NULL, $this->quality);
+                break;
 			default:	echo 'Unable to display the image';
 				break;
 		}
@@ -1659,7 +1701,7 @@ class CI_Image_lib {
 			return FALSE;
 		}
 
-		$types = array(1 => 'gif', 2 => 'jpeg', 3 => 'png');
+		$types = array(1 => 'gif', 2 => 'jpeg', 3 => 'png', 18 => 'webp');
 		$mime = isset($types[$vals[2]]) ? 'image/'.$types[$vals[2]] : 'image/jpg';
 
 		if ($return === TRUE)

@@ -25,7 +25,7 @@
                                 <?php
                                 $foto = $guru->foto;
                                 if ($foto == '' || $foto == null) {
-                                    $foto = 'assets/img/siswa.png';
+                                    $foto = 'assets/img/guru.png';
                                 }
                                 ?>
                                 <img id="foto-guru" src="<?= base_url() . $foto ?>"
@@ -217,7 +217,7 @@
                     <label for="foto-profile">Foto Profil</label>
                     <input type="file" id="foto-profile" name="foto" class="dropify"
                            data-max-file-size-preview="2M"
-                           data-allowed-file-extensions="jpg jpeg png"
+                           data-allowed-file-extensions="jpg jpeg png webp"
                            data-default-file="<?= base_url() . $guru->foto ?>"/>
                 </div>
                 <?= form_close() ?>
@@ -494,7 +494,7 @@
 
         $(`.profile-avatar`).each(function () {
             $(this).on("error", function () {
-                $(this).attr("src", base_url + 'assets/img/siswa.png'); // default foto
+                $(this).attr("src", base_url + 'assets/img/guru.png'); // default foto
             });
         });
 

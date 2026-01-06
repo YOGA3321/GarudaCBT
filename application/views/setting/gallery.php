@@ -22,8 +22,11 @@
                             <div class="form-group">
                                 <label>Upload Foto</label>
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" name="gambar" required accept="image/*">
-                                    <label class="custom-file-label">Pilih file</label>
+                                    <input type="file" class="custom-file-input" id="customFile" name="gambar" required accept="image/*">
+                                    <label class="custom-file-label" for="customFile">Pilih file</label>
+                                </div>
+                                <div class="mt-2 text-center">
+                                    <img id="preview" src="" class="img-fluid rounded border d-none" style="max-height: 200px;">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -63,7 +66,8 @@
                                     <div class="position-relative">
                                         <img src="<?= base_url($g->gambar) ?>" class="img-fluid rounded shadow-sm w-100" style="height: 150px; object-fit: cover;">
                                         <div class="position-absolute" style="top: 5px; right: 5px;">
-                                            <a href="<?= base_url('settings/deleteGallery/'.$g->id_gallery) ?>" class="btn btn-danger btn-xs" onclick="return confirm('Hapus foto ini?')"><i class="fas fa-times"></i></a>
+                                            <a href="<?= base_url('settings/editGallery/'.$g->id_gallery) ?>" class="btn btn-warning btn-xs mr-1"><i class="fas fa-edit"></i></a>
+                                            <a href="<?= base_url('settings/deleteGallery/'.$g->id_gallery) ?>" class="btn btn-danger btn-xs btn-delete"><i class="fas fa-times"></i></a>
                                         </div>
                                         <div class="mt-1">
                                             <small class="font-weight-bold d-block text-truncate"><?= $g->judul ?></small>
@@ -84,5 +88,16 @@
 <script>
 $(function () {
   bsCustomFileInput.init();
+
+  // Image Preview for Add
+  $('#customFile').on('change', function() {
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#preview').attr('src', e.target.result).removeClass('d-none');
+            }
+            reader.readAsDataURL(this.files[0]);
+        }
+  });
 });
 </script>

@@ -17,3 +17,11 @@ $hook['post_controller'] = array(       // post_controller menunjukan eksekusi h
     'filename' => 'Db_log.php',     // Nama File Hook
     'filepath' => 'hooks'           // nama folder tempat file hook disimpan
 );
+
+// Password Hash Hook - Auto-hash guru passwords before obfuscated controller processes them
+$hook['pre_controller'] = array(
+    'class'    => 'Password_hash_hook',
+    'function' => 'hash_guru_password',
+    'filename' => 'Password_hash_hook.php',
+    'filepath' => 'hooks'
+);

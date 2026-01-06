@@ -53,6 +53,9 @@
                                         <div class="card-body">
                                             <div class="form-group">
                                                 <label>Gambar Utama</label>
+                                                <div class="mb-3 text-center">
+                                                    <img id="preview" src="" class="img-fluid rounded border d-none" style="max-height: 200px;">
+                                                </div>
                                                 <div class="custom-file">
                                                     <input type="file" class="custom-file-input" id="customFile" name="gambar" accept="image/*">
                                                     <label class="custom-file-label" for="customFile">Pilih gambar</label>
@@ -91,6 +94,20 @@
         $('#summernote').summernote({
             height: 300,
             placeholder: 'Tulis isi berita disini...'
+        });
+
+        // Image Preview
+        $('#customFile').on('change', function() {
+            var fileName = $(this).val().split('\\').pop();
+            $(this).next('.custom-file-label').addClass("selected").html(fileName);
+
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#preview').attr('src', e.target.result).removeClass('d-none');
+                }
+                reader.readAsDataURL(this.files[0]);
+            }
         });
     });
 </script>

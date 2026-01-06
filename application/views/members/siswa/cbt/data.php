@@ -43,6 +43,11 @@ $jadwal_selesai = [];
                                     if ($cbt_info == null) : ?>
                                         <div class="alert alert-default-warning">
                                             <div class="text-center">Tidak ada jadwal penilaian</div>
+                                            <div class="text-center mt-2">
+                                                <a href="<?= base_url('dashboard') ?>" class="btn btn-primary btn-sm">
+                                                    <i class="fas fa-arrow-left mr-1"></i> Kembali ke Dashboard
+                                                </a>
+                                            </div>
                                         </div>
                                     <?php else: ?>
                                         <div class="card border">
@@ -53,7 +58,7 @@ $jadwal_selesai = [];
                                                 <ul class="list-group list-group-unbordered">
                                                     <?php
                                                     $arrTitle = ['No. Peserta', 'Ruang', 'Sesi', 'Dari', 'Sampai'];
-                                                    $arrSub = [$cbt_info->no_peserta->nomor_peserta ?? '', $cbt_info->nama_ruang ?? '', $cbt_info->nama_sesi ?? '', substr($cbt_info->waktu_mulai, 0, -3), substr($cbt_info->waktu_akhir, 0, -3)];
+                                                    $arrSub = [$cbt_info->no_peserta->nomor_peserta ?? '', $cbt_info->nama_ruang ?? '', $cbt_info->nama_sesi ?? '', substr($cbt_info->waktu_mulai ?? '', 0, -3), substr($cbt_info->waktu_akhir ?? '', 0, -3)];
                                                     foreach ($arrTitle as $key => $title) :
                                                         if ($arrSub[$key] == null) array_push($cbt_setting, $title)
                                                         ?>
@@ -110,6 +115,11 @@ $jadwal_selesai = [];
                                     <div class="col-12 alert alert-default-warning">
                                         <div class="text-center">Tidak ada jadwal penilaian.<b>Tidak bisa mengerjakan
                                                 ulangan/ujian.<br>Hubungi Proktor/Admin</div>
+                                        <div class="text-center mt-2">
+                                            <a href="<?= base_url('dashboard') ?>" class="btn btn-primary btn-sm">
+                                                <i class="fas fa-arrow-left mr-1"></i> Kembali ke Dashboard
+                                            </a>
+                                        </div>
                                     </div>
                                 <?php else:
                                     $jamSesi = $cbt_info == null ? '0' : (isset($cbt_info->sesi_id) ? $cbt_info->sesi_id : $cbt_info->id_sesi);

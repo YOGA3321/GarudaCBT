@@ -23,7 +23,7 @@
                                 }
                                 ?>
                                 <img id="foto-guru" src="<?= base_url() . $foto ?>"
-                                     class="img-circle profile-avatar mt-2" alt="User avatar">
+                                     class="img-circle profile-avatar mt-2" alt="User avatar" onerror="this.src='<?= base_url('assets/img/guru.png') ?>'">
                                 <h4 class="mt-5"><?= $guru->nama_guru ?></h4>
                                 <h5 class="mb-5"><?= $guru->level . ' ' . $guru->nama_kelas ?></h5>
                                 <div class="user-button">
@@ -489,7 +489,7 @@
         });
 
         $('#foto-guru').on("error", function () {
-            $(this).attr("src", base_url + 'assets/img/siswa.png');
+            $(this).attr("src", base_url + 'assets/img/guru.png');
         });
     });
 

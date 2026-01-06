@@ -189,7 +189,7 @@ $display_logout = $this->uri->segment(2) == "penilaian" ? 'd-none' : '';
         if (isCbtMode) {
             $("a#url-back").attr("href", base_url + 'siswa/cbt');
             if ('<?= $cbt ?>' === 'cbt') {
-                $('#back').addClass('d-none')
+                // $('#back').addClass('d-none')
             }
         }
     </script>

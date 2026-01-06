@@ -223,5 +223,36 @@
                 alert('Tautan berhasil disalin!');
             }
         }
+
+        // View counter - increment after 30 seconds of reading
+        (function() {
+            const postId = <?= $post->id_post ?>;
+            const viewDelay = 30; // seconds
+            let viewCounted = false;
+            
+            setTimeout(function() {
+                if (!viewCounted) {
+                    viewCounted = true;
+                    fetch('<?= base_url("blog/increment_view") ?>', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: 'id_post=' + postId
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status && data.new_views) {
+                            // Update view count display
+                            const viewElement = document.querySelector('.ri-eye-line')?.parentElement?.querySelector('span');
+                            if (viewElement) {
+                                viewElement.textContent = data.new_views + ' Views';
+                            }
+                        }
+                    })
+                    .catch(err => console.log('View count error:', err));
+                }
+            }, viewDelay * 1000);
+        })();
     </script>
 <?php $this->load->view('_templates/public/footer'); ?>

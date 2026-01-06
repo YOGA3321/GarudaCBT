@@ -64,7 +64,7 @@
                                             <td>
                                                 <a href="<?= base_url('blog/read/'.$p->slug) ?>" target="_blank" class="btn btn-xs btn-default" title="Lihat"><i class="fas fa-eye"></i></a>
                                                 <a href="<?= base_url('post/edit/'.$p->id_post) ?>" class="btn btn-xs btn-warning" title="Edit"><i class="fas fa-edit"></i></a>
-                                                <a href="<?= base_url('post/delete/'.$p->id_post) ?>" class="btn btn-xs btn-danger" onclick="return confirm('Hapus berita ini?')" title="Hapus"><i class="fas fa-trash"></i></a>
+                                                <a href="<?= base_url('post/delete/'.$p->id_post) ?>" class="btn btn-xs btn-danger btn-delete" title="Hapus"><i class="fas fa-trash"></i></a>
                                             </td>
                                         </tr>
                                         <?php endforeach; ?>
