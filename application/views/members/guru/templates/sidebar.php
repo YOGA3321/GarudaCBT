@@ -13,13 +13,35 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 d-flex">
             <div class="image">
-                <img src="<?= $guru->foto != null ? base_url() . $guru->foto : base_url('assets/img/guru.png') ?>"
+                <?php
+                $foto = 'assets/img/guru.png';
+                if (isset($guru)) {
+                    if (is_object($guru) && !empty($guru->foto)) {
+                        $foto = $guru->foto;
+                    } elseif (is_array($guru) && !empty($guru['foto'])) {
+                        $foto = $guru['foto'];
+                    }
+                }
+                ?>
+                <img src="<?= base_url($foto) ?>"
                      class="img-circle elevation-2" alt="User Image" style="height: 40px; width: 40px"
                      onerror="this.src='<?= base_url('assets/img/guru.png') ?>'">
             </div>
             <div class="info">
                 <a href="#" class="d-block text-wrap">
-                    <p><?= $guru->nama_guru ?></p>
+                <p>
+                    <?php
+                    $namaGuru = 'Administrator';
+                    if (isset($guru)) {
+                        if (is_object($guru) && !empty($guru->nama_guru)) {
+                            $namaGuru = $guru->nama_guru;
+                        } elseif (is_array($guru) && !empty($guru['nama_guru'])) {
+                            $namaGuru = $guru['nama_guru'];
+                        }
+                    }
+                    echo $namaGuru;
+                    ?>
+                </p>
                 </a>
             </div>
         </div>
@@ -37,7 +59,7 @@
 
 <script>
     const page = '<?= $this->uri->segment(1)?>';
-    const jabatan = '<?=$guru->id_jabatan?>';
+    const jabatan = '<?= isset($guru) ? (is_object($guru) ? ($guru->id_jabatan ?? 0) : ($guru['id_jabatan'] ?? 0)) : 0 ?>';
     const pageact = '<?= $this->uri->segment(2); ?>';
     const menus = [
         {

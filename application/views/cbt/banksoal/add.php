@@ -1,4 +1,38 @@
 <?php
+// Fix untuk Admin dimana variable gurus tidak terkirim dari controller yang ter-obfuscate
+$kelasAll = [];
+if (!isset($gurus)) {
+    $ci =& get_instance();
+    if($ci->ion_auth->is_admin()){
+        $ci->load->model('Dropdown_model', 'dropdown');
+        $gurus = $ci->dropdown->getAllGuru();
+        
+        // Fix untuk Dropdown Kelas Kosong pada Admin
+        $ci->load->model('Master_model', 'master');
+        $tp = $ci->dashboard->getTahunActive();
+        $smt = $ci->dashboard->getSemesterActive();
+        $kelasRaw = $ci->master->getAllKelas($tp->id_tp, $smt->id_smt);
+        
+        // Flatten nested array structure [tp][smt][id_kelas] -> [class_objects]
+        $kelasAll = [];
+        if (!empty($kelasRaw) && is_array($kelasRaw)) {
+            foreach ($kelasRaw as $tp_key => $smts) {
+                if (is_array($smts)) {
+                    foreach ($smts as $smt_key => $classes) {
+                        if (is_array($classes)) {
+                            foreach ($classes as $class) {
+                                $kelasAll[] = $class;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    } else {
+        $gurus = [];
+    }
+}
+
 /**
  * Created by IntelliJ IDEA.
  * User: multazam
@@ -287,6 +321,7 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas ?? ''));
     let kelasSelect = JSON.parse('<?= $kelasSelected ?>');
     var idGuru = '<?=$id_guru?>';
     var idMapel = '<?=$bank->bank_mapel_id?>';
+    var allKelas = <?= json_encode($kelasAll) ?>; // Data kelas untuk admin
 
     $(document).ready(function () {
         ajaxcsrf();
@@ -354,24 +389,21 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas ?? ''));
 
         function getGuruMapel(mapel) {
             if (isAdmin) {
+                // Modified: Do not fetch filtered gurus for Admin. Use the full list loaded by PHP.
+                // allow trigger change to update idGuru
+                idGuru = selGuru.val();
+                getKelasLevel(selLevel.val(), selMapel.val());
+                return; 
+
+                /* Original AJAX disabled
                 $.ajax({
                     url: base_url + "cbtbanksoal/getgurumapel?id_mapel=" + mapel,
                     type: "GET",
                     success: function (data) {
-                        console.log('guru', data);
-                        var opts = '';
-                        selGuru.html(opts);
-                        $.each(data, function (k, v) {
-                            var selected = idGuru == k ? 'selected=selected' : '';
-                            opts += '<option value="' + k + '" ' + selected + '>' + v + '</option>';
-                        });
-                        selGuru.html(opts);
-                        idGuru = selGuru.val();
-                        getKelasLevel(selLevel.val(), selMapel.val());
-                    }, error: function (xhr, status, error) {
-                        console.log("error", xhr.responseText);
+                        // ...
                     }
                 });
+                */
             }
         }
 
@@ -379,6 +411,26 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas ?? ''));
             console.log('id_guru', idGuru);
             console.log('id_level', level);
             console.log('id_mapel', mapel);
+
+            if (isAdmin) {
+                // Logic khusus Admin: Filter dari data allKelas yang sudah di-load (Client Side)
+                // Data sudah di-flatten di PHP, jadi allKelas adalah array of objects.
+                console.log('Admin Filtering Classes', 'Level:', level, 'Total Classes:', allKelas.length);
+                
+                selKelas.html('').select2({data: null}).trigger('change');
+                
+                // Iterasi simple array
+                $.each(allKelas, function(i, cls) {
+                    // Gunakan loose comparison (==) karena level mungkin string '1' vs number 1
+                    if (cls.level_id == level) {
+                        var selected = jQuery.inArray(cls.id_kelas, as) > -1;
+                        selKelas.append(new Option(cls.nama_kelas, cls.id_kelas, false, selected));
+                    }
+                });
+                selKelas.trigger('change');
+                return;
+            }
+
             if (idGuru === '' || mapel == null) {
                 console.log('id_guru', 'empty');
             } else {
