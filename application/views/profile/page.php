@@ -126,6 +126,7 @@
                                 prose-strong:text-slate-700
                                 prose-blockquote:border-l-4 prose-blockquote:border-teal-500 prose-blockquote:bg-teal-50/50 prose-blockquote:py-4 prose-blockquote:px-6 prose-blockquote:rounded-r-2xl prose-blockquote:not-italic prose-blockquote:text-slate-600
                                 prose-ul:space-y-2 prose-li:text-slate-600
+                                prose-ol:list-decimal prose-ol:pl-6 prose-ol:space-y-2
                                 marker:text-teal-500">
                                 <?= $content ?>
                             </article>
@@ -194,6 +195,21 @@
             opacity: 1;
             transform: translateY(0);
         }
+    }
+    
+    /* Ordered List Styling */
+    .prose ol {
+        list-style-type: decimal !important;
+        padding-left: 1.5rem !important;
+        margin-left: 0.5rem;
+    }
+    .prose ol li {
+        padding-left: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+    .prose ol li::marker {
+        color: #14b8a6;
+        font-weight: 600;
     }
 </style>
 

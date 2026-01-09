@@ -6,6 +6,24 @@
 */
  defined('BASEPATH') OR exit('No direct script access allowed');
  class Dashboard_model extends CI_Model { 	public function getSetting() {
+        // AUTO-RESTORE: Check if school_profile exists
+        if (!$this->db->table_exists('school_profile')) {
+            $this->db->query("CREATE TABLE IF NOT EXISTS `school_profile` (
+              `id_school_profile` int(11) NOT NULL AUTO_INCREMENT,
+              `nama_sekolah` varchar(255) NOT NULL DEFAULT 'Nama Sekolah',
+              `alamat_sekolah` text,
+              `logo_sekolah` varchar(255) DEFAULT 'uploads/settings/logo.png',
+              `admin_name` varchar(255) DEFAULT 'Administrator',
+              `admin_foto` varchar(255) DEFAULT 'uploads/settings/admin.jpg',
+              `kepala_sekolah` varchar(255) DEFAULT 'Kepala Sekolah',
+              `nip_kepala` varchar(50) DEFAULT '',
+              `tanda_tangan` varchar(255) DEFAULT 'uploads/settings/ttd.png',
+              PRIMARY KEY (`id_school_profile`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+            
+            $this->db->query("INSERT INTO `school_profile` (`nama_sekolah`, `alamat_sekolah`) VALUES ('Garuda CBT', 'Alamat Sekolah')");
+        }
+
 		$setting = $this->db->get("setting")->row();
 		$profile = $this->db->get("school_profile")->row();
 		

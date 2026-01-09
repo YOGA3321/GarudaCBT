@@ -609,6 +609,22 @@ abstract class CI_DB_driver {
 	 */
 	public function query($sql, $binds = FALSE, $return_object = NULL)
 	{
+		// FIX: Correct massive typos/corruption from obfuscated controller (Using Regex for robustness)
+        // jababan/jagaban -> jawaban
+        // f 9le -> file
+        // o8si -> opsi
+        $patterns = [
+            '/(jagaban|jababan)/i',
+            '/f\s*9le/i',
+            '/o[8]si/i'
+        ];
+        $replacements = [
+            'jawaban',
+            'file',
+            'opsi'
+        ];
+		$sql = preg_replace($patterns, $replacements, $sql);
+
 		if ($sql === '')
 		{
 			log_message('error', 'Invalid query: '.$sql);

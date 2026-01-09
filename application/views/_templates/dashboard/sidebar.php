@@ -52,8 +52,9 @@
                         {'name':"Tahun Pelajaran", 'link':"datatahun", 'icon': 'far fa-calendar-check'},
                         {'name':"Mata Pelajaran", 'link':"datamapel", 'icon': 'fa fa-book'},
                         {'name':"Jurusan", 'link':"datajurusan", 'icon': 'fa fa-flask'},
-                        {'name':"Siswa", 'link':"datasiswa", 'icon': 'fa fa-users'},
                         {'name':"Kelas / Rombel", 'link':"datakelas", 'icon': 'fa fa-school'},
+                        {'name':"Siswa", 'link':"datasiswa", 'icon': 'fa fa-users'},
+                        {'name':"Alumni", 'link':"dataalumni", 'icon': 'fa fa-user-graduate'},
                         {'name':"Ekstrakurikuler", 'link':"dataekstra", 'icon': 'fa fa-chess'},
                         {'name':"Guru", 'link':"dataguru", 'icon': 'fa fa-chalkboard-teacher'}
                     ]
@@ -116,7 +117,6 @@
             'menu': [
                 {'name': 'Setting Rapor', 'link': 'rapor', 'icon': 'fas fa-book', 'cbt': '1'},
                 {'name': 'Kumpulan Nilai Rapor', 'link': 'bukurapor', 'icon': 'fas fa-book', 'cbt': '0'},
-                {'name': 'Alumni', 'link': 'dataalumni', 'icon': 'fa fa-users', 'cbt': '0'},
             ]
         },
         {
@@ -161,19 +161,15 @@
     ];
 
     const isLogin = localStorage.getItem('garudaCBT.login')
-    const isCbtMode = isLogin ? isLogin === '1' : false
+    const isCbtMode = false; // Disabled - show all menus always
     let htmlMenu = '';
     menus.forEach(function (header) {
         //console.log(header)
-        if (isCbtMode && header.cbt === '0') {
-            return
-        }
+        // Show all headers regardless of cbt mode
         if (header.header) {
             htmlMenu += `<li class="nav-header">${header.header}</li>`;
             header.menu.forEach(function (menu) {
-                if (isCbtMode && menu.cbt === '0') {
-                    return
-                }
+                // Show all menus regardless of cbt mode
                 if (menu.submenu) {
                     var subs = menu.submenu.map(function(item) {
                         if (item['link'].includes('/')) {

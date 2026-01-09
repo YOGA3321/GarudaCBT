@@ -273,8 +273,8 @@ function singkat_tanggal($str)
 <div class="wrapper">
 
     <!-- Navbar -->
-    <?php require_once("navbar.php"); ?>
+    <?php $this->load->view("members/guru/templates/navbar"); ?>
 
     <!-- Sidebar -->
-    <?php require_once("sidebar.php"); ?>
+    <?php $this->load->view("members/guru/templates/sidebar"); ?>
     <!-- /.sidebar -->

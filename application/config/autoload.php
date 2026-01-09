@@ -134,4 +134,4 @@ $autoload['language'] = array('auth', 'ion_auth');
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-//$autoload['model'] = array('DAOFactory' => 'dao');
+$autoload['model'] = array('Log_model' => 'logging', 'Dashboard_model' => 'dashboard');

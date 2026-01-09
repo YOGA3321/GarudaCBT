@@ -1,33 +1,26 @@
 <?php
-// Fix untuk Admin dimana variable gurus tidak terkirim dari controller yang ter-obfuscate
+// Fix: Query Langsung ke Database untuk memastikan data terambil (Untuk Admin & Guru)
+$ci =& get_instance();
+$tp = $ci->dashboard->getTahunActive();
+$smt = $ci->dashboard->getSemesterActive();
+
+$ci->db->select('id_kelas, nama_kelas, level_id, kode_kelas');
+$ci->db->from('master_kelas');
+$ci->db->where('id_tp', $tp->id_tp);
+$ci->db->where('id_smt', $smt->id_smt);
+$ci->db->order_by('nama_kelas', 'ASC');
+$query_kelas = $ci->db->get()->result();
+
 $kelasAll = [];
+if(!empty($query_kelas)){
+    $kelasAll = $query_kelas;
+}
+
+// Fix untuk Admin dimana variable gurus tidak terkirim dari controller yang ter-obfuscate
 if (!isset($gurus)) {
-    $ci =& get_instance();
     if($ci->ion_auth->is_admin()){
         $ci->load->model('Dropdown_model', 'dropdown');
         $gurus = $ci->dropdown->getAllGuru();
-        
-        // Fix untuk Dropdown Kelas Kosong pada Admin
-        $ci->load->model('Master_model', 'master');
-        $tp = $ci->dashboard->getTahunActive();
-        $smt = $ci->dashboard->getSemesterActive();
-        $kelasRaw = $ci->master->getAllKelas($tp->id_tp, $smt->id_smt);
-        
-        // Flatten nested array structure [tp][smt][id_kelas] -> [class_objects]
-        $kelasAll = [];
-        if (!empty($kelasRaw) && is_array($kelasRaw)) {
-            foreach ($kelasRaw as $tp_key => $smts) {
-                if (is_array($smts)) {
-                    foreach ($smts as $smt_key => $classes) {
-                        if (is_array($classes)) {
-                            foreach ($classes as $class) {
-                                $kelasAll[] = $class;
-                            }
-                        }
-                    }
-                }
-            }
-        }
     } else {
         $gurus = [];
     }
@@ -325,6 +318,14 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas ?? ''));
 
     $(document).ready(function () {
         ajaxcsrf();
+        
+        // Auto-generate Kode Bank Soal if empty
+        var inputKode = $('input[name="kode"]');
+        if (inputKode.val() === '') {
+            var randomCode = Math.floor(100000 + Math.random() * 900000); // 6 digit random
+            inputKode.val(randomCode);
+        }
+
         var selLevel = $('#select-level');
         var selKelas = $('#select-kelas');
         var selMapel = $('#select-mapel');
@@ -377,10 +378,16 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas ?? ''));
                     });
                 }, error: function (xhr, status, error) {
                     console.log("error", xhr.responseText);
-                    const err = JSON.parse(xhr.responseText)
+                    var errMessage = "Unknown Error";
+                    try {
+                        const err = JSON.parse(xhr.responseText);
+                        errMessage = err.Message || err.message || xhr.responseText;
+                    } catch (e) {
+                        errMessage = xhr.responseText; // Fallback to raw text (HTML Error)
+                    }
                     swal.fire({
-                        title: "Error",
-                        text: err.Message,
+                        title: "Error / Gagal Simpan",
+                        html: errMessage,
                         icon: "error"
                     });
                 }
@@ -412,16 +419,13 @@ $kelasSelected = json_encode(unserialize($bank->bank_kelas ?? ''));
             console.log('id_level', level);
             console.log('id_mapel', mapel);
 
-            if (isAdmin) {
-                // Logic khusus Admin: Filter dari data allKelas yang sudah di-load (Client Side)
-                // Data sudah di-flatten di PHP, jadi allKelas adalah array of objects.
-                console.log('Admin Filtering Classes', 'Level:', level, 'Total Classes:', allKelas.length);
+            // Logic Universal: Jika allKelas tersedia, Filter Client Side
+            if (allKelas && allKelas.length > 0) {
+                console.log('Filtering Classes (Client Side)', 'Level:', level, 'Total Classes:', allKelas.length);
                 
                 selKelas.html('').select2({data: null}).trigger('change');
                 
-                // Iterasi simple array
                 $.each(allKelas, function(i, cls) {
-                    // Gunakan loose comparison (==) karena level mungkin string '1' vs number 1
                     if (cls.level_id == level) {
                         var selected = jQuery.inArray(cls.id_kelas, as) > -1;
                         selKelas.append(new Option(cls.nama_kelas, cls.id_kelas, false, selected));

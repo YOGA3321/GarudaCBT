@@ -1,3 +1,25 @@
+<?php
+// Auto-fetch guru data if not passed by controller
+if (!isset($guru) || empty($guru)) {
+    $CI =& get_instance();
+    $user = $CI->ion_auth->user()->row();
+    if ($user) {
+        // Try to find guru by username
+        $CI->db->select('id_guru, nama_guru, foto');
+        $CI->db->from('master_guru');
+        $CI->db->where('username', $user->username);
+        $guru = $CI->db->get()->row();
+        
+        // If not found by username, try by id_user
+        if (!$guru) {
+            $CI->db->select('id_guru, nama_guru, foto');
+            $CI->db->from('master_guru');
+            $CI->db->where('id_user', $user->id);
+            $guru = $CI->db->get()->row();
+        }
+    }
+}
+?>
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-light-teal my-shadow">
     <!-- Brand Logo -->

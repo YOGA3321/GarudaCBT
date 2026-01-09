@@ -58,13 +58,15 @@
                                 ); ?>
                             </div>
                         </div>
-                        <!--
                         <div class="col-3">
                             <?php if (isset($nilai) && count($nilai) == 0) : ?>
                                 <button class="btn btn-primary" id="kalkulasi">Buat Analisa</button>
                             <?php endif; ?>
+                            <!-- Tombol Recalculate jika sudah ada nilai? -->
+                             <?php if (isset($nilai) && count($nilai) > 0) : ?>
+                                <button class="btn btn-warning" id="kalkulasi"><i class="fas fa-sync"></i> Hitung Ulang</button>
+                            <?php endif; ?>
                         </div>
-                        -->
                     </div>
                     <hr>
                     <?php
@@ -246,8 +248,8 @@
                                         <?php
                             $no = 1;
                             foreach ($soals[2] as $soal) :
-                                $soal->opsi_a = @unserialize($soal->opsi_a ?? '');
-                                $soal->jawaban = @unserialize($soal->jawaban ?? '');
+                                $soal->opsi_a = @unserialize($soal->opsi_a ?? '') ?: [];
+                                $soal->jawaban = @unserialize($soal->jawaban ?? '') ?: [];
                                 ?>
                                             <tr>
                                                 <td><?= $no ?></td>

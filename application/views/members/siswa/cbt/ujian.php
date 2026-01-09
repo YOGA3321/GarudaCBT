@@ -6,105 +6,141 @@
  * Time: 23:18
  */
 ?>
-<div class="content-wrapper" style="margin-top: -1px;">
-    <div class="sticky">
-    </div>
-    <section class="content overlap pt-4">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-6">
-                    <div class="info-box bg-transparent shadow-none">
-                        <img src="<?= base_url() ?>/assets/img/garuda_circle.png" width="60" height="60">
-                        <div class="info-box-content">
-                                <span class="text-white"
-                                      style="font-size: 24pt; line-height: 0.7;"><b>GarudaCBT</b></span>
-                            <span class="text-white">C B T   A p p l i c a t i o n</span>
-                        </div>
-                    </div>
+<!-- Tailwind CSS & Config -->
+<script src="<?= base_url('assets/app/js/tailwind.js') ?>"></script>
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                fontFamily: {
+                    sans: ['Inter', 'sans-serif'], // Modern font stack
+                },
+                colors: {
+                    teal: {
+                        50: '#f0fdfa',
+                        100: '#ccfbf1',
+                        200: '#99f6e4',
+                        300: '#5eead4',
+                        400: '#2dd4bf',
+                        500: '#14b8a6', // Primary Brand Color
+                        600: '#0d9488',
+                        700: '#0f766e',
+                        800: '#115e59',
+                        900: '#134e4a',
+                    },
+                    slate: {
+                        800: '#1e293b',
+                        900: '#0f172a', // Dark Background
+                    }
+                }
+            }
+        }
+    }
+</script>
+
+<style>
+    /* Custom Scrollbar for Exam Content */
+    .custom-scrollbar::-webkit-scrollbar { width: 8px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    
+    body { background-color: #f8fafc; color: #334155; }
+    
+    /* Hide default radio */
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+</style>
+
+<div class="min-h-screen bg-slate-50 relative pb-20">
+    <!-- Header Section -->
+
+    <header class="sticky top-0 z-50 bg-gradient-to-r from-teal-600 to-emerald-600 shadow-lg shadow-teal-900/10 border-b border-teal-500/30 transition-all duration-300 backdrop-blur-md supports-[backdrop-filter]:bg-teal-600/95">
+        <div class="container mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
+            <!-- Left: Logo & Brand -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm shadow-inner border border-white/20 flex items-center justify-center text-white font-bold transition-transform hover:scale-105 active:scale-95">
+                    <img src="<?= base_url() ?>/assets/img/garuda_circle.png" class="w-7 h-7 object-contain drop-shadow-md brightness-0 invert">
                 </div>
-                <div class="col-6">
-                    <div class="float-right mt-2 d-none d-md-inline-block">
-                        <div class="float-right ml-4">
-                            <img src="<?= base_url() ?>/assets/app/img/ic_graduate.png" width="60" height="60">
-                        </div>
-                        <div class="float-left" style="line-height: 1.2">
-                            <span class="text-white"><b><?= $siswa->nama ?></b></span>
-                            <br>
-                            <span class="text-white"><?= $siswa->nis ?></span>
-                            <br>
-                            <span class="text-white"><?= $siswa->nama_kelas ?></span>
-                        </div>
-                    </div>
+                <div>
+                    <h1 class="text-lg md:text-xl font-black text-white tracking-tight leading-none drop-shadow-sm font-sans">GarudaCBT</h1>
+                    <span class="text-[10px] md:text-xs font-bold text-teal-100 tracking-[0.2em] uppercase opacity-90 block mt-0.5">Exam Portal</span>
+                </div>
+            </div>
+
+            <!-- Right: Student Profile -->
+            <div class="flex items-center gap-3 pl-1 pr-1.5 py-1 rounded-full bg-teal-800/20 border border-teal-400/20 backdrop-blur-sm sm:pl-3 sm:pr-4 sm:py-1.5 transition-colors hover:bg-teal-800/30 hover:border-teal-400/30">
+                <div class="hidden sm:flex flex-col text-right mr-1">
+                    <span class="text-xs md:text-sm font-bold text-white leading-tight drop-shadow-sm"><?= $siswa->nama ?></span>
+                    <span class="text-[10px] font-medium text-teal-100 opacity-80"><?= $siswa->nama_kelas ?></span>
+                </div>
+                <div class="w-8 h-8 md:w-9 md:h-9 rounded-full bg-slate-200 overflow-hidden border-2 border-white/30 shadow-sm relative group">
+                     <img src="<?= base_url() ?>/assets/app/img/ic_graduate.png" class="w-full h-full object-cover transition-transform group-hover:scale-110">
                 </div>
             </div>
         </div>
-        <div class="container"
-             style="-moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;"
-             unselectable="on">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card my-shadow">
-                        <div class="card-header p-4">
-                            <div class="card-title">
-                                NOMOR:
-                                <div id="nomor-soal" class="btn bg-primary no-hover ml-2 text-lg"></div>
-                            </div>
-                            <div class="card-tools">
-                                <button class="btn btn-outline-danger btn-oval-sm no-hover">
-                                    <span class='mr-4 d-none d-md-inline-block'><b>Sisa Waktu</b></span>
-                                    <span id="timer" class="text-bold">00:00:00</span>
-                                </button>
-                                <button data-toggle="modal" data-target="#daftarModal"
-                                        class="btn btn-primary btn-oval-sm">
-                                    <span class="d-none d-md-inline-block mr-2"><b>Daftar Soal</b></span>
-                                    <i class="fa fa-th"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body p-3">
-                            <div class="zoom-tool-bar"></div>
-                            <div style="border: 1px solid; border-color: #D3D3D3;">
-                                <div class="konten-soal-jawab">
-                                    <div class="row p-2 mb-4 ml-1">
-                                        <div id="konten-soal" class="table-responsive"></div>
-                                    </div>
-                                    <?= form_open('jawab', array('id' => 'jawab')) ?>
-                                    <input type="hidden" name="siswa" value="<?= $siswa->id_siswa ?>">
-                                    <input type="hidden" name="jadwal" value="<?= $jadwal->id_jadwal ?>">
-                                    <input type="hidden" name="bank" value="<?= $jadwal->id_bank ?>">
-                                    <div class="row p-3">
-                                        <div id="konten-jawaban" class="col-12">
-                                        </div>
-                                    </div>
-                                    <?= form_close() ?>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <div class="d-flex justify-content-between bd-highlight">
-                                <div class="bd-highlight">
-                                    <button class="btn btn-primary btn-oval-sm" id="prev" onclick="prevSoal()">
-                                        <i class="fa fa-arrow-circle-left"></i>
-                                        <span class="ml-2 d-none d-md-inline-block"><b>Soal Sebelumnya</b></span>
-                                    </button>
-                                </div>
-                                <div class="bd-highlight">
-                                    <button class="btn btn-oval-sm btn-danger btn-disabled d-none" id="timer-selesai" disabled></button>
-                                    <button class="btn btn-oval-sm" id="next" onclick="nextSoal()">
-                                        <span id="text-next" class="mr-2 d-none d-md-inline-block"></span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="overlay" id="loading">
-                            <div class="spinner-grow"></div>
-                            <div class="pl-3">MEMUAT SOAL</div>
-                        </div>
-                    </div>
+    </header>
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 md:px-6 py-8 max-w-5xl">
+        <!-- Info Bar (Timer & Nomor) -->
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
+            <div class="flex items-center gap-4">
+                <span class="text-slate-500 font-bold uppercase tracking-wider text-sm">Nomor Soal</span>
+                <div id="nomor-soal" class="w-14 h-14 flex items-center justify-center bg-teal-600 text-white text-2xl font-black rounded-2xl shadow-lg shadow-teal-500/30 transition-transform hover:scale-105"></div>
+            </div>
+            
+            <div class="flex items-center gap-3 bg-white p-2 rounded-2xl shadow-sm border border-slate-200">
+                <div class="px-5 py-2.5 bg-rose-50 text-rose-600 rounded-xl font-bold flex items-center gap-2 border border-rose-100">
+                    <i class="fa fa-clock-o animate-pulse"></i>
+                    <span id="timer" class="text-lg tabular-nums">00:00:00</span>
+                </div>
+                <button data-toggle="modal" data-target="#daftarModal" class="px-5 py-2.5 hover:bg-slate-100 rounded-xl text-slate-600 font-bold transition-all border border-transparent hover:border-slate-200 flex items-center gap-2">
+                    <i class="fa fa-th-large"></i> <span class="hidden sm:inline">Daftar Soal</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Question Card -->
+        <div class="bg-white rounded-[2rem] shadow-xl shadow-slate-200/60 border border-slate-100 overflow-hidden relative transition-all duration-300">
+            <!-- Loading Overlay -->
+            <div id="loading" class="absolute inset-0 bg-white/90 backdrop-blur-sm z-50 flex flex-col items-center justify-center transition-opacity duration-300">
+                <div class="w-16 h-16 border-4 border-slate-200 border-t-teal-500 rounded-full animate-spin mb-4"></div>
+                <span class="text-slate-800 font-bold animate-pulse tracking-wide">MEMUAT SOAL...</span>
+            </div>
+
+            <div class="p-6 md:p-12">
+                <div class="zoom-tool-bar mb-6 flex justify-end"></div>
+                
+                <div class="konten-soal-jawab">
+                    <!-- Soal Text/Image -->
+                    <div id="konten-soal" class="prose prose-lg max-w-none text-slate-700 mb-10 leading-relaxed font-medium"></div>
+                    
+                    <!-- Form Jawaban -->
+                    <?= form_open('jawab', array('id' => 'jawab')) ?>
+                        <input type="hidden" name="siswa" value="<?= $siswa->id_siswa ?>">
+                        <input type="hidden" name="jadwal" value="<?= $jadwal->id_jadwal ?>">
+                        <input type="hidden" name="bank" value="<?= $jadwal->id_bank ?>">
+                        
+                        <!-- Area Jawaban (Will be populated by JS) -->
+                        <div id="konten-jawaban" class="w-full"></div>
+                    <?= form_close() ?>
+                </div>
+            </div>
+
+            <!-- Footer Navigation -->
+            <div class="bg-slate-50/50 border-t border-slate-100 p-6 md:px-12 py-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+                <button id="prev" onclick="prevSoal()" class="w-full sm:w-auto px-8 py-4 rounded-xl border-2 border-slate-200 text-slate-600 font-bold hover:bg-white hover:border-teal-500 hover:text-teal-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed group">
+                    <i class="fa fa-arrow-left mr-2 group-hover:-translate-x-1 transition-transform"></i> Sebelumnya
+                </button>
+                
+                <div class="flex gap-2 w-full sm:w-auto">
+                    <button id="timer-selesai" disabled class="btn btn-oval-sm btn-danger btn-disabled d-none"></button>
+                    <button id="next" onclick="nextSoal()" class="w-full sm:w-auto flex-1 px-10 py-4 rounded-xl bg-teal-600 text-white font-bold shadow-lg shadow-teal-500/30 hover:bg-teal-700 hover:-translate-y-1 transition-all flex items-center justify-center gap-3 group">
+                        <span id="text-next">Selanjutnya</span> <i class="fa fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </button>
                 </div>
             </div>
         </div>
-    </section>
+    </main>
 </div>
 
 <div class="modal fade" id="daftarModal" tabindex="-1" role="dialog" aria-labelledby="daftarLabel"
@@ -312,36 +348,62 @@
         $('#konten-soal').html(data.soal_soal);
         var jenis = data.soal_jenis;
         var html = '';
+        
+        // Wrapper Grid
+        html += '<div class="grid grid-cols-1 gap-4">';
+
         if (jenis == "1") {
             $.each(data.soal_opsi, function (key, opsis) {
                 if (opsis.valAlias != "") {
-                    html += '<label class="container-jawaban font-weight-normal">' + opsis.opsi +
-                        '<input type="radio"' +
-                        ' name="jawaban"' +
-                        ' value="' + opsis.value.toUpperCase() + '"' +
+                    html += '<label class="group relative block cursor-pointer select-none transition-transform active:scale-[0.99]">' +
+                        '<input type="radio" name="jawaban" value="' + opsis.value.toUpperCase() + '"' +
                         ' data-jawabansiswa="' + opsis.value.toUpperCase() + '"' +
                         ' data-jawabanalias="' + opsis.valAlias.toUpperCase() + '"' +
-                        ' onclick="submitJawaban(this)" ' + opsis.checked + '>' +
-                        '<span class="checkmark shadow text-center align-middle">' + opsis.valAlias.toUpperCase() + '</span>' +
-                        '</label>';
+                        ' onclick="submitJawaban(this)" ' + opsis.checked + ' class="peer sr-only">' +
+                        
+                        '<div class="flex items-center p-4 md:p-5 bg-white border-2 border-slate-100 rounded-2xl transition-all duration-200 hover:bg-slate-50 hover:border-teal-300 peer-checked:border-teal-500 peer-checked:bg-teal-50/50 peer-checked:shadow-lg peer-checked:shadow-teal-500/10 peer-checked:ring-2 peer-checked:ring-teal-500 peer-checked:ring-offset-2">' +
+                            // Alias Badge (A/B/C)
+                            '<div class="flex-none w-10 h-10 md:w-12 md:h-12 rounded-xl bg-slate-100 text-slate-600 font-bold text-lg flex items-center justify-center transition-colors group-hover:bg-teal-500 group-hover:text-white peer-checked:bg-teal-600 peer-checked:text-white mr-4 md:mr-6 shadow-sm">' + 
+                                opsis.valAlias.toUpperCase() + 
+                            '</div>' +
+                            // Answer Text
+                            '<div class="flex-grow text-slate-700 font-medium text-base md:text-lg leading-relaxed peer-checked:text-slate-900">' + 
+                                opsis.opsi + 
+                            '</div>' +
+                            // Check Icon
+                            '<div class="hidden peer-checked:block text-teal-600 pl-4">' +
+                                '<i class="fa fa-check-circle text-2xl"></i>' +
+                            '</div>' +
+                        '</div>' +
+                    '</label>';
                 }
             });
+            html += '</div>'; // Close Grid Wrapper
             $('#konten-jawaban').html(html);
+
         } else if (jenis == "2") {
             $.each(data.soal_opsi, function (key, opsis) {
-                html += '<div class="custom-control custom-checkbox checkbox-xl">' +
-                    '<input type="checkbox" class="check2 custom-control-input"' +
-                    'id="check'+key+'"' +
-                    ' name="jawaban"' +
-                    ' value="' + opsis.value.toUpperCase() + '"' +
-                    ' data-max="' + data.max_jawaban[0] + '"' +
-                    ' data-jawabansiswa="' + opsis.value.toUpperCase() + '"' +
-                    ' onclick="submitJawaban(this)" ' + opsis.checked + '>' +
-                    '<label class="custom-control-label font-weight-normal" for="check'+key+'">'
-                    + opsis.opsi +'</label>' +
-                    '</div>'
+                html += '<label class="group relative block cursor-pointer select-none transition-transform active:scale-[0.99]">' +
+                        '<input type="checkbox" id="check'+key+'" name="jawaban" value="' + opsis.value.toUpperCase() + '"' +
+                        ' data-max="' + data.max_jawaban[0] + '"' +
+                        ' data-jawabansiswa="' + opsis.value.toUpperCase() + '"' +
+                        ' onclick="submitJawaban(this)" ' + opsis.checked + ' class="peer sr-only">' +
+                        
+                        '<div class="flex items-center p-4 md:p-5 bg-white border-2 border-slate-100 rounded-2xl transition-all duration-200 hover:bg-slate-50 hover:border-teal-300 peer-checked:border-teal-500 peer-checked:bg-teal-50/50 peer-checked:shadow-lg peer-checked:shadow-teal-500/10 peer-checked:ring-2 peer-checked:ring-teal-500 peer-checked:ring-offset-2">' +
+                            // Checkbox Fake Icon
+                            '<div class="flex-none w-8 h-8 rounded-lg border-2 border-slate-300 bg-white mr-4 md:mr-6 flex items-center justify-center transition-all peer-checked:bg-teal-500 peer-checked:border-teal-500 text-white">' + 
+                                '<i class="fa fa-check opacity-0 peer-checked:opacity-100 transition-opacity"></i>' +
+                            '</div>' +
+                            // Answer Text
+                            '<div class="flex-grow text-slate-700 font-medium text-base md:text-lg leading-relaxed peer-checked:text-slate-900">' + 
+                                opsis.opsi + 
+                            '</div>' +
+                        '</div>' +
+                    '</label>';
             });
+            html += '</div>'; // Close Grid Wrapper
             $('#konten-jawaban').html(html);
+
         } else if (jenis == "3") {
             modelSoal = data.soal_opsi.model;
             typeSoal = data.soal_opsi.type;
@@ -350,8 +412,7 @@
 
             const dataJawab = data.soal_opsi
             const copy = $.extend(true, {}, dataJawab);
-            //console.log('test', copy)
-
+            
             let arrData = [copy.tabel[0]]
             if (Array.isArray(copy.tbody)) {
                 for (let i = 0; i < copy.tbody.length; i++) {
@@ -386,7 +447,7 @@
                 model: modelSoal,
                 type: typeSoal,
             }
-            //console.log('obj', objJawaban)
+            
             konten.linkerList({
                 enableEditor: false,
                 data: objJawaban,
@@ -408,26 +469,28 @@
                 }
             });
         } else if (jenis == "4") {
-            html += '<div class="pr-4">' +
-                '<span class="">JAWABAN:</span><br>' +
-                '<div class="row"><div class="col-12 col-sm-8 col-md-6 col-lg-4 col-xl-4">'+
-                '<input id="jawaban-isian" class="pl-1 form-control" type="text"' +
+            html += '<div class="w-full max-w-2xl">' +
+                '<label class="block text-slate-500 font-bold uppercase tracking-wider text-xs mb-3">Jawaban Singkat:</label>' +
+                '<input id="jawaban-isian" class="w-full px-5 py-4 bg-slate-50 border-2 border-slate-200 rounded-xl text-slate-800 font-medium focus:bg-white focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 transition-all outline-none placeholder:text-slate-400" type="text"' +
                 ' name="jawaban" value="' + jawabanSiswa + '"' +
-                ' placeholder="Tulis jawaban disini"/><br>' +
-                '</div></div>' +
+                ' placeholder="Ketik jawaban Anda di sini..." autocomplete="off"/>' +
                 '</div>';
+            html += '</div>'; // Close Grid Wrapper
             $('#konten-jawaban').html(html);
 
             $("#jawaban-isian").on('change keyup paste', function () {
                 submitJawaban(null);
             });
         } else {
-            html += '<div class="pr-4">' +
-                '<label>JAWABAN:</label><br>' +
-                '<textarea id="jawaban-essai" class="w-100 pl-1" type="text"' +
-                ' name="jawaban" rows="4"' +
-                ' placeholder="Tulis jawaban disini">' + jawabanSiswa + '</textarea><br>' +
+            html += '<div class="w-full">' +
+                '<label class="block text-slate-500 font-bold uppercase tracking-wider text-xs mb-3">Jawaban Uraian:</label>' +
+                '<div class="bg-white rounded-xl border-2 border-slate-200 p-1 focus-within:border-teal-500 transition-colors">' +
+                '<textarea id="jawaban-essai" class="w-full" type="text"' +
+                ' name="jawaban" rows="6"' +
+                ' placeholder="Tulis jawaban disini">' + jawabanSiswa + '</textarea>' +
+                '</div>' +
                 '</div>';
+            html += '</div>'; // Close Grid Wrapper
             $('#konten-jawaban').html(html);
 
             $('#jawaban-essai').summernote({
@@ -1060,4 +1123,106 @@
         })
         return formData
     }
+
+    /* FULLSCREEN & ANTI-CHEAT SECURITY */
+    /* FULLSCREEN & ANTI-CHEAT SECURITY & LOGGING */
+    function saveLogActivity(msg) {
+        $.ajax({
+            url: base_url + "siswa/save_log_activity",
+            type: "POST",
+            data: {
+                id_siswa: '<?= $siswa->id_siswa ?>',
+                id_jadwal: '<?= $jadwal->id_jadwal ?>',
+                activity: msg
+            },
+            success: function(response) {
+                console.log("Activity logged");
+            },
+            error: function(xhr) {
+                console.error("Failed to log activity");
+            }
+        });
+    }
+
+    function openFullscreen() {
+        var elem = document.documentElement;
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.webkitRequestFullscreen) { /* Safari */
+            elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { /* IE11 */
+            elem.msRequestFullscreen();
+        }
+    }
+
+    function closeFullscreen() {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) { /* Safari */
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) { /* IE11 */
+            document.msExitFullscreen();
+        }
+    }
+
+    // Force Fullscreen & Warn on Tab Switch
+    window.addEventListener('blur', function() {
+        if (!timerSelesai && typeof swal !== 'undefined') {
+            saveLogActivity("Meninggalkan halaman ujian (Tab Switch/Minimize)");
+            
+            swal.fire({
+                title: 'PERINGATAN KERAS!',
+                html: 'Anda terdeteksi meninggalkan halaman ujian.<br>Dilarang membuka aplikasi/tab lain!<br><b>Aksi ini tercatat di sistem.</b>',
+                icon: 'warning',
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'KEMBALI KE UJIAN',
+                allowOutsideClick: false
+            }).then((result) => {
+                if (result.value) {
+                    openFullscreen();
+                }
+            });
+        }
+    });
+
+    // Disable Inspect Element
+    document.addEventListener('contextmenu', event => event.preventDefault());
+    document.onkeydown = function(e) {
+        if(e.keyCode == 123) { return false; } // F12
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { return false; } // Ctrl+Shift+I
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) { return false; } // Ctrl+Shift+C
+        if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { return false; } // Ctrl+Shift+J
+        if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { return false; } // Ctrl+U
+    };
+    
+    // Start Exam Overlay Logic
+    $(document).ready(function() {
+         if($('#start-exam-overlay').length === 0) {
+             $('body').append(`
+                <div id="start-exam-overlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15, 23, 42, 0.95); backdrop-filter:blur(10px); z-index:99999; display:flex; justify-content:center; align-items:center; flex-direction:column;">
+                    <div class="bg-white p-8 rounded-3xl shadow-2xl text-center max-w-md mx-4 animate-bounce-in">
+                        <div class="mb-6">
+                             <div class="w-20 h-20 bg-teal-100 rounded-full flex items-center justify-center mx-auto text-teal-600 mb-4">
+                                <i class="fa fa-shield-alt text-4xl"></i>
+                             </div>
+                             <h2 class="text-2xl font-black text-slate-800 mb-2">MODE UJIAN AMAN</h2>
+                             <p class="text-slate-600 leading-relaxed">
+                                Ujian ini dilindungi oleh sistem keamanan.
+                                <br>Dilarang membuka tab lain atau keluar dari mode layar penuh selama ujian berlangsung.
+                             </p>
+                        </div>
+                        <button onclick="startExamSecurity()" class="w-full py-4 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-bold text-lg shadow-lg hover:shadow-teal-500/30 transition-all transform hover:-translate-y-1 active:scale-95 flex items-center justify-center gap-2">
+                            <i class="fa fa-play-circle"></i> MULAI KERJAKAN
+                        </button>
+                    </div>
+                </div>
+             `);
+         }
+    });
+
+    function startExamSecurity() {
+        openFullscreen();
+        $('#start-exam-overlay').fadeOut(300);
+    }
+
 </script>

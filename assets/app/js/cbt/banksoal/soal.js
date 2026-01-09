@@ -156,7 +156,12 @@ $(document).ready(function() {
                     }, error: function (xhr, status, error) {
                         $('#loading').addClass('d-none');
                         console.log("error", xhr.responseText);
-                        showDangerToast();
+                        // Show detailed error 
+                        swal.fire({
+                            title: "ERROR " + status,
+                            html: xhr.responseText,
+                            icon: "error"
+                        });
                     }
                 });
             }, 500);

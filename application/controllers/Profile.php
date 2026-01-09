@@ -159,19 +159,35 @@ class Profile extends CI_Controller {
         $setting = $this->dashboard->getSetting();
         // Add profile data which was causing issues properly
         // Fetch Teacher Data - only active teachers (those with accounts in users table)
-        $this->db->select('master_guru.id_guru, master_guru.nama_guru, master_guru.nip, master_guru.foto, level_guru.level');
+        // Include social media fields for directory display
+        $this->db->select('master_guru.id_guru, master_guru.nama_guru, master_guru.nip, master_guru.foto, 
+                           master_guru.link_fb, master_guru.link_ig, master_guru.link_yt, master_guru.link_linkedin, master_guru.link_tiktok,
+                           level_guru.level, level_guru.id_level');
         $this->db->from('master_guru');
         $this->db->join('jabatan_guru', 'jabatan_guru.id_guru = master_guru.id_guru AND jabatan_guru.id_tp = '.$id_tp.' AND jabatan_guru.id_smt = '.$id_smt, 'left');
         $this->db->join('level_guru', 'jabatan_guru.id_jabatan = level_guru.id_level', 'left');
         // Join with users to filter only active teachers (those with active accounts)
         $this->db->join('users', 'users.username = master_guru.username', 'inner');
+        // Order by level first for grouping, then by name
+        $this->db->order_by('level_guru.id_level', 'ASC');
         $this->db->order_by('master_guru.nama_guru', 'ASC');
         $teachers = $this->db->get()->result();
+        
+        // Group teachers by jabatan/level for directory display
+        $teachers_grouped = [];
+        foreach ($teachers as $teacher) {
+            $jabatan = !empty($teacher->level) ? $teacher->level : 'Tenaga Pendidik';
+            if (!isset($teachers_grouped[$jabatan])) {
+                $teachers_grouped[$jabatan] = [];
+            }
+            $teachers_grouped[$jabatan][] = $teacher;
+        }
         
         $data = [
             'setting' => $setting,
             'students' => $students,
             'teachers' => $teachers,
+            'teachers_grouped' => $teachers_grouped, // Grouped by jabatan
             'classes' => $classes, // New: for dropdown
             'selected_kelas' => $id_kelas, // New: current selection
             'title' => 'Direktori Sekolah', // Changed from "Direktori Peserta Didik" to be more general

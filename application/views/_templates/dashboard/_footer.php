@@ -117,12 +117,103 @@
     function ajaxcsrf() {
         var csrfname = '<?= $this->security->get_csrf_token_name() ?>';
         var csrfhash = '<?= $this->security->get_csrf_hash() ?>';
+        // Expose globally for Datatables
+        window.csrf_name = csrfname;
+        window.csrf_hash = csrfhash;
+        
         var csrf = {};
         csrf[csrfname] = csrfhash;
         $.ajaxSetup({
             "data": csrf
         });
+        
+        // Global AJAX error handler for session expiry
+        $(document).ajaxError(function(event, jqXHR, settings, thrownError) {
+            if (jqXHR.status === 401 || jqXHR.status === 403) {
+                // Session expired
+                window.location.href = base_url + 'auth?session_expired=1';
+            }
+            // Check if response contains login page HTML (redirect happened)
+            if (jqXHR.responseText && jqXHR.responseText.indexOf('id="login-form"') > -1) {
+                window.location.href = base_url + 'auth?session_expired=1';
+            }
+        });
     }
+    
+    // Idle timeout detection (2 hours = 7200000ms, warning at 1:55 = 6900000ms)
+    var idleTimeout = 7200000; // 2 hours in milliseconds
+    var warningTime = 6900000; // 1 hour 55 minutes (5 min before timeout)
+    var idleTimer, warningTimer;
+    var isWarningShown = false;
+    
+    function resetIdleTimer() {
+        if (isWarningShown) return; // Don't reset if warning is shown
+        
+        clearTimeout(idleTimer);
+        clearTimeout(warningTimer);
+        
+        // Warning timer - show modal 5 minutes before timeout
+        warningTimer = setTimeout(function() {
+            isWarningShown = true;
+            showIdleWarning();
+        }, warningTime);
+        
+        // Actual timeout - auto logout
+        idleTimer = setTimeout(function() {
+            window.location.href = base_url + 'logout?reason=idle';
+        }, idleTimeout);
+    }
+    
+    function showIdleWarning() {
+        var countdown = 300; // 5 minutes in seconds
+        var countdownInterval;
+        
+        swal.fire({
+            title: 'Sesi Akan Berakhir',
+            html: 'Anda akan logout otomatis dalam <b id="idle-countdown">5:00</b> menit karena tidak ada aktivitas.<br><br>Klik tombol di bawah untuk melanjutkan sesi.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Lanjutkan Sesi',
+            cancelButtonText: 'Logout Sekarang',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            didOpen: function() {
+                countdownInterval = setInterval(function() {
+                    countdown--;
+                    var min = Math.floor(countdown / 60);
+                    var sec = countdown % 60;
+                    document.getElementById('idle-countdown').textContent = min + ':' + (sec < 10 ? '0' : '') + sec;
+                    
+                    if (countdown <= 0) {
+                        clearInterval(countdownInterval);
+                        window.location.href = base_url + 'logout?reason=idle';
+                    }
+                }, 1000);
+            },
+            willClose: function() {
+                clearInterval(countdownInterval);
+            }
+        }).then(function(result) {
+            if (result.isConfirmed) {
+                // User chose to continue - reset timers
+                isWarningShown = false;
+                resetIdleTimer();
+                // Ping server to refresh session
+                $.get(base_url + 'auth/check_session');
+            } else {
+                // User chose to logout
+                window.location.href = base_url + 'logout';
+            }
+        });
+    }
+    
+    // Track user activity
+    $(document).on('mousemove keydown click scroll', function() {
+        resetIdleTimer();
+    });
+    
+    // Initialize idle timer
+    resetIdleTimer();
 
     function reload_ajax() {
         table.ajax.reload();

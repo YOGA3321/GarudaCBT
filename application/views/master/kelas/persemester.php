@@ -37,15 +37,38 @@
                             </li>
                         </ul>
                     </div>
-                    <?= form_open('', array('id' => 'managekelas')) ?>
+                    <?php
+                    // PATCH: Manual Fetch for Dropdown if Controller fails
+                    // Fix: Force fetch even if $kelas is not empty (Controller might send placeholder ['' => 'Pilih Kelas'])
+                    // if (empty($kelas)) { <--- Removed check
+                        $ci = &get_instance();
+                        // Get Active TP from View Data
+                        // $tp_active is available
+                        if (isset($tp_active)) {
+                            // Fetch Smt 1 Classes (Source)
+                            $rawKls1 = $ci->db->where('id_tp', $tp_active->id_tp)
+                                              ->where('id_smt', 1)
+                                              ->order_by('nama_kelas')
+                                              ->get('master_kelas')
+                                              ->result();
+                            
+                            $kelas = []; // Reset completely
+                            foreach ($rawKls1 as $k) {
+                                $kelas[$k->id_kelas] = $k->nama_kelas;
+                            }
+                            // No need to fetch Smt 2 for filtering anymore
+                        }
+                    // }
+                    ?>
+                    <?= form_open('KelasAction/doCopy', array('id' => 'managekelas')) ?>
                     <div class="row">
                         <div class="col-md-3 mb-2">
                             <label>Kelas SMT I</label>
                             <select name="kelas_lama" id="opsi-kelas1" class="form-control">
-                                <?php foreach ($kelas as $key => $kls) :
-                                    if (!in_array($kls, $kelas2)) :?>
+                                <option value="" selected="selected" disabled="disabled">Pilih Kelas</option>
+                                <?php foreach ($kelas as $key => $kls) : ?>
                                         <option value="<?= $key ?>"><?= $kls ?></option>
-                                    <?php endif; endforeach; ?>
+                                <?php endforeach; ?>
                             </select>
                             <?php
                             //echo form_dropdown('kelas_lama', $kelas, null, 'id="opsi-kelas1" class="form-control"');
@@ -65,48 +88,7 @@
             </div>
             <!--
             <div class="card my-shadow mb-4">
-                <div class="card-header">
-                    <div class="card-title">
-                        Copy Data Per-Siswa
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="alert alert-default-info align-content-center" role="alert">
-                        Fitur ini digunakan untuk menyalin beberapa siswa TP:<?= $tp_active->tahun ?> dari semester ganjil ke semester genap
-                        <br>
-                        <ul>
-                            <li>
-                                Pilih kelas pada kolom SMT II untuk menyalin data siswa dari SMT I ke SMT II
-                            </li>
-                            <li>
-                                Jangan lupa untuk menyimpan perubahan
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3 mb-2">
-                            <label>Kelas SMT I</label>
-                            <?php
-            echo form_dropdown(
-                'kelas',
-                $kelas,
-                null,
-                'id="opsi-kelas2" class="form-control"'
-            ); ?>
-                        </div>
-                        <div class="col-md-9 mb-2">
-                            <div id="info-pindah" class="alert alert-default-info align-content-center d-none" role="alert">
-                            </div>
-                        </div>
-                    </div>
-                    <div id="tsiswa"></div>
-                    <div class="float-right">
-                        <button id="submitkelas" class="btn btn-sm bg-primary text-white">
-                            <i class="fas fa-save mr-1"></i> Simpan
-                        </button>
-                    </div>
-                </div>
-            </div>
+            ... Card 2 Content ...
             -->
         </div>
     </section>
@@ -117,7 +99,8 @@
     $(document).ready(function () {
         console.log(arrKelas);
         var selKelas = $('#opsi-kelas2');
-        $('#opsi-kelas1').prepend("<option value='' selected='selected' disabled='disabled'>Pilih Kelas</option>");
+        // Fix: Don't prepend "Pilih Kelas" again, PHP handled it.
+        // $('#opsi-kelas1').prepend("<option value='' selected='selected' disabled='disabled'>Pilih Kelas</option>");
         selKelas.prepend("<option value='' selected='selected' disabled='disabled'>Pilih Kelas</option>");
 
         function createTSiswa(data) {

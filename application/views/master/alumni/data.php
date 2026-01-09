@@ -349,7 +349,44 @@
     }
 
     $(document).ready(function () {
-        //console.log(arrKelas);
+        // Ensure DataTables is loaded
+        if ($.fn.DataTable) {
+             initTable();
+        } else {
+             // If script in footer hasn't run yet, wait a bit or hook into window load
+             window.addEventListener('load', function() {
+                  initTable();
+             });
+        }
+
+    // Only initTable here, do NOT close document.ready yet because other scripts follow
+
+
+    function initTable() {
+        if (!$.fn.DataTable.isDataTable('#tbl-alumni')) {
+            $('#tbl-alumni').DataTable({
+                "pageLength": 25,
+                "responsive": true,
+                "lengthChange": true,
+                "autoWidth": false,
+                "language": {
+                    "search": "Cari Alumni:",
+                    "emptyTable": "Tidak ada data alumni",
+                    "info": "Menampilkan _START_ sampai _END_ dari _TOTAL_ alumni",
+                    "infoEmpty": "Menampilkan 0 sampai 0 dari 0 alumni",
+                    "infoFiltered": "(disaring dari _MAX_ total alumni)",
+                    "paginate": {
+                        "first": "Awal",
+                        "last": "Akhir",
+                        "next": "Lanjut",
+                        "previous": "Mundur"
+                    }
+                }
+            });
+        }
+    }
+    
+    //console.log(arrKelas);
 
         var opsiTahun = $('#opsi-tahun');
         var opsiKelas = $('#opsi-kelas');

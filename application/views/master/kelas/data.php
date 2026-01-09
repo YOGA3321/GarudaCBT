@@ -44,6 +44,12 @@
                                         <i class="fas fa-tools mr-1"></i> Atur Kelas Semester
                                     </a>
                                 </span>
+                                <span data-toggle="tooltip" title="Copy Semua Kelas SMT 1 ke SMT 2">
+                                    <a href="<?= base_url('KelasAction/copyAll') ?>" type="button"
+                                       class="btn btn-danger mr-2 mb-3" onclick="return confirm('Yakin ingin menyalin SEMUA kelas dari Semester 1 ke Semester 2 secara otomatis?');">
+                                        <i class="fas fa-magic mr-1"></i> Copy Semua Kelas (Otomatis)
+                                    </a>
+                                </span>
                             <?php endif; ?>
                             <?php if ($smt_active->id_smt == '1') : ?>
                                 <span data-toggle="tooltip" title="Kenaikan Kelas">
@@ -72,6 +78,7 @@
                             <tr class="alert alert-info">
                                 <th height="40" class="text-center align-middle p-0">No.</th>
                                 <th class="align-middle">Nama Kelas</th>
+                                <th class="align-middle">Semester</th>
                                 <th class="align-middle">Kode Kelas</th>
                                 <?php if ($setting->jenjang == '3') : ?>
                                     <td>Jurusan</td>
@@ -84,10 +91,15 @@
                             <tbody>
                             <?php
                             $no = 1;
-                            foreach ($kelas as $kls) : ?>
+                            foreach ($kelas as $kls) : 
+                                // FORCE FILTER: Only show classes matching the Active Semester
+                                // This fixes the confusing "Mixed View" from the Controller
+                                if ($kls->id_smt != $smt_active->id_smt) continue;
+                            ?>
                                 <tr>
                                     <td class="align-middle text-center"><?= $no ?></td>
                                     <td class="align-middle"><?= $kls->nama_kelas ?></td>
+                                    <td class="align-middle"><?= ($kls->id_smt == '1') ? 'Ganjil' : 'Genap' ?></td>
                                     <td class="align-middle"><?= $kls->kode_kelas ?></td>
                                     <?php if ($setting->jenjang == '3') : ?>
                                         <td class="align-middle text-center"><?= $kls->nama_jurusan ?></td>
@@ -126,6 +138,8 @@
             </div>
         </div>
     </section>
+</div>
+
 </div>
 
 <script src="<?= base_url() ?>/assets/app/js/master/kelas/crud.js"></script>

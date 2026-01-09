@@ -286,17 +286,30 @@
         function getBankMapel(mapel) {
             if (!mapel) return
             $.ajax({
-                url: base_url + "cbtjadwal/getbankmapel/" + mapel,
+                url: base_url + "cbtajax/getbankmapel/" + mapel,
                 type: "GET",
                 success: function (data) {
-                    console.log('bank', data);
-                    selBank.html('<option value="" ' + selec + '>Pilih Bank Soal:</option>');
-                    $.each(data, function (i, v) {
-                        var selected = i === idBank ? 'selected' : '';
-                        if (i !== '') selBank.append('<option value="' + i + '" ' + selected + '>' + v + '</option>');
+                    console.log('bank data received:', data);
+                    $('#bank-id').empty();
+                    $('#bank-id').append('<option value="">Pilih Bank Soal :</option>');
+                    
+                    $.each(data, function (key, value) {
+                        if (key !== 'debug_info') {
+                            $('#bank-id').append('<option value="' + key + '">' + value + '</option>');
+                        }
                     });
-                }, error: function (xhr, status, error) {
-                    console.log("error", xhr.responseText);
+
+                    // Fix: Select the saved bank_id if it exists in the loaded options
+                    if (idBank && idBank !== '' && data[idBank] !== undefined) {
+                        $('#bank-id').val(idBank);
+                    }
+
+                    $('#bank-id').trigger('change');
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX Error:", status, error);
+                    console.error("Response:", xhr.responseText);
+                    alert("Gagal mengambil data Bank Soal. Cek Console.\nStatus: " + status + "\nError: " + error + "\nURL: " + this.url);
                 }
             });
         }

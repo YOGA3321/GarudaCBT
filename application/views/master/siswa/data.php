@@ -70,6 +70,7 @@
                                     <div id="dropdown-action" class="dropdown-menu">
                                         <a class="dropdown-item" id="pindah" href="#">Set sebagai PINDAH</a>
                                         <a class="dropdown-item" id="keluar" href="#">Set sebagai KELUAR</a>
+                                        <a class="dropdown-item" id="lulus" href="#">Set sebagai LULUS</a>
                                         <a class="dropdown-item" id="hapus" href="#">HAPUS</a>
                                     </div>
                                 </div>
@@ -80,6 +81,7 @@
                                         <option value="5">Tanpa Kelas</option>
                                         <option value="3">Pindah</option>
                                         <option value="4">Keluar</option>
+                                        <option value="2">Lulus</option>
                                     </select>
                                 </div>
                             </div>
@@ -322,11 +324,14 @@
             loadSiswa();
         });
 
-        $('#input-search').on('change keyup', function () {
+        $('#input-search').on('change keyup', function (e) {
             var val = $(this).val();
             query = val === "" ? null : val;
             $('#btn-clear').attr('disabled', query == null)
             $('#btn-search').attr('disabled', query == null)
+            if (e.key === 'Enter' || e.keyCode === 13) {
+                applySearch();
+            }
         });
 
         $('#btn-clear').on('click', function () {
@@ -470,6 +475,8 @@
                 bulk_keluar()
             } else if (x === "hapus") {
                 bulk_delete()
+            } else if (x === "lulus") {
+                bulk_lulus()
             }
         });
 
@@ -481,7 +488,10 @@
         $('#pager-page').val(currentPage);
         $('#loading').removeClass('d-none');
         var cari = query != null ? '&search=' + query : ''
-        var filter = '&filter=' + $('#users-filter').val();
+        var fVal = $('#users-filter').val();
+        if (!fVal) fVal = '1'; 
+        var filter = '&filter=' + fVal;
+         // If user types 'Kelas 6' in search, it should filter by table search logic in Controller
         var dataPost = $('#pager').serialize() + cari + filter;
         console.log('post', dataPost);
         $.ajax({
@@ -638,6 +648,58 @@
             }).then(result => {
                 if (result.value) {
                     $("#bulk").submit();
+                }
+            });
+        }
+    }
+    
+    function bulk_lulus() {
+        if ($("#table-siswa tbody tr .check:checked").length == 0) {
+            swal.fire({
+                title: "Gagal",
+                text: "Tidak ada data yang dipilih",
+                icon: "error"
+            });
+        } else {
+            swal.fire({
+                title: "Konfirmasi Kelulusan",
+                text: "Siswa terpilih akan diset sebagai LULUS (Alumni). Pastikan ini siswa tingkat akhir!",
+                icon: "info",
+                showCancelButton: true,
+                confirmButtonColor: "#28a745",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Ya, Luluskan!"
+            }).then(result => {
+                if (result.value) {
+                     $.ajax({
+                        url: base_url + 'KelasAction/luluskanSiswa',
+                        data: $("#bulk").serialize(),
+                        type: "POST",
+                        success: function (respon) {
+                            if (respon.status) {
+                                swal.fire({
+                                    title: "Berhasil",
+                                    text: respon.message,
+                                    icon: "success"
+                                });
+                                loadSiswa();
+                            } else {
+                                swal.fire({
+                                    title: "Gagal",
+                                    text: respon.message,
+                                    icon: "error"
+                                });
+                            }
+                        },
+                        error: function (xhr) {
+                            console.log(xhr.responseText);
+                            swal.fire({
+                                title: "Error",
+                                text: "Terjadi kesalahan server",
+                                icon: "error"
+                            });
+                        }
+                    });
                 }
             });
         }

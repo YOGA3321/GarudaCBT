@@ -129,6 +129,7 @@ $allBanksIds = [];
                                         <th>Kode</th>
                                         <th>Mapel</th>
                                         <th>Kelas</th>
+                                        <th class="text-center align-middle p-0">Soal</th>
                                         <th class="text-center align-middle p-0"><span>Aksi</span></th>
                                         <th class="text-center align-middle p-0" style="width: 50px"></th>
                                     </tr>
@@ -169,6 +170,17 @@ $allBanksIds = [];
                                             </td>
                                             <td class="align-middle"><?= $bank->nama_mapel ?></td>
                                             <td class="align-middle"><?= $kelasbank ?></td>
+                                            <?php
+                                            $total_req = $bank->tampil_pg + $bank->tampil_kompleks + $bank->tampil_jodohkan + $bank->tampil_isian + $bank->tampil_esai;
+                                            if ($bank->total_soal == 0) {
+                                                $status_soal = '<span class="badge badge-danger">Kosong</span>';
+                                            } elseif ($bank->total_soal < $total_req) {
+                                                $status_soal = '<span class="badge badge-warning">Belum Selesai (' . $bank->total_soal . '/' . $total_req . ')</span>';
+                                            } else {
+                                                $status_soal = '<span class="badge badge-success">Selesai (' . $bank->total_soal . ')</span>';
+                                            }
+                                            ?>
+                                            <td class="text-center align-middle"><?= $status_soal ?></td>
                                             <td class="text-center w-auto">
                                                 <span data-toggle="tooltip" title="Edit Bank Soal">
                                                     <a type="button"

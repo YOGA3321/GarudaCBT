@@ -76,6 +76,12 @@
                                            aria-controls="custom-tabs-four-profile" aria-selected="false">Data
                                             Lengkap</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="custom-tabs-four-socmed-tab" data-toggle="pill"
+                                           href="#custom-tabs-four-socmed" role="tab"
+                                           aria-controls="custom-tabs-four-socmed" aria-selected="false">
+                                            <i class="fas fa-share-alt"></i> Sosial Media</a>
+                                    </li>
                                 </ul>
                             </div>
                             <div class="card-tools">
@@ -187,6 +193,81 @@
                                             </div>
                                         </div>
                                     <?php endforeach; ?>
+                                </div>
+                                <!-- Social Media Tab -->
+                                <div class="tab-pane fade" id="custom-tabs-four-socmed" role="tabpanel"
+                                     aria-labelledby="custom-tabs-four-socmed-tab">
+                                    <p class="text-muted mb-3"><small><i class="fas fa-info-circle"></i> Link sosial media akan ditampilkan di halaman Direktori Sekolah (opsional)</small></p>
+                                    
+                                    <div class="form-group row">
+                                        <div class="col-md-4 mb-sm-0">
+                                            <label class="control-label">Facebook</label>
+                                        </div>
+                                        <div class="col-md-8 mb-sm-0">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" style="background:#1877f2;color:#fff;"><i class="fab fa-facebook-f"></i></span>
+                                                </div>
+                                                <input value="<?= $guru->link_fb ?? '' ?>" type="url" class="form-control" name="link_fb" placeholder="https://facebook.com/username">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group row">
+                                        <div class="col-md-4 mb-sm-0">
+                                            <label class="control-label">Instagram</label>
+                                        </div>
+                                        <div class="col-md-8 mb-sm-0">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" style="background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff;"><i class="fab fa-instagram"></i></span>
+                                                </div>
+                                                <input value="<?= $guru->link_ig ?? '' ?>" type="url" class="form-control" name="link_ig" placeholder="https://instagram.com/username">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group row">
+                                        <div class="col-md-4 mb-sm-0">
+                                            <label class="control-label">YouTube</label>
+                                        </div>
+                                        <div class="col-md-8 mb-sm-0">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" style="background:#ff0000;color:#fff;"><i class="fab fa-youtube"></i></span>
+                                                </div>
+                                                <input value="<?= $guru->link_yt ?? '' ?>" type="url" class="form-control" name="link_yt" placeholder="https://youtube.com/channel/xxx">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group row">
+                                        <div class="col-md-4 mb-sm-0">
+                                            <label class="control-label">LinkedIn</label>
+                                        </div>
+                                        <div class="col-md-8 mb-sm-0">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" style="background:#0077b5;color:#fff;"><i class="fab fa-linkedin-in"></i></span>
+                                                </div>
+                                                <input value="<?= $guru->link_linkedin ?? '' ?>" type="url" class="form-control" name="link_linkedin" placeholder="https://linkedin.com/in/username">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group row">
+                                        <div class="col-md-4 mb-sm-0">
+                                            <label class="control-label">TikTok</label>
+                                        </div>
+                                        <div class="col-md-8 mb-sm-0">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" style="background:#000;color:#fff;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg></span>
+                                                </div>
+                                                <input value="<?= $guru->link_tiktok ?? '' ?>" type="url" class="form-control" name="link_tiktok" placeholder="https://tiktok.com/@username">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

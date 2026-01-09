@@ -151,6 +151,7 @@
                                 <th rowspan="2" class="text-center align-middle">Ruang</th>
                                 <th rowspan="2" class="text-center align-middle">Sesi</th>
                                 <th colspan="2" class="text-center align-middle">Status</th>
+                                <th rowspan="2" class="text-center align-middle">Log</th>
                                 <th rowspan="2" class="text-center align-middle <?=$dnone?>">Reset<br>Waktu</th>
                                 <th colspan="3" class="text-center align-middle <?=$dnone?>">Aksi</th>
                             </tr>
@@ -173,7 +174,11 @@
                                 $selesai = '- -  :  - -';
                                 $reset = null;
                                 $pattern = '/[- :]/';
+                                $hasViolation = false;
                                 foreach ($logging as $log) {
+                                    if ($log->log_type === '9') {
+                                        $hasViolation = true;
+                                    }
                                     if ($log->log_type === '1') {
                                         if ($log != null) {
                                             $reset = $log->reset;
@@ -196,16 +201,14 @@
                                 $disabledSelesai = !$sudahSelesai && !$belumUjian ? '' : 'disabled';
                                 $disabledUlang = $belumUjian ? 'disabled' : ($sudahSelesai ? '' : 'disabled');
 
-                                // jika ingin selalu aktif
-                                // $disabledReset = '';
-                                // $disabledSelesai = '';
                                 // $disabledUlang = '';
 
                                 $sesi = $siswa[$i]->kode_sesi;
                                 $ruang = $siswa[$i]->kode_ruang;
                                 $kelas = $siswa[$i]->kode_kelas;
+                                $rowStyle = $hasViolation ? 'style="background-color: #ffcccc;"' : '';
                                 ?>
-                                <tr data-id="<?=$idSiswa?>">
+                                <tr data-id="<?=$idSiswa?>" <?=$rowStyle?>>
                                     <td class="text-center align-middle"><?=($i + 1) ?></td>
                                     <td class="text-center align-middle"><?=$siswa[$i]->nomor_peserta ?></td>
                                     <td class="align-middle"><?=$siswa[$i]->nama ?></td>
@@ -214,6 +217,14 @@
                                     <td class="text-center align-middle"><?=$sesi ?></td>
                                     <td class="text-center align-middle"><?=$mulai ?></td>
                                     <td class="text-center align-middle"><?=$loading . $durasi ?></td>
+                                    <td class="text-center align-middle">
+                                        <button type="button" class="btn btn-sm btn-info btn-log" 
+                                                data-log='<?= htmlspecialchars(json_encode($logging), ENT_QUOTES, 'UTF-8') ?>' 
+                                                data-nama="<?= $siswa[$i]->nama ?>" 
+                                                data-toggle="modal" data-target="#logModal">
+                                            <i class="fas fa-history"></i>
+                                        </button>
+                                    </td>
                                     <td class="text-center align-middle <?=$dnone?>">
                                         <button type="button" class="btn btn-default"
                                         data-siswa="<?=$idSiswa ?>" data-jadwal="<?= $info->id_jadwal ?>"
@@ -244,6 +255,39 @@
             </div>
         </div>
     </section>
+</div>
+
+<!-- Modal Log -->
+<div class="modal fade" id="logModal" tabindex="-1" role="dialog" aria-labelledby="logLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="logLabel">Riwayat Log Siswa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5 id="log-nama-siswa" class="text-bold mb-3"></h5>
+                <div class="table-responsive">
+                    <table class="table table-sm table-striped table-bordered text-sm">
+                        <thead class="bg-teal">
+                            <tr>
+                                <th class="text-center" width="150">Waktu</th>
+                                <th class="text-center" width="100">Tipe</th>
+                                <th>Keterangan</th>
+                            </tr>
+                        </thead>
+                        <tbody id="log-body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <?= form_open('', array('id' => 'reset')) ?>
@@ -333,6 +377,56 @@
     var isPengawas = '<?= in_array($guru->id_guru, $ids_pengawas) ? "1" : "0"?>';
     var jadwal = '<?=$info->id_jadwal?>'
     var dnone = isPengawas == "1" ? '' : 'd-none';
+
+    $(document).ready(function () {
+        $('#logModal').on('show.bs.modal', function (e) {
+            var logs = $(e.relatedTarget).data('log');
+            var nama = $(e.relatedTarget).data('nama');
+            $('#log-nama-siswa').text(nama);
+            
+            var html = '';
+            var violationCount = 0;
+            if(logs.length > 0){
+                logs.forEach(function(l){
+                    if(l.log_type == '9') violationCount++;
+                });
+
+                if(violationCount > 0){
+                    html += '<div class="alert alert-danger p-2 mb-2">Ditemukan <b>' + violationCount + '</b> indikasi pelanggaran (keluar dari halaman ujian).</div>';
+                }
+
+                // Sort logs by time desc
+                logs.sort((a,b) => (a.log_time > b.log_time) ? -1 : ((b.log_time > a.log_time) ? 1 : 0));
+                
+                html += '<table class="table table-bordered table-sm table-striped"><thead><tr><th class="text-center">Waktu</th><th class="text-center">Aksi</th><th>Keterangan</th></tr></thead><tbody>';
+
+                $.each(logs, function(i, v){
+                    var trColor = '';
+                    var typeLabel = '';
+                    if(v.log_type == '1'){
+                        typeLabel = '<span class="badge badge-success">Mulai</span>';
+                    } else if(v.log_type == '2'){
+                        typeLabel = '<span class="badge badge-secondary">Selesai</span>';
+                    } else if(v.log_type == '9'){
+                        trColor = 'table-danger';
+                        typeLabel = '<span class="badge badge-danger">VIOLATION</span>';
+                    } else {
+                        typeLabel = '<span class="badge badge-info">Log</span>';
+                    }
+                    
+                    html += '<tr class="'+trColor+'">';
+                    html += '<td class="text-center">' + v.log_time + '</td>';
+                    html += '<td class="text-center">' + typeLabel + '</td>';
+                    html += '<td>' + v.log_desc + '</td>';
+                    html += '</tr>';
+                });
+                html += '</tbody></table>';
+            } else {
+                html += '<div class="text-center p-3">Belum ada log aktivitas</div>';
+            }
+            $('#log-body').html(html);
+        });
+    });
 
     function terapkanAksi() {
         const $rows = $('#table-status').find('tr'), headers = $rows.splice(0, 2);

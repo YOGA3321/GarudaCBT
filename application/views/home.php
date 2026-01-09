@@ -256,8 +256,8 @@
                         
                         <!-- Main Image Container -->
                         <div class="relative rounded-[3rem] overflow-hidden shadow-2xl bg-slate-800 aspect-[4/5] transform group-hover:-translate-y-2 transition-transform duration-500 border-4 border-white/10">
-                             <?php if (!empty($setting->tanda_tangan)): ?>
-                                <img src="<?= base_url().$setting->tanda_tangan ?>" class="w-full h-full object-cover" alt="Kepala Sekolah">
+                             <?php if (!empty($setting->foto_kepsek)): ?>
+                                <img src="<?= base_url().$setting->foto_kepsek ?>" class="w-full h-full object-cover" alt="Kepala Sekolah">
                             <?php else: ?>
                                 <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1888" class="w-full h-full object-cover" alt="Default Kepsek">
                             <?php endif; ?>

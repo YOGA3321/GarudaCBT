@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jan 06, 2026 at 06:32 AM
+-- Generation Time: Jan 08, 2026 at 05:14 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.3.25
 
@@ -20,19 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `garudacbt`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `albums`
---
-
-CREATE TABLE `albums` (
-  `id_album` int UNSIGNED NOT NULL,
-  `nama_album` varchar(255) NOT NULL,
-  `cover` varchar(255) DEFAULT NULL,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -121,7 +108,26 @@ CREATE TABLE `buku_induk` (
 --
 
 INSERT INTO `buku_induk` (`id_siswa`, `uid`, `rombel_awal`, `nama_panggilan`, `bahasa`, `jml_saudara_kandung`, `jml_saudara_tiri`, `jml_saudara_angkat`, `yatim`, `tinggal_bersama`, `jarak`, `gol_darah`, `penyakit`, `kelainan_fisik`, `kegemaran`, `beasiswa`, `no_ijazah_sebelumnya`, `tahun_lulus_sebelumnya`, `pindahan_dari`, `alasan_kepindahan`, `agama_ayah`, `tempat_lahir_ayah`, `wn_ayah`, `penghasilan_ayah`, `hidup_meninggal_ayah`, `agama_ibu`, `tempat_lahir_ibu`, `wn_ibu`, `penghasilan_ibu`, `hidup_meninggal_ibu`, `tempat_lahir_wali`, `agama_wali`, `wn_wali`, `penghasilan_wali`, `status`, `tahun_lulus`, `no_ijazah`, `kelas_akhir`, `lanjut_ke`, `pindah_ke`, `alasan_pindah`, `tgl_pindah`, `bekerja_di`, `catatan_penting`) VALUES
-(1, '6d1ab06d-d1e6-11f0-8c64-00155df25222', NULL, NULL, NULL, 0, 0, 0, 0, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(5, 'c3de9f77-eb8f-11f0-a479-38f3ab6a1d95', NULL, NULL, NULL, 0, 0, 0, 0, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(6, 'c3decee9-eb8f-11f0-a479-38f3ab6a1d95', NULL, NULL, NULL, 0, 0, 0, 0, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(7, 'c3def35c-eb8f-11f0-a479-38f3ab6a1d95', NULL, NULL, NULL, 0, 0, 0, 0, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(8, 'c3df120a-eb8f-11f0-a479-38f3ab6a1d95', NULL, NULL, NULL, 0, 0, 0, 0, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(9, 'c3df2b22-eb8f-11f0-a479-38f3ab6a1d95', NULL, NULL, NULL, 0, 0, 0, 0, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(10, 'c3df460d-eb8f-11f0-a479-38f3ab6a1d95', NULL, NULL, NULL, 0, 0, 0, 0, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(11, 'c3df59d0-eb8f-11f0-a479-38f3ab6a1d95', NULL, NULL, NULL, 0, 0, 0, 0, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(12, 'c3df6b16-eb8f-11f0-a479-38f3ab6a1d95', NULL, NULL, NULL, 0, 0, 0, 0, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(13, 'c3df7bb8-eb8f-11f0-a479-38f3ab6a1d95', NULL, NULL, NULL, 0, 0, 0, 0, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(14, 'c3df8c78-eb8f-11f0-a479-38f3ab6a1d95', NULL, NULL, NULL, 0, 0, 0, 0, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(15, 'c3df9b7f-eb8f-11f0-a479-38f3ab6a1d95', NULL, NULL, NULL, 0, 0, 0, 0, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(16, 'c3dfaa25-eb8f-11f0-a479-38f3ab6a1d95', NULL, NULL, NULL, 0, 0, 0, 0, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(17, 'c3dfc1d9-eb8f-11f0-a479-38f3ab6a1d95', NULL, NULL, NULL, 0, 0, 0, 0, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(18, 'c3dfdc19-eb8f-11f0-a479-38f3ab6a1d95', NULL, NULL, NULL, 0, 0, 0, 0, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(19, 'c3dff730-eb8f-11f0-a479-38f3ab6a1d95', NULL, NULL, NULL, 0, 0, 0, 0, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(20, 'c3e00f74-eb8f-11f0-a479-38f3ab6a1d95', NULL, NULL, NULL, 0, 0, 0, 0, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(21, 'c3e039fc-eb8f-11f0-a479-38f3ab6a1d95', NULL, NULL, NULL, 0, 0, 0, 0, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(22, 'c3e0631c-eb8f-11f0-a479-38f3ab6a1d95', NULL, NULL, NULL, 0, 0, 0, 0, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(23, 'c3e07e28-eb8f-11f0-a479-38f3ab6a1d95', NULL, NULL, NULL, 0, 0, 0, 0, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 2026, NULL, 'Kelas 4', NULL, NULL, NULL, NULL, NULL, NULL),
+(24, 'c3e091c1-eb8f-11f0-a479-38f3ab6a1d95', NULL, NULL, NULL, 0, 0, 0, 0, '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -199,8 +205,7 @@ CREATE TABLE `cbt_bank_soal` (
 --
 
 INSERT INTO `cbt_bank_soal` (`id_bank`, `bank_jenis_id`, `bank_kode`, `bank_level`, `bank_kelas`, `bank_mapel_id`, `bank_jurusan_id`, `bank_guru_id`, `bank_nama`, `kkm`, `jml_soal`, `jml_esai`, `tampil_pg`, `tampil_esai`, `bobot_pg`, `bobot_esai`, `opsi`, `date`, `status`, `soal_agama`, `id_tp`, `id_smt`, `deskripsi`, `jml_kompleks`, `tampil_kompleks`, `bobot_kompleks`, `jml_jodohkan`, `tampil_jodohkan`, `bobot_jodohkan`, `jml_isian`, `tampil_isian`, `bobot_isian`, `status_soal`) VALUES
-(1, 0, 'kode1', '1', 'a:2:{i:0;a:1:{s:8:\"kelas_id\";s:1:\"3\";}i:1;a:1:{s:8:\"kelas_id\";N;}}', 6, 0, 1, '', 0, 10, 0, 10, 0, 20, 0, 3, '2025-12-05 14:53:32', 1, '-', 3, 2, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1),
-(2, 0, 'kode2', '1', 'a:2:{i:0;a:1:{s:8:\"kelas_id\";s:1:\"3\";}i:1;a:1:{s:8:\"kelas_id\";N;}}', 6, 0, 1, '', 0, 5, 0, 5, 0, 50, 0, 3, '2025-12-05 15:26:04', 1, '-', 3, 2, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+(1, 0, '287881', '2', 'a:2:{i:0;a:1:{s:8:\"kelas_id\";s:2:\"18\";}i:1;a:1:{s:8:\"kelas_id\";N;}}', 6, 0, 2, '', 0, 5, 0, 5, 0, 10, 0, 3, '2026-01-08 01:53:11', 1, '-', 1, 1, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -225,7 +230,8 @@ CREATE TABLE `cbt_durasi_siswa` (
 --
 
 INSERT INTO `cbt_durasi_siswa` (`id_durasi`, `id_siswa`, `id_jadwal`, `status`, `lama_ujian`, `mulai`, `selesai`, `reset`, `time_create`) VALUES
-(101, 1, 1, 2, NULL, '2025-12-05 21:56:50', '2025-12-05 21:59:20', 0, '2025-12-05 21:59:20');
+(101, 1, 1, 2, NULL, '2025-12-05 21:56:50', '2025-12-05 21:59:20', 0, '2025-12-05 21:59:20'),
+(1103, 11, 3, 2, '02:04:38', '2026-01-07 22:31:23', '2026-01-08 00:36:01', 0, '2026-01-08 00:36:01');
 
 -- --------------------------------------------------------
 
@@ -261,7 +267,7 @@ CREATE TABLE `cbt_jadwal` (
 --
 
 INSERT INTO `cbt_jadwal` (`id_jadwal`, `id_tp`, `id_smt`, `id_bank`, `id_jenis`, `tgl_mulai`, `tgl_selesai`, `durasi_ujian`, `pengawas`, `acak_soal`, `acak_opsi`, `hasil_tampil`, `token`, `status`, `ulang`, `reset_login`, `rekap`, `jam_ke`, `jarak`, `time_create`) VALUES
-(1, '3', '2', 1, 1, '2025-12-05', '2025-12-05', 10, NULL, 1, 0, 0, 0, 1, 0, 0, 0, 0, 2, NULL);
+(1, '1', '1', 1, 2, '2026-01-08', '2026-01-08', 120, NULL, 1, 1, 0, 0, 1, 0, 0, 0, 1, 10, '2026-01-08 08:57:02');
 
 -- --------------------------------------------------------
 
@@ -382,7 +388,8 @@ CREATE TABLE `cbt_nilai` (
 --
 
 INSERT INTO `cbt_nilai` (`id_nilai`, `pg_benar`, `pg_nilai`, `essai_nilai`, `id_siswa`, `id_jadwal`, `kompleks_nilai`, `jodohkan_nilai`, `isian_nilai`, `dikoreksi`, `time_create`) VALUES
-(101, 2, '4', '0', 1, 1, '0', '0', '0', 0, NULL);
+(101, 2, '4', '0', 1, 1, '0', '0', '0', 0, NULL),
+(1103, 2, '4', '0', 11, 3, '0', '0', '0', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -403,7 +410,12 @@ CREATE TABLE `cbt_nomor_peserta` (
 --
 
 INSERT INTO `cbt_nomor_peserta` (`id_nomor`, `id_siswa`, `id_tp`, `id_smt`, `nomor_peserta`) VALUES
-(13, 1, 3, 1, '2223.01.001');
+(13, 1, 3, 1, '2223.01.001'),
+(101, 10, 1, 1, '2526.02.001'),
+(111, 11, 1, 1, '2526.02.002'),
+(121, 12, 1, 1, '2526.02.005'),
+(131, 13, 1, 1, '2526.02.004'),
+(141, 14, 1, 1, '2526.02.003');
 
 -- --------------------------------------------------------
 
@@ -420,6 +432,14 @@ CREATE TABLE `cbt_pengawas` (
   `id_sesi` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `id_guru` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+
+--
+-- Dumping data for table `cbt_pengawas`
+--
+
+INSERT INTO `cbt_pengawas` (`id_pengawas`, `id_jadwal`, `id_tp`, `id_smt`, `id_ruang`, `id_sesi`, `id_guru`) VALUES
+('11321', '3', 1, 1, '2', '1', '1'),
+('32211', '2', 3, 2, '1', '1', '2');
 
 -- --------------------------------------------------------
 
@@ -566,7 +586,12 @@ CREATE TABLE `cbt_sesi_siswa` (
 --
 
 INSERT INTO `cbt_sesi_siswa` (`siswa_id`, `kelas_id`, `ruang_id`, `sesi_id`, `tp_id`, `smt_id`) VALUES
-(1, 1, 1, 1, 3, 1);
+(1, 3, 1, 1, 3, 2),
+(10, 18, 2, 1, 1, 1),
+(11, 18, 2, 1, 1, 1),
+(12, 18, 2, 1, 1, 1),
+(13, 18, 2, 1, 1, 1),
+(14, 18, 2, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -609,30 +634,23 @@ CREATE TABLE `cbt_soal` (
 --
 
 INSERT INTO `cbt_soal` (`id_soal`, `bank_id`, `mapel_id`, `jenis`, `nomor_soal`, `file`, `file1`, `tipe_file`, `soal`, `opsi_a`, `opsi_b`, `opsi_c`, `opsi_d`, `opsi_e`, `file_a`, `file_b`, `file_c`, `file_d`, `file_e`, `jawaban`, `created_on`, `updated_on`, `tampilkan`, `deskripsi`, `kesulitan`, `timer`, `timer_menit`) VALUES
-(1, 1, 0, 1, 1, NULL, NULL, NULL, 'hayo apa', 'satu', 'dua', 'tiga', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'b', 1764946243, 1764946307, 1, '', 1, 0, 0),
-(2, 1, 0, 1, 2, NULL, NULL, NULL, 'kedua apa', 'pertama', 'kedua', 'ketiga', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'b', 1764946310, 1764946379, 1, '', 1, 0, 0),
-(3, 1, 0, 1, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1764946336, 1764946336, 1, '', 1, 0, 0),
-(4, 1, 0, 1, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1764946337, 1764946337, 1, '', 1, 0, 0),
-(5, 1, 0, 1, 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1764946338, 1764946338, 1, '', 1, 0, 0),
-(6, 1, 0, 1, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1764946339, 1764946339, 1, '', 1, 0, 0),
-(7, 1, 0, 1, 7, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1764946340, 1764946340, 1, '', 1, 0, 0),
-(8, 1, 0, 1, 8, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1764946341, 1764946341, 1, '', 1, 0, 0),
-(9, 1, 0, 1, 9, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1764946342, 1764946342, 1, '', 1, 0, 0),
-(10, 1, 0, 1, 10, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1764946343, 1764946343, 1, '', 1, 0, 0),
-(11, 1, 0, 1, 11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1764946344, 1764946344, 0, '', 1, 0, 0),
-(12, 2, 0, 1, 1, 'a:0:{}', NULL, NULL, '<p>Siapakah Presiden Indonesia pada tahun 1999 ?</p><p><img src=\"uploads/bank_soal/img_211_14e7b69b52454eba4bc6.jpg\"></p>\n', '<p>Soekarno</p>\n', '<p>Soeharto</p>\n', '<p>B. J. Habibi</p>\n', '<p>Abdurrahman Wahid</p>\n', '<p>Megawati</p>\n', NULL, NULL, NULL, NULL, NULL, 'C', 1764948593, 1764948593, 0, '', 8, 0, 0),
-(13, 2, 0, 2, 1, 'a:0:{}', NULL, NULL, '<p>Contoh soal dengan banyak pilihan ganda:</p><p>Manakah diantara alat berikut ini yang merupakan peralatan dapur? </p>\n', 'a:6:{s:1:\"a\";s:15:\"<p>Cangkul</p>\n\";s:1:\"b\";s:13:\"<p>Pisau</p>\n\";s:1:\"c\";s:13:\"<p>Obeng</p>\n\";s:1:\"d\";s:15:\"<p>Spatula</p>\n\";s:1:\"e\";s:13:\"<p>Panci</p>\n\";s:1:\"f\";s:17:\"<p>Keranjang</p>\n\";}', '', '', '', '', NULL, NULL, NULL, NULL, NULL, 'a:3:{i:0;s:1:\"b\";i:1;s:1:\"d\";i:2;s:1:\"e\";}', 1764948593, 1764948593, 0, '', 8, 0, 0),
-(14, 2, 0, 2, 2, 'a:0:{}', NULL, NULL, '<p>Contoh soal dengan pilihan TRUE dan FALSE </p>\n', 'a:2:{s:1:\"a\";s:13:\"<p>Benar</p>\n\";s:1:\"b\";s:13:\"<p>Salah</p>\n\";}', '', '', '', '', NULL, NULL, NULL, NULL, NULL, 'a:1:{i:0;s:1:\"a\";}', 1764948593, 1764948593, 0, '', 8, 0, 0),
-(15, 2, 0, 2, 3, 'a:0:{}', NULL, NULL, '<p>Contoh soal dengan pilihan YES dan NO</p>\n', 'a:2:{s:1:\"a\";s:10:\"<p>Ya</p>\n\";s:1:\"b\";s:13:\"<p>Tidak</p>\n\";}', '', '', '', '', NULL, NULL, NULL, NULL, NULL, 'a:1:{i:0;s:1:\"b\";}', 1764948593, 1764948593, 0, '', 8, 0, 0),
-(16, 2, 0, 3, 1, 'a:0:{}', NULL, NULL, '<p>Contoh soal menjodohkan dengan satu baris berisi beberapa jawaban benar.<br><br>Cocokanlah peralatan dibawah ini sesuai tempat penggunannya</p>\n', '', '', '', '', '', NULL, NULL, NULL, NULL, NULL, 'a:3:{s:5:\"model\";s:1:\"2\";s:4:\"type\";s:1:\"1\";s:7:\"jawaban\";a:4:{i:0;a:9:{i:0;s:1:\"#\";i:1;s:15:\"<p>Cangkul</p>\n\";i:2;s:13:\"<p>Pisau</p>\n\";i:3;s:13:\"<p>Obeng</p>\n\";i:4;s:15:\"<p>Spatula</p>\n\";i:5;s:13:\"<p>Panci</p>\n\";i:6;s:17:\"<p>Keranjang</p>\n\";i:7;s:15:\"<p>Gergaji</p>\n\";i:8;s:12:\"<p>Palu</p>\n\";}i:1;a:9:{i:0;s:23:\"<p>Peralatan Dapur</p>\n\";i:1;s:1:\"0\";i:2;s:1:\"1\";i:3;s:1:\"0\";i:4;s:1:\"1\";i:5;s:1:\"0\";i:6;s:1:\"1\";i:7;s:1:\"0\";i:8;s:1:\"0\";}i:2;a:9:{i:0;s:23:\"<p>Peralatan Kebun</p>\n\";i:1;s:1:\"1\";i:2;s:1:\"0\";i:3;s:1:\"0\";i:4;s:1:\"0\";i:5;s:1:\"0\";i:6;s:1:\"1\";i:7;s:1:\"0\";i:8;s:1:\"0\";}i:3;a:9:{i:0;s:33:\"<p>Peralatan Tukang Bangunan</p>\n\";i:1;s:1:\"0\";i:2;s:1:\"0\";i:3;s:1:\"1\";i:4;s:1:\"0\";i:5;s:1:\"0\";i:6;s:1:\"0\";i:7;s:1:\"1\";i:8;s:1:\"1\";}}}', 1764948593, 1764948593, 0, '', 8, 0, 0),
-(17, 2, 0, 3, 2, 'a:0:{}', NULL, NULL, '<p>Contoh soal menjodohkan dengan satu baris berisi jawaban benar bercampur.<br><br>Cocokanlah peralatan dibawah ini sesuai apa yang dihasilkannya</p>\n', '', '', '', '', '', NULL, NULL, NULL, NULL, NULL, 'a:3:{s:5:\"model\";s:1:\"2\";s:4:\"type\";s:1:\"1\";s:7:\"jawaban\";a:3:{i:0;a:6:{i:0;s:1:\"#\";i:1;s:21:\"<p>Speaker Aktif</p>\n\";i:2;s:16:\"<p>Televisi</p>\n\";i:3;s:13:\"<p>Radio</p>\n\";i:4;s:19:\"<p>Handphone  </p>\n\";i:5;s:28:\"<p>In Focus (proyektor)</p>\n\";}i:1;a:6:{i:0;s:30:\"<p>Media penghasil suara </p>\n\";i:1;s:1:\"1\";i:2;s:1:\"1\";i:3;s:1:\"1\";i:4;s:1:\"1\";i:5;s:1:\"0\";}i:2;a:6:{i:0;s:30:\"<p>Media Penghasil gambar</p>\n\";i:1;s:1:\"0\";i:2;s:1:\"1\";i:3;s:1:\"0\";i:4;s:1:\"1\";i:5;s:1:\"1\";}}}', 1764948593, 1764948593, 0, '', 8, 0, 0),
-(18, 2, 0, 3, 3, 'a:0:{}', NULL, NULL, '<p>Contoh soal menjodohkan dengan satu baris berisi satu jawaban benar.<br><br>Cocokanlah nama negara di bawah ini dengan Ibukotanya</p>\n', '', '', '', '', '', NULL, NULL, NULL, NULL, NULL, 'a:3:{s:5:\"model\";s:1:\"1\";s:4:\"type\";s:1:\"2\";s:7:\"jawaban\";a:4:{i:0;a:4:{i:0;s:1:\"#\";i:1;s:17:\"<p>Indonesia</p>\n\";i:2;s:14:\"<p>Jepang</p>\n\";i:3;s:21:\"<p>Korea Selatan</p>\n\";}i:1;a:4:{i:0;s:13:\"<p>Seoul</p>\n\";i:1;s:1:\"0\";i:2;s:1:\"0\";i:3;s:1:\"1\";}i:2;a:4:{i:0;s:15:\"<p>Jakarta</p>\n\";i:1;s:1:\"1\";i:2;s:1:\"0\";i:3;s:1:\"0\";}i:3;a:4:{i:0;s:13:\"<p>Tokyo</p>\n\";i:1;s:1:\"0\";i:2;s:1:\"1\";i:3;s:1:\"0\";}}}', 1764948593, 1764948593, 0, '', 8, 0, 0),
-(19, 2, 0, 3, 4, 'a:0:{}', NULL, NULL, '<p>Contoh soal seperti contoh nomor 1, tapi baris dan kolom dibalik:<br><br>Cocokanlah peralatan dibawah ini sesuai tempat penggunannya</p>\n', '', '', '', '', '', NULL, NULL, NULL, NULL, NULL, 'a:3:{s:5:\"model\";s:1:\"2\";s:4:\"type\";s:1:\"2\";s:7:\"jawaban\";a:9:{i:0;a:4:{i:0;s:1:\"#\";i:1;s:23:\"<p>Peralatan Dapur</p>\n\";i:2;s:23:\"<p>Peralatan Kebun</p>\n\";i:3;s:33:\"<p>Peralatan Tukang Bangunan</p>\n\";}i:1;a:4:{i:0;s:15:\"<p>Cangkul</p>\n\";i:1;s:1:\"0\";i:2;s:1:\"1\";i:3;s:1:\"0\";}i:2;a:4:{i:0;s:13:\"<p>Pisau</p>\n\";i:1;s:1:\"1\";i:2;s:1:\"0\";i:3;s:1:\"0\";}i:3;a:4:{i:0;s:13:\"<p>Obeng</p>\n\";i:1;s:1:\"0\";i:2;s:1:\"0\";i:3;s:1:\"1\";}i:4;a:4:{i:0;s:15:\"<p>Spatula</p>\n\";i:1;s:1:\"1\";i:2;s:1:\"0\";i:3;s:1:\"0\";}i:5;a:4:{i:0;s:13:\"<p>Panci</p>\n\";i:1;s:1:\"1\";i:2;s:1:\"0\";i:3;s:1:\"0\";}i:6;a:4:{i:0;s:17:\"<p>Keranjang</p>\n\";i:1;s:1:\"0\";i:2;s:1:\"1\";i:3;s:1:\"0\";}i:7;a:4:{i:0;s:15:\"<p>Gergaji</p>\n\";i:1;s:1:\"0\";i:2;s:1:\"0\";i:3;s:1:\"1\";}i:8;a:4:{i:0;s:12:\"<p>Palu</p>\n\";i:1;s:1:\"0\";i:2;s:1:\"0\";i:3;s:1:\"1\";}}}', 1764948593, 1764948593, 0, '', 8, 0, 0),
-(20, 2, 0, 3, 5, 'a:0:{}', NULL, NULL, '<p>Contoh soal seperti contoh nomor 2, tapi baris dan kolom dibalik:<br><br>Cocokanlah peralatan dibawah ini sesuai apa yang dihasilkannya</p>\n', '', '', '', '', '', NULL, NULL, NULL, NULL, NULL, 'a:3:{s:5:\"model\";s:1:\"2\";s:4:\"type\";s:1:\"1\";s:7:\"jawaban\";a:6:{i:0;a:3:{i:0;s:1:\"#\";i:1;s:30:\"<p>Media penghasil suara </p>\n\";i:2;s:30:\"<p>Media Penghasil gambar</p>\n\";}i:1;a:3:{i:0;s:21:\"<p>Speaker Aktif</p>\n\";i:1;s:1:\"1\";i:2;s:1:\"0\";}i:2;a:3:{i:0;s:16:\"<p>Televisi</p>\n\";i:1;s:1:\"1\";i:2;s:1:\"1\";}i:3;a:3:{i:0;s:13:\"<p>Radio</p>\n\";i:1;s:1:\"1\";i:2;s:1:\"0\";}i:4;a:3:{i:0;s:19:\"<p>Handphone  </p>\n\";i:1;s:1:\"1\";i:2;s:1:\"1\";}i:5;a:3:{i:0;s:28:\"<p>In Focus (proyektor)</p>\n\";i:1;s:1:\"0\";i:2;s:1:\"1\";}}}', 1764948593, 1764948593, 0, '', 8, 0, 0),
-(21, 2, 0, 3, 6, 'a:0:{}', NULL, NULL, '<p>Contoh soal dengan pilihan BENAR dan SALAH, atau YES dan No.</p><p>Jawab pernyataan di bawah ini</p>\n', '', '', '', '', '', NULL, NULL, NULL, NULL, NULL, 'a:3:{s:5:\"model\";s:1:\"2\";s:4:\"type\";s:1:\"2\";s:7:\"jawaban\";a:4:{i:0;a:3:{i:0;s:1:\"#\";i:1;s:13:\"<p>Benar</p>\n\";i:2;s:13:\"<p>Salah</p>\n\";}i:1;a:3:{i:0;s:20:\"<p>Saya pelajar</p>\n\";i:1;s:1:\"1\";i:2;s:1:\"0\";}i:2;a:3:{i:0;s:28:\"<p>Datang untuk bermain</p>\n\";i:1;s:1:\"0\";i:2;s:1:\"1\";}i:3;a:3:{i:0;s:25:\"<p>Belajar seenaknya</p>\n\";i:1;s:1:\"0\";i:2;s:1:\"1\";}}}', 1764948593, 1764948593, 0, '', 8, 0, 0),
-(22, 2, 0, 4, 1, 'a:0:{}', NULL, NULL, '<p>soal isian singkat</p>\n', '', '', '', '', '', NULL, NULL, NULL, NULL, NULL, 'singkat', 1764948593, 1764948593, 0, '', 8, 0, 0),
-(23, 2, 0, 5, 1, 'a:0:{}', NULL, NULL, '<p>uraian</p>\n', '', '', '', '', '', NULL, NULL, NULL, NULL, NULL, '<p>jawab urai </p>\n', 1764948593, 1764948593, 0, '', 8, 0, 0),
-(24, 2, 0, 5, 2, 'a:0:{}', NULL, NULL, '<p>soal uraian </p>\n', '', '', '', '', '', NULL, NULL, NULL, NULL, NULL, '<p>uraian</p>\n', 1764948593, 1764948593, 0, '', 8, 0, 0);
+(1, 1, 0, 1, 1, 'a:0:{}', NULL, NULL, '<p>Siapakah Presiden Indonesia pada tahun 1999 ?</p>\n', '', '', '', '', '', NULL, NULL, NULL, NULL, NULL, 'C', 1767837213, 1767837213, 1, '', 8, 0, 0),
+(2, 1, 0, 1, 2, 'a:0:{}', NULL, NULL, '<p>sfjgygfffyfyfyf</p>\n', '', '', '', '', '', NULL, NULL, NULL, NULL, NULL, 'B', 1767837213, 1767837213, 1, '', 8, 0, 0),
+(3, 1, 0, 1, 3, 'a:0:{}', NULL, NULL, '<p>jhhhhuhuhuk</p>\n', '', '', '', '', '', NULL, NULL, NULL, NULL, NULL, 'A', 1767837213, 1767837213, 1, '', 8, 0, 0),
+(4, 1, 0, 1, 4, 'a:0:{}', NULL, NULL, '<p>jjjjjllk</p>\n', '', '', '', '', '', NULL, NULL, NULL, NULL, NULL, 'C', 1767837213, 1767837213, 1, '', 8, 0, 0),
+(5, 1, 0, 1, 5, 'a:0:{}', NULL, NULL, '<p>ertyuiolkjh</p>\n', '', '', '', '', '', NULL, NULL, NULL, NULL, NULL, 'B', 1767837213, 1767837213, 1, '', 8, 0, 0),
+(6, 1, 0, 2, 1, 'a:0:{}', NULL, NULL, '<p>Contoh soal dengan banyak pilihan ganda:</p><p>Manakah diantara alat berikut ini yang merupakan peralatan dapur? </p>\n', 'a:0:{}', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, 1767837213, 1767837213, 0, '', 8, 0, 0),
+(7, 1, 0, 2, 2, 'a:0:{}', NULL, NULL, '<p>Contoh soal dengan pilihan TRUE dan FALSE </p>\n', 'a:0:{}', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, 1767837213, 1767837213, 0, '', 8, 0, 0),
+(8, 1, 0, 2, 3, 'a:0:{}', NULL, NULL, '<p>Contoh soal dengan pilihan YES dan NO</p>\n', 'a:0:{}', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, 1767837213, 1767837213, 0, '', 8, 0, 0),
+(9, 1, 0, 3, 1, 'a:0:{}', NULL, NULL, '<p>Contoh soal menjodohkan dengan satu baris berisi beberapa jawaban benar.<br><br>Cocokanlah peralatan dibawah ini sesuai tempat penggunannya</p>\n', '', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, 1767837213, 1767837213, 0, '', 8, 0, 0),
+(10, 1, 0, 3, 2, 'a:0:{}', NULL, NULL, '<p>Contoh soal menjodohkan dengan satu baris berisi jawaban benar bercampur.<br><br>Cocokanlah peralatan dibawah ini sesuai apa yang dihasilkannya</p>\n', '', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, 1767837213, 1767837213, 0, '', 8, 0, 0),
+(11, 1, 0, 3, 3, 'a:0:{}', NULL, NULL, '<p>Contoh soal menjodohkan dengan satu baris berisi satu jawaban benar.<br><br>Cocokanlah nama negara di bawah ini dengan Ibukotanya</p>\n', '', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, 1767837213, 1767837213, 0, '', 8, 0, 0),
+(12, 1, 0, 3, 4, 'a:0:{}', NULL, NULL, '<p>Contoh soal seperti contoh nomor 1, tapi baris dan kolom dibalik:<br><br>Cocokanlah peralatan dibawah ini sesuai tempat penggunannya</p>\n', '', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, 1767837213, 1767837213, 0, '', 8, 0, 0),
+(13, 1, 0, 3, 5, 'a:0:{}', NULL, NULL, '<p>Contoh soal seperti contoh nomor 2, tapi baris dan kolom dibalik:<br><br>Cocokanlah peralatan dibawah ini sesuai apa yang dihasilkannya</p>\n', '', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, 1767837213, 1767837213, 0, '', 8, 0, 0),
+(14, 1, 0, 3, 6, 'a:0:{}', NULL, NULL, '<p>Contoh soal dengan pilihan BENAR dan SALAH, atau YES dan No.</p><p>Jawab pernyataan di bawah ini</p>\n', '', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, 1767837213, 1767837213, 0, '', 8, 0, 0),
+(15, 1, 0, 4, 1, 'a:0:{}', NULL, NULL, '<p>soal isian singkat</p>\n', '', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, 1767837213, 1767837213, 0, '', 8, 0, 0),
+(16, 1, 0, 5, 1, 'a:0:{}', NULL, NULL, '<p>uraian</p>\n', '', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, 1767837213, 1767837213, 0, '', 8, 0, 0),
+(17, 1, 0, 5, 2, 'a:0:{}', NULL, NULL, '<p>soal uraian </p>\n', '', '', '', '', '', NULL, NULL, NULL, NULL, NULL, NULL, 1767837213, 1767837213, 0, '', 8, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -704,29 +722,6 @@ INSERT INTO `cbt_token` (`token`, `auto`, `id_token`, `jarak`, `updated`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `comments`
---
-
-CREATE TABLE `comments` (
-  `id_comment` int NOT NULL,
-  `id_post` int DEFAULT NULL,
-  `name` varchar(100) DEFAULT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `body` text,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  `status` int DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `comments`
---
-
-INSERT INTO `comments` (`id_comment`, `id_post`, `name`, `email`, `body`, `created_at`, `status`) VALUES
-(1, 1, 'ss', 'ageng.prayoga321@gmail.com', 'ddsds', '2025-12-13 11:39:30', 1);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `groups`
 --
 
@@ -791,8 +786,10 @@ CREATE TABLE `jabatan_guru` (
 --
 
 INSERT INTO `jabatan_guru` (`id_jabatan_guru`, `id_guru`, `id_jabatan`, `id_kelas`, `mapel_kelas`, `ekstra_kelas`, `id_tp`, `id_smt`) VALUES
+('111', 1, 5, 0, 'a:0:{}', 'a:0:{}', 1, 1),
 ('131', 1, 2, 0, 'a:0:{}', 'a:0:{}', 3, 1),
 ('132', 1, 5, 0, 'a:1:{i:0;a:3:{s:8:\"id_mapel\";s:1:\"1\";s:10:\"nama_mapel\";s:14:\"Al Quran-Hadis\";s:11:\"kelas_mapel\";a:2:{i:0;a:1:{s:5:\"kelas\";s:1:\"3\";}i:1;a:1:{s:5:\"kelas\";N;}}}}', 'a:0:{}', 3, 2),
+('211', 2, 5, 0, 'a:0:{}', 'a:0:{}', 1, 1),
 ('232', 2, 5, 0, 'a:1:{i:0;a:3:{s:8:\"id_mapel\";s:2:\"42\";s:10:\"nama_mapel\";s:22:\"Matematika (Peminatan)\";s:11:\"kelas_mapel\";a:2:{i:0;a:1:{s:5:\"kelas\";s:1:\"3\";}i:1;a:1:{s:5:\"kelas\";N;}}}}', 'a:0:{}', 3, 2);
 
 -- --------------------------------------------------------
@@ -870,6 +867,14 @@ CREATE TABLE `kelas_jadwal_kbm` (
   `istirahat` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
+--
+-- Dumping data for table `kelas_jadwal_kbm`
+--
+
+INSERT INTO `kelas_jadwal_kbm` (`id_kbm`, `id_tp`, `id_smt`, `id_kelas`, `kbm_jam_pel`, `kbm_jam_mulai`, `kbm_jml_mapel_hari`, `istirahat`) VALUES
+(323, 3, 2, 3, 45, '06:45', 7, 'a:2:{i:0;a:2:{s:3:\"ist\";s:1:\"4\";s:3:\"dur\";s:2:\"30\";}i:1;a:2:{s:3:\"ist\";s:1:\"6\";s:3:\"dur\";s:2:\"60\";}}'),
+(1118, 1, 1, 18, 35, '06:45', 10, 'a:2:{i:0;a:2:{s:3:\"ist\";s:1:\"4\";s:3:\"dur\";s:2:\"20\";}i:1;a:2:{s:3:\"ist\";s:1:\"9\";s:3:\"dur\";s:2:\"60\";}}');
+
 -- --------------------------------------------------------
 
 --
@@ -885,6 +890,90 @@ CREATE TABLE `kelas_jadwal_mapel` (
   `jam_ke` int NOT NULL,
   `id_mapel` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+
+--
+-- Dumping data for table `kelas_jadwal_mapel`
+--
+
+INSERT INTO `kelas_jadwal_mapel` (`id_jadwal`, `id_tp`, `id_smt`, `id_kelas`, `id_hari`, `jam_ke`, `id_mapel`) VALUES
+(32311, 3, 2, 3, 1, 1, 12),
+(32312, 3, 2, 3, 1, 2, 12),
+(32313, 3, 2, 3, 1, 3, 42),
+(32315, 3, 2, 3, 1, 5, 40),
+(32317, 3, 2, 3, 1, 7, 10),
+(32321, 3, 2, 3, 2, 1, 2),
+(32322, 3, 2, 3, 2, 2, 11),
+(32323, 3, 2, 3, 2, 3, 11),
+(32325, 3, 2, 3, 2, 5, 39),
+(32327, 3, 2, 3, 2, 7, 14),
+(32331, 3, 2, 3, 3, 1, 22),
+(32332, 3, 2, 3, 3, 2, 41),
+(32333, 3, 2, 3, 3, 3, 1),
+(32335, 3, 2, 3, 3, 5, 1),
+(32337, 3, 2, 3, 3, 7, 39),
+(32341, 3, 2, 3, 4, 1, 21),
+(32342, 3, 2, 3, 4, 2, 21),
+(32343, 3, 2, 3, 4, 3, 20),
+(32345, 3, 2, 3, 4, 5, 20),
+(32347, 3, 2, 3, 4, 7, 22),
+(32351, 3, 2, 3, 5, 1, 9),
+(32352, 3, 2, 3, 5, 2, 9),
+(32353, 3, 2, 3, 5, 3, 10),
+(32355, 3, 2, 3, 5, 5, 10),
+(32357, 3, 2, 3, 5, 7, 6),
+(32361, 3, 2, 3, 6, 1, 40),
+(32362, 3, 2, 3, 6, 2, 40),
+(32363, 3, 2, 3, 6, 3, 24),
+(32365, 3, 2, 3, 6, 5, 24),
+(32367, 3, 2, 3, 6, 7, 27),
+(111811, 1, 1, 18, 1, 1, 0),
+(111812, 1, 1, 18, 1, 2, 0),
+(111813, 1, 1, 18, 1, 3, 0),
+(111815, 1, 1, 18, 1, 5, 0),
+(111816, 1, 1, 18, 1, 6, 0),
+(111817, 1, 1, 18, 1, 7, 0),
+(111818, 1, 1, 18, 1, 8, 0),
+(111821, 1, 1, 18, 2, 1, 0),
+(111822, 1, 1, 18, 2, 2, 0),
+(111823, 1, 1, 18, 2, 3, 0),
+(111825, 1, 1, 18, 2, 5, 0),
+(111826, 1, 1, 18, 2, 6, 0),
+(111827, 1, 1, 18, 2, 7, 0),
+(111828, 1, 1, 18, 2, 8, 0),
+(111831, 1, 1, 18, 3, 1, 6),
+(111832, 1, 1, 18, 3, 2, 6),
+(111833, 1, 1, 18, 3, 3, 6),
+(111835, 1, 1, 18, 3, 5, 0),
+(111836, 1, 1, 18, 3, 6, 0),
+(111837, 1, 1, 18, 3, 7, 0),
+(111838, 1, 1, 18, 3, 8, 0),
+(111841, 1, 1, 18, 4, 1, 6),
+(111842, 1, 1, 18, 4, 2, 6),
+(111843, 1, 1, 18, 4, 3, 6),
+(111845, 1, 1, 18, 4, 5, 6),
+(111846, 1, 1, 18, 4, 6, 6),
+(111847, 1, 1, 18, 4, 7, 6),
+(111848, 1, 1, 18, 4, 8, 6),
+(111851, 1, 1, 18, 5, 1, 0),
+(111852, 1, 1, 18, 5, 2, 0),
+(111853, 1, 1, 18, 5, 3, 0),
+(111855, 1, 1, 18, 5, 5, 0),
+(111856, 1, 1, 18, 5, 6, 0),
+(111857, 1, 1, 18, 5, 7, 0),
+(111858, 1, 1, 18, 5, 8, 0),
+(111861, 1, 1, 18, 6, 1, 0),
+(111862, 1, 1, 18, 6, 2, 0),
+(111863, 1, 1, 18, 6, 3, 0),
+(111865, 1, 1, 18, 6, 5, 0),
+(111866, 1, 1, 18, 6, 6, 0),
+(111867, 1, 1, 18, 6, 7, 0),
+(111868, 1, 1, 18, 6, 8, 0),
+(1118110, 1, 1, 18, 1, 10, 0),
+(1118210, 1, 1, 18, 2, 10, 0),
+(1118310, 1, 1, 18, 3, 10, 0),
+(1118410, 1, 1, 18, 4, 10, 6),
+(1118510, 1, 1, 18, 5, 10, 0),
+(1118610, 1, 1, 18, 6, 10, 0);
 
 -- --------------------------------------------------------
 
@@ -949,9 +1038,49 @@ CREATE TABLE `kelas_siswa` (
 --
 
 INSERT INTO `kelas_siswa` (`id_kelas_siswa`, `id_tp`, `id_smt`, `id_siswa`, `id_kelas`) VALUES
+(115, 1, 1, 5, 17),
+(116, 1, 1, 6, 17),
+(117, 1, 1, 7, 17),
+(118, 1, 1, 8, 17),
+(119, 1, 1, 9, 17),
+(125, 1, 2, 5, 28),
+(126, 1, 2, 6, 28),
+(127, 1, 2, 7, 28),
+(128, 1, 2, 8, 28),
+(129, 1, 2, 9, 28),
 (311, 3, 1, 1, 1),
 (321, 3, 2, 1, 3),
-(421, 4, 2, 1, 2);
+(322, 3, 2, 2, 4),
+(1110, 1, 1, 10, 18),
+(1111, 1, 1, 11, 18),
+(1112, 1, 1, 12, 18),
+(1113, 1, 1, 13, 18),
+(1114, 1, 1, 14, 18),
+(1115, 1, 1, 15, 19),
+(1116, 1, 1, 16, 19),
+(1117, 1, 1, 17, 19),
+(1118, 1, 1, 18, 19),
+(1119, 1, 1, 19, 19),
+(1120, 1, 1, 20, 20),
+(1121, 1, 1, 21, 20),
+(1122, 1, 1, 22, 20),
+(1123, 1, 1, 23, 20),
+(1124, 1, 1, 24, 20),
+(1210, 1, 2, 10, 29),
+(1211, 1, 2, 11, 29),
+(1212, 1, 2, 12, 29),
+(1213, 1, 2, 13, 29),
+(1214, 1, 2, 14, 29),
+(1215, 1, 2, 15, 30),
+(1216, 1, 2, 16, 30),
+(1217, 1, 2, 17, 30),
+(1218, 1, 2, 18, 30),
+(1219, 1, 2, 19, 30),
+(1220, 1, 2, 20, 24),
+(1221, 1, 2, 21, 24),
+(1222, 1, 2, 22, 24),
+(1223, 1, 2, 23, 24),
+(1224, 1, 2, 24, 24);
 
 -- --------------------------------------------------------
 
@@ -1088,7 +1217,129 @@ INSERT INTO `log` (`id_log`, `log_time`, `id_user`, `id_group`, `name_group`, `l
 (31, '2026-01-06 12:25:35', 4, 2, 'guru', 0, 'Login', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
 (32, '2026-01-06 12:31:08', 4, 2, 'guru', 0, 'Login', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
 (33, '2026-01-06 12:53:51', 3, 2, 'guru', 0, 'Login', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
-(34, '2026-01-06 13:11:55', 5, 2, 'guru', 0, 'Login', '::1', 'Chrome 143.0.0.0', 'Windows 10');
+(34, '2026-01-06 13:11:55', 5, 2, 'guru', 0, 'Login', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(35, '2026-01-06 13:53:52', 5, 2, 'guru', 0, 'Login', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(36, '2026-01-06 13:54:41', 4, 2, 'guru', 0, 'Login', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(37, '2026-01-06 14:33:07', 4, 2, 'guru', 0, 'Login', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(38, '2026-01-06 14:35:45', 1, 1, 'admin', 0, 'Login', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(39, '2026-01-06 15:14:06', 5, 2, 'guru', 0, 'Login', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(40, '2026-01-06 15:48:41', 5, 2, 'guru', 0, 'menghapus bank soal', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(41, '2026-01-06 15:51:15', 5, 2, 'guru', 0, 'menambah bank soal', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(42, '2026-01-06 15:52:07', 4, 2, 'guru', 0, 'menambah bank soal', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(43, '2026-01-06 16:18:06', 1, 1, 'admin', 0, 'mengedit bank soal', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(44, '2026-01-06 16:23:30', 1, 1, 'admin', 0, 'mengedit soal', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(45, '2026-01-06 16:24:21', 1, 1, 'admin', 0, 'mengedit soal', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(46, '2026-01-06 16:24:57', 1, 1, 'admin', 0, 'mengedit bank soal', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(47, '2026-01-06 16:41:01', 5, 2, 'guru', 0, 'menghapus bank soal', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(48, '2026-01-06 17:12:48', 5, 2, 'guru', 0, 'menambah jadwal pelajaran', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(49, '2026-01-06 17:15:32', 1, 1, 'admin', 0, 'mengedit jadwal pelajaran', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(50, '2026-01-06 17:15:50', 1, 1, 'admin', 0, 'mengedit jadwal pelajaran', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(51, '2026-01-06 21:33:49', 1, 1, 'admin', 0, 'merubah jadwal pelajaran', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(52, '2026-01-06 21:37:47', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(53, '2026-01-06 21:38:02', 1, 1, 'admin', 0, 'mengedit tahun pelajaran', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(54, '2026-01-06 21:38:14', 1, 1, 'admin', 0, 'mengedit tahun pelajaran', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(55, '2026-01-06 21:38:41', 1, 1, 'admin', 0, 'mengedit tahun pelajaran', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(56, '2026-01-06 21:38:50', 1, 1, 'admin', 0, 'mengedit tahun pelajaran', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(57, '2026-01-06 21:42:14', 1, 1, 'admin', 0, 'mengganti semester aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(58, '2026-01-06 23:27:13', 7, 2, 'guru', 0, 'Login', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(59, '2026-01-07 11:06:38', 1, 1, 'admin', 0, 'Login', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(60, '2026-01-07 11:11:12', 1, 1, 'admin', 0, 'mengganti semester aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(61, '2026-01-07 11:11:26', 1, 1, 'admin', 0, 'mengganti semester aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(62, '2026-01-07 11:14:58', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(63, '2026-01-07 11:15:00', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(64, '2026-01-07 11:33:04', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(65, '2026-01-07 11:34:12', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(66, '2026-01-07 11:35:05', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(67, '2026-01-07 11:36:59', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(68, '2026-01-07 11:46:01', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(69, '2026-01-07 11:47:41', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(70, '2026-01-07 11:51:37', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(71, '2026-01-07 11:53:38', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(72, '2026-01-07 11:53:56', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(73, '2026-01-07 11:55:27', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(74, '2026-01-07 11:57:00', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(75, '2026-01-07 11:57:36', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(76, '2026-01-07 11:58:30', 1, 1, 'admin', 0, 'Login', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(77, '2026-01-07 11:59:04', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(78, '2026-01-07 12:09:19', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(79, '2026-01-07 12:28:16', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(80, '2026-01-07 12:50:36', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(81, '2026-01-07 12:52:04', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(82, '2026-01-07 12:52:15', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(83, '2026-01-07 12:52:25', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(84, '2026-01-07 12:52:28', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(85, '2026-01-07 12:52:54', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(86, '2026-01-07 12:54:26', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(87, '2026-01-07 12:54:39', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(88, '2026-01-07 12:55:00', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(89, '2026-01-07 12:55:59', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(90, '2026-01-07 12:56:37', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(91, '2026-01-07 13:02:14', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(92, '2026-01-07 13:03:48', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(93, '2026-01-07 13:05:01', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(94, '2026-01-07 13:15:42', 1, 1, 'admin', 0, 'mengganti semester aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(95, '2026-01-07 13:16:21', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(96, '2026-01-07 13:16:25', 1, 1, 'admin', 0, 'mengganti semester aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(97, '2026-01-07 13:17:11', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(98, '2026-01-07 13:41:39', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(99, '2026-01-07 13:45:27', 1, 1, 'admin', 0, 'mengganti semester aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(100, '2026-01-07 13:45:30', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(101, '2026-01-07 13:45:33', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(102, '2026-01-07 13:45:45', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(103, '2026-01-07 13:46:01', 1, 1, 'admin', 0, 'Login', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(104, '2026-01-07 14:02:32', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(105, '2026-01-07 14:02:34', 1, 1, 'admin', 0, 'mengganti semester aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(106, '2026-01-07 14:21:00', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(107, '2026-01-07 14:21:44', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(108, '2026-01-07 14:32:15', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(109, '2026-01-07 14:32:18', 1, 1, 'admin', 0, 'mengganti semester aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(110, '2026-01-07 15:16:21', 1, 1, 'admin', 0, 'mengganti semester aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(111, '2026-01-07 16:26:17', 1, 1, 'admin', 0, 'mengganti semester aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(112, '2026-01-07 16:26:25', 1, 1, 'admin', 0, 'mengganti semester aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(113, '2026-01-07 16:27:24', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(114, '2026-01-07 16:41:46', 1, 1, 'admin', 0, 'mengganti tahun ajaran aktif', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(115, '2026-01-07 17:10:48', 1, 1, 'admin', 0, 'Login', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(116, '2026-01-07 18:19:31', 1, 1, 'admin', 0, 'Login', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(117, '2026-01-07 18:50:44', 2, 3, 'siswa', 0, 'Login', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(118, '2026-01-07 18:51:57', 1, 1, 'admin', 0, 'menambah bank soal', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(119, '2026-01-07 18:56:10', 1, 1, 'admin', 0, 'mengedit bank soal', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(120, '2026-01-07 18:59:22', 1, 1, 'admin', 0, 'Login', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(121, '2026-01-07 19:07:45', 1, 1, 'admin', 0, 'menambah jadwal pelajaran', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(122, '2026-01-07 19:08:10', 1, 1, 'admin', 0, 'menghapus jadwal ujian', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(123, '2026-01-07 19:32:36', 2, 3, 'siswa', 0, 'Login', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(124, '2026-01-07 19:36:19', 1, 1, 'admin', 0, 'Login', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(125, '2026-01-07 20:54:43', 2, 3, 'siswa', 0, 'Login', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(126, '2026-01-07 21:17:09', 1, 1, 'admin', 0, 'menambah jadwal pelajaran', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(127, '2026-01-07 21:18:28', 1, 1, 'admin', 0, 'menambah jadwal pelajaran', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(128, '2026-01-07 21:20:54', 1, 1, 'admin', 0, 'menambah jadwal pelajaran', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(129, '2026-01-07 21:25:31', 1, 1, 'admin', 0, 'Login', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(130, '2026-01-07 21:33:57', 17, 3, 'siswa', 0, 'Login', '192.168.1.6', 'Chrome 126.0.0.0', 'Android'),
+(131, '2026-01-07 22:33:09', 1, 1, 'admin', 0, 'mengedit jadwal pelajaran', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(132, '2026-01-07 22:48:48', 1, 1, 'admin', 0, 'mengedit soal', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(133, '2026-01-07 22:49:03', 1, 1, 'admin', 0, 'mengedit soal', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(134, '2026-01-07 22:49:16', 1, 1, 'admin', 0, 'mengedit soal', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(135, '2026-01-07 22:49:29', 1, 1, 'admin', 0, 'mengedit soal', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(136, '2026-01-07 22:49:39', 1, 1, 'admin', 0, 'mengedit soal', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(137, '2026-01-07 23:45:41', 7, 2, 'guru', 0, 'Login', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(138, '2026-01-08 07:21:42', 2, 3, 'siswa', 0, 'Login', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(139, '2026-01-08 07:22:09', 1, 1, 'admin', 0, 'Login', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(140, '2026-01-08 07:23:52', 1, 1, 'admin', 0, 'mengedit jadwal pelajaran', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(141, '2026-01-08 07:24:03', 1, 1, 'admin', 0, 'mengedit jadwal pelajaran', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(142, '2026-01-08 07:24:48', 1, 1, 'admin', 0, 'mengedit bank soal', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(143, '2026-01-08 07:45:21', 1, 1, 'admin', 0, 'menambah bank soal', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(144, '2026-01-08 07:52:54', 1, 1, 'admin', 0, 'menghapus jadwal ujian', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(145, '2026-01-08 08:43:54', 1, 1, 'admin', 0, 'menambah bank soal', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(146, '2026-01-08 08:47:52', 1, 1, 'admin', 0, 'menambah bank soal', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(147, '2026-01-08 08:53:11', 1, 1, 'admin', 0, 'menambah bank soal', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(148, '2026-01-08 08:56:28', 1, 1, 'admin', 0, 'menambah jadwal pelajaran', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(149, '2026-01-08 09:04:08', 2, 3, 'siswa', 0, 'Login', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(150, '2026-01-08 10:38:31', 2, 3, 'siswa', 0, 'Login', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(151, '2026-01-08 10:39:21', 1, 1, 'admin', 0, 'Login', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(152, '2026-01-08 10:59:20', 1, 1, 'admin', 0, 'merubah jadwal pelajaran', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(153, '2026-01-08 11:20:47', 2, 3, 'siswa', 0, 'Login', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(154, '2026-01-08 11:25:08', 1, 1, 'admin', 0, 'Login', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(155, '2026-01-08 11:40:15', 2, 3, 'siswa', 0, 'Login', '::1', 'Chrome 143.0.0.0', 'Windows 10'),
+(156, '2026-01-08 11:45:00', 2, 3, 'siswa', 0, 'Login', '::1', 'Chrome 143.0.0.0', 'Windows 10');
 
 -- --------------------------------------------------------
 
@@ -1108,8 +1359,9 @@ CREATE TABLE `login_attempts` (
 --
 
 INSERT INTO `login_attempts` (`id`, `ip_address`, `login`, `time`) VALUES
-(8, '::1', 'admin', 1767677351),
-(9, '::1', 'tukinem1', 1767679911);
+(10, '::1', 'admin', 1767787131),
+(11, '::1', 'admin', 1767787141),
+(12, '::1', 'admin', 1767847364);
 
 -- --------------------------------------------------------
 
@@ -1162,7 +1414,11 @@ CREATE TABLE `log_ujian` (
 
 INSERT INTO `log_ujian` (`id_log`, `log_time`, `id_siswa`, `id_jadwal`, `log_type`, `log_desc`, `address`, `agent`, `device`, `reset`, `finish_time`) VALUES
 (1011, '2025-12-05 21:56:50', 1, 1, 1, 'Memulai Ujian', '::1', 'Chrome 142.0.0.0', 'Windows 10', 0, NULL),
-(1012, '2025-12-05 21:59:20', 1, 1, 2, 'Menyelesaikan Ujian', '::1', 'Chrome 142.0.0.0', 'Windows 10', 0, NULL);
+(1012, '2025-12-05 21:59:20', 1, 1, 2, 'Menyelesaikan Ujian', '::1', 'Chrome 142.0.0.0', 'Windows 10', 0, NULL),
+(1139, '2026-01-08 00:02:03', 11, 3, 9, 'Meninggalkan halaman ujian (Tab Switch/Minimize)', '::1', 'Chrome 143.0.0.0', 'Windows 10', 0, NULL),
+(11031, '2026-01-07 22:31:23', 11, 3, 1, 'Memulai Ujian', '::1', 'Chrome 143.0.0.0', 'Windows 10', 0, NULL),
+(11032, '2026-01-08 00:36:01', 11, 3, 2, 'Menyelesaikan Ujian', '::1', 'Chrome 143.0.0.0', 'Windows 10', 0, NULL),
+(11039, '2026-01-07 23:27:59', 11, 3, 9, 'Meninggalkan halaman ujian (Tab Switch/Minimize)', '::1', 'Chrome 143.0.0.0', 'Windows 10', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -1184,30 +1440,6 @@ INSERT INTO `master_ekstra` (`id_ekstra`, `nama_ekstra`, `kode_ekstra`) VALUES
 (1, 'Pramuka', 'PRAM'),
 (2, 'Baca Tulis Al Quran', 'BTQ'),
 (3, 'Tahfidz', 'TFZ');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `master_gallery`
---
-
-CREATE TABLE `master_gallery` (
-  `id_gallery` int UNSIGNED NOT NULL,
-  `judul` varchar(255) DEFAULT NULL,
-  `gambar` varchar(255) NOT NULL,
-  `kategori` varchar(100) NOT NULL DEFAULT 'Umum',
-  `deskripsi` text,
-  `created_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-
---
--- Dumping data for table `master_gallery`
---
-
-INSERT INTO `master_gallery` (`id_gallery`, `judul`, `gambar`, `kategori`, `deskripsi`, `created_at`) VALUES
-(1, 'waktu menggambar', 'uploads/gallery/gallery_1765859338.webp', 'Umum', 'deskripsi singkat', '2025-12-15 15:07:44'),
-(3, 'belajar bersama', 'uploads/gallery/gallery_1765859315.webp', 'Umum', 'belajar bareng', '2025-12-16 11:28:37'),
-(4, 'belajar dikelas', 'uploads/gallery/gallery_1765859395.webp', 'Kegiatan', 'pembelajaran di kelas', '2025-12-16 11:29:57');
 
 -- --------------------------------------------------------
 
@@ -1248,16 +1480,21 @@ CREATE TABLE `master_guru` (
   `tmt` date DEFAULT NULL,
   `keahlian_isyarat` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `npwp` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `foto` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci
+  `foto` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `link_fb` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `link_ig` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `link_yt` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `link_linkedin` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `link_tiktok` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `master_guru`
 --
 
-INSERT INTO `master_guru` (`id_guru`, `id_user`, `nip`, `nama_guru`, `email`, `kode_guru`, `username`, `password`, `no_ktp`, `tempat_lahir`, `tgl_lahir`, `jenis_kelamin`, `agama`, `no_hp`, `alamat_jalan`, `rt_rw`, `dusun`, `kelurahan`, `kecamatan`, `kabupaten`, `provinsi`, `kode_pos`, `kewarganegaraan`, `nuptk`, `jenis_ptk`, `tgs_tambahan`, `status_pegawai`, `status_aktif`, `status_nikah`, `tmt`, `keahlian_isyarat`, `npwp`, `foto`) VALUES
-(1, 5, '123456789', 'tukinem', 'jbsjs@gmail.com', NULL, 'tukinem', 'tukinem1', '', '', '0000-00-00', 'P', 'Pilih Agam', '0800', '', NULL, NULL, NULL, '', '', '', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(2, 4, '0987654321', 'parjo', 'fake123email@notreal.xyz', NULL, 'parjo', 'parjo', '', '', '0000-00-00', 'L', 'Islam', '5678', '', NULL, NULL, NULL, '', '', '', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `master_guru` (`id_guru`, `id_user`, `nip`, `nama_guru`, `email`, `kode_guru`, `username`, `password`, `no_ktp`, `tempat_lahir`, `tgl_lahir`, `jenis_kelamin`, `agama`, `no_hp`, `alamat_jalan`, `rt_rw`, `dusun`, `kelurahan`, `kecamatan`, `kabupaten`, `provinsi`, `kode_pos`, `kewarganegaraan`, `nuptk`, `jenis_ptk`, `tgs_tambahan`, `status_pegawai`, `status_aktif`, `status_nikah`, `tmt`, `keahlian_isyarat`, `npwp`, `foto`, `link_fb`, `link_ig`, `link_yt`, `link_linkedin`, `link_tiktok`) VALUES
+(1, 7, '123456789', 'tukinem', 'jbsjs@gmail.com', NULL, 'tukinem', 'tukinem1', '', '', '0000-00-00', 'P', 'Pilih Agam', '0800', '', NULL, NULL, NULL, '', '', '', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'https://www.facebook.com/sdnikeriker sdnikeriker', '', '', '', 'https://www.tiktok.com/@uptsdn63gresik?is_from_webapp=1&sender_device=pc'),
+(2, 4, '0987654321', 'parjo', 'fake123email@notreal.xyz', NULL, 'parjo', 'parjo', '', '', '0000-00-00', 'L', 'Islam', '5678', '', NULL, NULL, NULL, '', '', '', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1323,8 +1560,16 @@ CREATE TABLE `master_kelas` (
 
 INSERT INTO `master_kelas` (`id_kelas`, `id_tp`, `id_smt`, `nama_kelas`, `kode_kelas`, `jurusan_id`, `level_id`, `guru_id`, `siswa_id`, `jumlah_siswa`, `set_siswa`, `aktif`) VALUES
 (1, 3, 1, 'kelas 1', '123', NULL, 1, 0, 1, 'a:1:{i:0;a:1:{s:2:\"id\";s:1:\"1\";}}', '0', 1),
-(2, 4, 2, 'kelas 2', '789', NULL, 2, 0, 1, 'a:1:{i:0;a:1:{s:2:\"id\";s:1:\"1\";}}', '0', 1),
-(3, 3, 2, 'kelas 1', '123', NULL, 1, 0, 1, 'a:1:{i:0;a:1:{s:2:\"id\";s:1:\"1\";}}', '0', 1);
+(3, 3, 2, 'kelas 1', '123', NULL, 1, 0, 1, 'a:1:{i:0;a:1:{s:2:\"id\";s:1:\"1\";}}', '0', 1),
+(4, 3, 2, 'kelas 2', '02', NULL, 2, 0, 2, 'a:1:{i:0;a:1:{s:2:\"id\";s:1:\"2\";}}', '0', 1),
+(17, 1, 1, 'Kelas 1', '2025202624', NULL, 1, 0, 7, 'a:5:{i:0;a:1:{s:2:\"id\";s:1:\"5\";}i:1;a:1:{s:2:\"id\";s:1:\"7\";}i:2;a:1:{s:2:\"id\";s:1:\"8\";}i:3;a:1:{s:2:\"id\";s:1:\"6\";}i:4;a:1:{s:2:\"id\";s:1:\"9\";}}', '0', 1),
+(18, 1, 1, 'Kelas 2', '2025202653', NULL, 2, 0, 14, 'a:5:{i:0;a:1:{s:2:\"id\";s:2:\"10\";}i:1;a:1:{s:2:\"id\";s:2:\"11\";}i:2;a:1:{s:2:\"id\";s:2:\"14\";}i:3;a:1:{s:2:\"id\";s:2:\"13\";}i:4;a:1:{s:2:\"id\";s:2:\"12\";}}', '0', 1),
+(19, 1, 1, 'Kelas 3', '2025202638', NULL, 3, 0, 15, 'a:5:{i:0;a:1:{s:2:\"id\";s:2:\"19\";}i:1;a:1:{s:2:\"id\";s:2:\"17\";}i:2;a:1:{s:2:\"id\";s:2:\"15\";}i:3;a:1:{s:2:\"id\";s:2:\"18\";}i:4;a:1:{s:2:\"id\";s:2:\"16\";}}', '0', 1),
+(20, 1, 1, 'Kelas 4', '2025202610', NULL, 4, 0, 23, 'a:5:{i:0;a:1:{s:2:\"id\";s:2:\"22\";}i:1;a:1:{s:2:\"id\";s:2:\"20\";}i:2;a:1:{s:2:\"id\";s:2:\"24\";}i:3;a:1:{s:2:\"id\";s:2:\"21\";}i:4;a:1:{s:2:\"id\";s:2:\"23\";}}', '0', 1),
+(24, 1, 2, 'Kelas 4', '2025202610', NULL, 4, 0, 23, 'a:5:{i:0;a:1:{s:2:\"id\";s:2:\"22\";}i:1;a:1:{s:2:\"id\";s:2:\"20\";}i:2;a:1:{s:2:\"id\";s:2:\"24\";}i:3;a:1:{s:2:\"id\";s:2:\"21\";}i:4;a:1:{s:2:\"id\";s:2:\"23\";}}', '0', 1),
+(28, 1, 2, 'Kelas 1', '2025202624', NULL, 1, 0, 7, 'a:5:{i:0;a:1:{s:2:\"id\";s:1:\"5\";}i:1;a:1:{s:2:\"id\";s:1:\"7\";}i:2;a:1:{s:2:\"id\";s:1:\"8\";}i:3;a:1:{s:2:\"id\";s:1:\"6\";}i:4;a:1:{s:2:\"id\";s:1:\"9\";}}', '0', 1),
+(29, 1, 2, 'Kelas 2', '2025202653', NULL, 2, 0, 14, 'a:5:{i:0;a:1:{s:2:\"id\";s:2:\"10\";}i:1;a:1:{s:2:\"id\";s:2:\"11\";}i:2;a:1:{s:2:\"id\";s:2:\"14\";}i:3;a:1:{s:2:\"id\";s:2:\"13\";}i:4;a:1:{s:2:\"id\";s:2:\"12\";}}', '0', 1),
+(30, 1, 2, 'Kelas 3', '2025202638', NULL, 3, 0, 15, 'a:5:{i:0;a:1:{s:2:\"id\";s:2:\"19\";}i:1;a:1:{s:2:\"id\";s:2:\"17\";}i:2;a:1:{s:2:\"id\";s:2:\"15\";}i:3;a:1:{s:2:\"id\";s:2:\"18\";}i:4;a:1:{s:2:\"id\";s:2:\"16\";}}', '0', 1);
 
 -- --------------------------------------------------------
 
@@ -1351,27 +1596,6 @@ INSERT INTO `master_kelompok_mapel` (`id_kel_mapel`, `kode_kel_mapel`, `nama_kel
 (4, 'MULOK', 'Muatan Lokal', 'MULOK', 0),
 (5, 'C1', 'Kelompok C1', 'PEMINATAN', 3),
 (6, 'PAI', 'PAI', 'PAI (Kemenag)', 0);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `master_link`
---
-
-CREATE TABLE `master_link` (
-  `id_link` int NOT NULL,
-  `judul` varchar(100) DEFAULT NULL,
-  `url` varchar(255) DEFAULT NULL,
-  `target` varchar(20) DEFAULT '_blank',
-  `status` int DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `master_link`
---
-
-INSERT INTO `master_link` (`id_link`, `judul`, `url`, `target`, `status`) VALUES
-(1, 'Kemdikbud', 'https://kemendikdasmen.go.id/', '_blank', 1);
 
 -- --------------------------------------------------------
 
@@ -1502,29 +1726,26 @@ CREATE TABLE `master_siswa` (
 --
 
 INSERT INTO `master_siswa` (`id_siswa`, `nisn`, `nis`, `nama`, `jenis_kelamin`, `username`, `password`, `kelas_awal`, `tahun_masuk`, `sekolah_asal`, `tempat_lahir`, `tanggal_lahir`, `agama`, `hp`, `email`, `foto`, `anak_ke`, `status_keluarga`, `alamat`, `rt`, `rw`, `kelurahan`, `kecamatan`, `kabupaten`, `provinsi`, `kode_pos`, `nama_ayah`, `tgl_lahir_ayah`, `pendidikan_ayah`, `pekerjaan_ayah`, `nohp_ayah`, `alamat_ayah`, `nama_ibu`, `tgl_lahir_ibu`, `pendidikan_ibu`, `pekerjaan_ibu`, `nohp_ibu`, `alamat_ibu`, `nama_wali`, `tgl_lahir_wali`, `pendidikan_wali`, `pekerjaan_wali`, `nohp_wali`, `alamat_wali`, `nik`, `warga_negara`, `uid`) VALUES
-(1, 0012345678, '123456', 'kombon', 'L', 'kombon', 'kombon', 1, '2025-12-05', '', '', '', 'Pilih Agam', '', NULL, 'uploads/foto_siswa/123456.jpg', 0, '0', '', '', '', '', '', '', NULL, 0, '', NULL, NULL, '', '', '', '', NULL, NULL, '', '', '', '', NULL, NULL, '', '', '', '', '', '6d1ab06d-d1e6-11f0-8c64-00155df25222');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `master_slider`
---
-
-CREATE TABLE `master_slider` (
-  `id_slider` int UNSIGNED NOT NULL,
-  `gambar` varchar(255) NOT NULL,
-  `caption` varchar(255) DEFAULT NULL,
-  `urutan` int NOT NULL DEFAULT '0',
-  `active` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-
---
--- Dumping data for table `master_slider`
---
-
-INSERT INTO `master_slider` (`id_slider`, `gambar`, `caption`, `urutan`, `active`) VALUES
-(1, 'uploads/slider/slider_1765858291.webp', 'ini caption lo', 1, 1),
-(2, 'uploads/slider/slider_1765858413.webp', 'ini caption kedua lo', 2, 1);
+(5, 2025202401, '2026202701', 'hermalina', 'P', 'hermalina', 'hermalina', 1, '2025-01-07', 'benjeng', 'Gresik', '21-04-2025', 'Islam', '0', '', 'uploads/foto_siswa/2026202701.jpg', 1, '1', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'c3de9f77-eb8f-11f0-a479-38f3ab6a1d95'),
+(6, 2025202402, '2026202702', 'siswanto', 'L', 'siswanto', 'siswanto', 1, '2025-01-08', 'benjeng', 'Gresik', '21-04-2026', 'Islam', '0', '', 'uploads/foto_siswa/2026202702.jpg', 1, '1', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'c3decee9-eb8f-11f0-a479-38f3ab6a1d95'),
+(7, 2025202403, '2026202703', 'narto', 'L', 'narto', 'narto', 1, '2025-01-09', 'benjeng', 'Gresik', '21-04-2027', 'Islam', '0', '', 'uploads/foto_siswa/2026202703.jpg', 1, '1', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'c3def35c-eb8f-11f0-a479-38f3ab6a1d95'),
+(8, 2025202404, '2026202704', 'naruto', 'L', 'naruto', 'naruto', 1, '2025-01-10', 'benjeng', 'Gresik', '21-04-2028', 'Islam', '0', '', 'uploads/foto_siswa/2026202704.jpg', 1, '1', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'c3df120a-eb8f-11f0-a479-38f3ab6a1d95'),
+(9, 2025202405, '2026202705', 'wawan', 'L', 'wawan', 'wawan', 1, '2025-01-11', 'benjeng', 'Gresik', '21-04-2029', 'Islam', '0', '', 'uploads/foto_siswa/2026202705.jpg', 1, '1', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'c3df2b22-eb8f-11f0-a479-38f3ab6a1d95'),
+(10, 2025202406, '2026202706', 'budi', 'L', 'budi', 'budi', 2, '2025-01-12', 'benjeng', 'Gresik', '21-04-2030', 'Islam', '0', '', 'uploads/foto_siswa/2026202706.jpg', 1, '1', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'c3df460d-eb8f-11f0-a479-38f3ab6a1d95'),
+(11, 2025202407, '2026202707', 'kombon', 'L', 'kombon', 'kombon', 2, '2025-01-13', 'benjeng', 'Gresik', '21-04-2031', 'Islam', '0', '', 'uploads/foto_siswa/2026202707.jpg', 1, '1', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'c3df59d0-eb8f-11f0-a479-38f3ab6a1d95'),
+(12, 2025202408, '2026202708', 'senam', 'P', 'senam', 'senam', 2, '2025-01-14', 'benjeng', 'Gresik', '21-04-2032', 'Islam', '0', '', 'uploads/foto_siswa/2026202708.jpg', 1, '1', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'c3df6b16-eb8f-11f0-a479-38f3ab6a1d95'),
+(13, 2025202409, '2026202709', 'parno', 'L', 'parno', 'parno', 2, '2025-01-15', 'benjeng', 'Gresik', '21-04-2033', 'Islam', '0', '', 'uploads/foto_siswa/2026202709.jpg', 1, '1', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'c3df7bb8-eb8f-11f0-a479-38f3ab6a1d95'),
+(14, 2025202410, '20262027010', 'panji', 'L', 'panji', 'panji', 2, '2025-01-16', 'benjeng', 'Gresik', '21-04-2034', 'Islam', '0', '', 'uploads/foto_siswa/20262027010.jpg', 1, '1', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'c3df8c78-eb8f-11f0-a479-38f3ab6a1d95'),
+(15, 2025202411, '20262027011', 'petualang', 'P', 'petualang', 'petualang', 3, '2025-01-17', 'benjeng', 'Gresik', '21-04-2035', 'Islam', '0', '', 'uploads/foto_siswa/20262027011.jpg', 1, '1', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'c3df9b7f-eb8f-11f0-a479-38f3ab6a1d95'),
+(16, 2025202412, '20262027012', 'siapa', 'P', 'siapa', 'siapa', 3, '2025-01-18', 'benjeng', 'Gresik', '21-04-2036', 'Islam', '0', '', 'uploads/foto_siswa/20262027012.jpg', 1, '1', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'c3dfaa25-eb8f-11f0-a479-38f3ab6a1d95'),
+(17, 2025202413, '20262027013', 'herman', 'L', 'herman', 'herman', 3, '2025-01-19', 'benjeng', 'Gresik', '21-04-2037', 'Islam', '0', '', 'uploads/foto_siswa/20262027013.jpg', 1, '1', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'c3dfc1d9-eb8f-11f0-a479-38f3ab6a1d95'),
+(18, 2025202414, '20262027014', 'sabrina', 'P', 'sabrina', 'sabrina', 3, '2025-01-20', 'benjeng', 'Gresik', '21-04-2038', 'Islam', '0', '', 'uploads/foto_siswa/20262027014.jpg', 1, '1', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'c3dfdc19-eb8f-11f0-a479-38f3ab6a1d95'),
+(19, 2025202415, '20262027015', 'brimo', 'P', 'brimo', 'brimo', 3, '2025-01-21', 'benjeng', 'Gresik', '21-04-2039', 'Islam', '0', '', 'uploads/foto_siswa/20262027015.jpg', 1, '1', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'c3dff730-eb8f-11f0-a479-38f3ab6a1d95'),
+(20, 2025202416, '20262027016', 'mobile', 'P', 'mobile', 'mobile', 4, '2025-01-22', 'benjeng', 'Gresik', '21-04-2040', 'Islam', '0', '', 'uploads/foto_siswa/20262027016.jpg', 1, '1', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'c3e00f74-eb8f-11f0-a479-38f3ab6a1d95'),
+(21, 2025202417, '20262027017', 'suratno', 'L', 'suratno', 'suratno', 4, '2025-01-23', 'benjeng', 'Gresik', '21-04-2041', 'Islam', '0', '', 'uploads/foto_siswa/20262027017.jpg', 1, '1', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'c3e039fc-eb8f-11f0-a479-38f3ab6a1d95'),
+(22, 2025202418, '20262027018', 'herlina', 'P', 'herlina', 'herlina', 4, '2025-01-24', 'benjeng', 'Gresik', '21-04-2042', 'Islam', '0', '', 'uploads/foto_siswa/20262027018.jpg', 1, '1', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'c3e0631c-eb8f-11f0-a479-38f3ab6a1d95'),
+(23, 2025202419, '20262027019', 'wanto', 'L', 'wanto', 'wanto', 4, '2025-01-25', 'benjeng', 'Gresik', '21-04-2043', 'Islam', '0', '', 'uploads/foto_siswa/20262027019.jpg', 1, '1', '', '', '', '', '', '', NULL, 0, '', NULL, NULL, '', '', '', '', NULL, NULL, '', '', '', '', NULL, NULL, '', '', '', '', '', 'c3e07e28-eb8f-11f0-a479-38f3ab6a1d95'),
+(24, 2025202420, '20262027020', 'sulianto', 'L', 'sulianto', 'sulianto', 4, '2025-01-26', 'benjeng', 'Gresik', '21-04-2044', 'Islam', '0', '', 'uploads/foto_siswa/20262027020.jpg', 1, '1', '', '', '', '', '', '', '', 0, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'c3e091c1-eb8f-11f0-a479-38f3ab6a1d95');
 
 -- --------------------------------------------------------
 
@@ -1544,8 +1765,8 @@ CREATE TABLE `master_smt` (
 --
 
 INSERT INTO `master_smt` (`id_smt`, `smt`, `nama_smt`, `active`) VALUES
-(1, 'Ganjil', 'I (satu)', 0),
-(2, 'Genap', 'II (dua)', 1);
+(1, 'Ganjil', 'I (satu)', 1),
+(2, 'Genap', 'II (dua)', 0);
 
 -- --------------------------------------------------------
 
@@ -1564,23 +1785,10 @@ CREATE TABLE `master_tp` (
 --
 
 INSERT INTO `master_tp` (`id_tp`, `tahun`, `active`) VALUES
-(1, '2020/2021', 0),
-(2, '2021/2022', 0),
-(3, '2022/2023', 1),
-(4, '2023/2024', 0);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `photos`
---
-
-CREATE TABLE `photos` (
-  `id_photo` int UNSIGNED NOT NULL,
-  `id_album` int NOT NULL,
-  `file_name` varchar(255) NOT NULL,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+(1, '2025/2026', 1),
+(2, '2028/2029', 0),
+(3, '2027/2028', 0),
+(4, '2026/2027', 0);
 
 -- --------------------------------------------------------
 
@@ -1597,32 +1805,6 @@ CREATE TABLE `post` (
   `tanggal` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `posts`
---
-
-CREATE TABLE `posts` (
-  `id_post` int NOT NULL,
-  `judul` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `isi` longtext COLLATE utf8mb4_general_ci NOT NULL,
-  `gambar` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `id_user` int NOT NULL,
-  `tanggal` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `status` int NOT NULL DEFAULT '1' COMMENT '1=publish, 0=draft',
-  `kategori` varchar(50) COLLATE utf8mb4_general_ci DEFAULT 'Berita',
-  `views` int NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
-
---
--- Dumping data for table `posts`
---
-
-INSERT INTO `posts` (`id_post`, `judul`, `slug`, `isi`, `gambar`, `id_user`, `tanggal`, `status`, `kategori`, `views`) VALUES
-(1, 'Pramuka', 'pramuka', '<p>.Extrakurikuler Pramuka merupakan extra wajib yang harus diikuti siswa kelas 4,5 dan 6. kegiatan ini melatih kemandirian dan ketangguhan anak anak. </p><p><br></p><p></p>', 'uploads/posts/post_1765857325.webp', 1, '2025-12-13 09:46:49', 1, 'Berita', 27);
 
 -- --------------------------------------------------------
 
@@ -1657,29 +1839,6 @@ CREATE TABLE `post_reply` (
   `updated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `type` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `quotes`
---
-
-CREATE TABLE `quotes` (
-  `id_quote` int NOT NULL,
-  `content` text,
-  `author` varchar(100) DEFAULT NULL,
-  `role` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `quotes`
---
-
-INSERT INTO `quotes` (`id_quote`, `content`, `author`, `role`) VALUES
-(1, 'quotes nya apa nih?', 'yogabd', 'admin'),
-(2, 'Pendidikan merupakan tiket untuk masa depan. Hari esok untuk orang-orang yang telah mempersiapkan dirinya hari ini', 'Anonim', 'pegawai'),
-(3, 'Agama tanpa ilmu pengetahuan adalah buta. Dan ilmu pengetahuan tanpa agama adalah lumpuh', 'Anonim', 'Pegawai'),
-(4, 'Hiduplah seakan-akan kau akan mati besok. Belajarlah seakan-akan kau akan hidup selamanya', 'Anonim', 'pegawai');
 
 -- --------------------------------------------------------
 
@@ -1995,23 +2154,23 @@ INSERT INTO `running_text` (`id_text`, `text`) VALUES
 --
 
 CREATE TABLE `school_profile` (
-  `id_profile` int NOT NULL,
-  `sejarah` longtext,
-  `visi_misi` longtext,
-  `struktur_organisasi` varchar(255) DEFAULT NULL,
-  `link_fb` varchar(255) DEFAULT NULL,
-  `link_ig` varchar(255) DEFAULT NULL,
-  `link_yt` varchar(255) DEFAULT NULL,
-  `link_twitter` varchar(255) DEFAULT NULL,
-  `link_tiktok` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+  `id_school_profile` int NOT NULL,
+  `nama_sekolah` varchar(255) NOT NULL DEFAULT 'Nama Sekolah',
+  `alamat_sekolah` text,
+  `logo_sekolah` varchar(255) DEFAULT 'uploads/settings/logo.png',
+  `admin_name` varchar(255) DEFAULT 'Administrator',
+  `admin_foto` varchar(255) DEFAULT 'uploads/settings/admin.jpg',
+  `kepala_sekolah` varchar(255) DEFAULT 'Kepala Sekolah',
+  `nip_kepala` varchar(50) DEFAULT '',
+  `tanda_tangan` varchar(255) DEFAULT 'uploads/settings/ttd.png'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `school_profile`
 --
 
-INSERT INTO `school_profile` (`id_profile`, `sejarah`, `visi_misi`, `struktur_organisasi`, `link_fb`, `link_ig`, `link_yt`, `link_twitter`, `link_tiktok`) VALUES
-(1, '<p>Sekolah ini berada di dusun Jurit Desa Iker Iker Geger kecamatan Cerme. sebelum berganti nama menjadi UPT SD Negeri 63 Gresik,sekolah ini bernama SDN Iker Iker Geger sesuai dengan<span style=\"font-size: 0.875rem;\">nama desa setempat. Sekolah ini berdiri pada tahun 1983.</span></p><p><span style=\"font-size: 0.875rem;\"><br></span><img src=\"https://uptsdn63gresik.sch.id/media_library/posts/post-image-1721422922787.jpg\" alt=\"\" width=\"586\" height=\"620\" style=\"font-size: 0.875rem;\"></p>', '<p><strong> A. Visi </strong></p><p style=\"padding-left: 30px;\">“Terwujudnya siswa yang berkarakter, berprestasi, cinta lingkungan serta berwawasan global yang berlandaskan akhlakul karimah” </p><p style=\"padding-left: 30px;\">Indikator Visi :</p><ol>\r\n<li>Menanamkan keyakinan/aqidah melalui pengamalan ajaran agama kepada peserta didik.</li>\r\n<li>Mengoptimalkan proses pembelajaran kepada peserta didik.</li>\r\n<li>Menanamkan budi pekerti luhur kepada peserta didik.</li>\r\n<li>Menanamkan budaya hidup mandiri dan berdaya saing secara sehat.</li>\r\n<li>Mengembangkan pengetahuan di bidang IPTEK kepada peserta didik.</li>\r\n<li>Menanamkan rasa cinta dan peduli pada lingkungan </li>\r\n</ol><p><strong> B. Misi </strong></p><p>\r\n\r\n\r\n\r\n\r\n</p><ol>\r\n<li>Mengoptimalkan proses pembelajaran yang efektif melalui pendekatan PAIKEM,</li>\r\n<li>Menanamkan religius keimanan dan ketaqwaan kepada Tuhan YME dan dapat mengamalkan ajaran Agama dalam kehidupan sehari-hari,</li>\r\n<li>Mewujudkan lulusan yang berkarakter</li>\r\n<li>Mewujudkan lulusan yang berbudaya berdaya saing tinggi melalui penguasaan ilmu pengetahuan dan Teknologi</li>\r\n<li>Mewujudkan lingkungan yang ramah, bersih, indah, dan nyaman</li>\r\n<li>Meningkatkan kepedulian pada lingkungan hidup dalam upaya pelestarian lingkungan</li></ol>', '', 'https://www.facebook.com/sdnikeriker sdnikeriker', 'https://www.instagram.com/uptsdn63gresik_sdnikeriker?igsh=MWF5cm8xcTVnaW9vdQ==', 'https://www.youtube.com/@uptsdnegeri63gresik', NULL, 'https://www.tiktok.com/@uptsdn63gresik?is_from_webapp=1&sender_device=pc');
+INSERT INTO `school_profile` (`id_school_profile`, `nama_sekolah`, `alamat_sekolah`, `logo_sekolah`, `admin_name`, `admin_foto`, `kepala_sekolah`, `nip_kepala`, `tanda_tangan`) VALUES
+(1, 'Garuda CBT', 'Alamat Sekolah', 'uploads/settings/logo.png', 'Administrator', 'uploads/settings/admin.jpg', 'Kepala Sekolah', '', 'uploads/settings/ttd.png');
 
 -- --------------------------------------------------------
 
@@ -2028,6 +2187,7 @@ CREATE TABLE `setting` (
   `jenjang` int DEFAULT NULL,
   `kepsek` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `nip` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `foto_kepsek` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `tanda_tangan` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `alamat` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `desa` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
@@ -2062,31 +2222,8 @@ CREATE TABLE `setting` (
 -- Dumping data for table `setting`
 --
 
-INSERT INTO `setting` (`id_setting`, `kode_sekolah`, `sekolah`, `npsn`, `nss`, `jenjang`, `kepsek`, `nip`, `tanda_tangan`, `alamat`, `desa`, `kecamatan`, `kota`, `provinsi`, `kode_pos`, `telp`, `fax`, `web`, `email`, `nama_aplikasi`, `logo_kanan`, `logo_kiri`, `versi`, `ip_server`, `waktu`, `server`, `id_server`, `sekolah_id`, `db_versi`, `satuan_pendidikan`, `sambutan`, `motto`, `link_twitter`, `link_linkedin`, `favicon`, `logo`) VALUES
-(1, NULL, 'UPT SD Negeri 63 Gresik', '20500376', '23', 1, 'MUH.SAIFUL MUDAWWAM,S.Pd.SD', '', '', 'Jl. Jurit Betiting', 'Iker Iker Geger', 'Cerme', 'Gresik', 'Jawa Timur', 61171, '0317992965', '0232123456', 'https://uptsdn63gresik.sch.id/', 'sdnikerikergeger@gmail.com', 'classroom', '', 'uploads/settings/logo_kiri_1765860267.webp', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1', 'Assalamu\'alaikum wr.wb.\r\n\r\nAlhamdulillahirabbilalamin, puji dan syukur kami panjatkan kahadirat Allah SWT atas limpahan rahmat, hidayah, dan kenikmatan - NYA sehingga kami dapat merealisasikan Website UPT SD Negeri 63 Gresik. Website ini mudah-mudahan dapat membuka jalur-lajur informasi secara utuh dan meyeluruh khususnya perkembangan dalam dunia pendidikan di era global dan dapat meningkatkan pelayanan pendidikan serta meningkatkan kualitas pembelajaran peserta didik yang akhirnya dapat meningkatkan pelayanan kepada semua pihak, utamanya steak holders UPT SD Negeri 63 Gresik.', 'molto', NULL, NULL, NULL, NULL);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `sliders`
---
-
-CREATE TABLE `sliders` (
-  `id_slider` int NOT NULL,
-  `judul` varchar(255) DEFAULT NULL,
-  `deskripsi` text,
-  `gambar` varchar(255) NOT NULL,
-  `urutan` int DEFAULT '0',
-  `status` tinyint(1) DEFAULT '1',
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `sliders`
---
-
-INSERT INTO `sliders` (`id_slider`, `judul`, `deskripsi`, `gambar`, `urutan`, `status`, `created_at`) VALUES
-(1, 'Selamat Datang di Sekolah Kami', 'Platform digital terintegrasi untuk mendukung kegiatan belajar mengajar', 'assets/img/bg_1.jpg', 1, 1, '2025-12-15 05:18:01');
+INSERT INTO `setting` (`id_setting`, `kode_sekolah`, `sekolah`, `npsn`, `nss`, `jenjang`, `kepsek`, `nip`, `foto_kepsek`, `tanda_tangan`, `alamat`, `desa`, `kecamatan`, `kota`, `provinsi`, `kode_pos`, `telp`, `fax`, `web`, `email`, `nama_aplikasi`, `logo_kanan`, `logo_kiri`, `versi`, `ip_server`, `waktu`, `server`, `id_server`, `sekolah_id`, `db_versi`, `satuan_pendidikan`, `sambutan`, `motto`, `link_twitter`, `link_linkedin`, `favicon`, `logo`) VALUES
+(1, NULL, 'UPT SD Negeri 63 Gresik', '20500376', '23', 1, 'MUH.SAIFUL MUDAWWAM,S.Pd.SD', '', 'uploads/settings/foto_kepsek_1767714924.webp', 'uploads/settings/ttd.png', 'Jl. Jurit Betiting', 'Iker Iker Geger', 'Cerme', 'Gresik', 'Jawa Timur', 61171, '0317992965', '0232123456', 'https://uptsdn63gresik.sch.id/', 'sdnikerikergeger@gmail.com', 'classroom', '', 'uploads/settings/logo_kiri_1765860267.webp', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1', 'Assalamu\'alaikum wr.wb.\r\n\r\nAlhamdulillahirabbilalamin, puji dan syukur kami panjatkan kahadirat Allah SWT atas limpahan rahmat, hidayah, dan kenikmatan - NYA sehingga kami dapat merealisasikan Website UPT SD Negeri 63 Gresik. Website ini mudah-mudahan dapat membuka jalur-lajur informasi secara utuh dan meyeluruh khususnya perkembangan dalam dunia pendidikan di era global dan dapat meningkatkan pelayanan pendidikan serta meningkatkan kualitas pembelajaran peserta didik yang akhirnya dapat meningkatkan pelayanan kepada semua pihak, utamanya steak holders UPT SD Negeri 63 Gresik.', 'molto', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -2121,10 +2258,31 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `email`, `activation_selector`, `activation_code`, `forgotten_password_selector`, `forgotten_password_code`, `forgotten_password_time`, `remember_selector`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-(1, '::1', 'yoga', '$2y$12$aXSXJ1rBJhk/h0S2sX1EXeXpzHy/yOHrCIsNGgvCpvEVP8GF.DX32', 'yoga@admin.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1764944386, 1767626126, 1, 'Yoga', 'Yoga', NULL, NULL),
-(2, '::1', 'kombon', '$2y$10$vgF17uW0h9HDdZpLDjJhBen3Ciguusm/pEl63wawjw03xxcDR44Hy', '123456@siswa.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1764944871, 1765445796, 1, 'kombon', 'kombon', NULL, NULL),
-(4, '::1', 'parjo', '$2y$10$uHbMnCj0VZcEUaYTuXTUIOryXTuFRbjEfaQSp0H4dsmXz8kXVa7ie', 'parjo@guru.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1767677088, 1767677468, 1, 'parjo', 'parjo', NULL, NULL),
-(5, '::1', 'tukinem', '$2y$10$p6CNPIMAmfAu7zzXj8DLs.pUiXdzdgEpq0HGp9ewZYuYvZb7MH.2m', 'tukinem@guru.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1767679901, 1767679915, 1, 'tukinem', 'tukinem', NULL, NULL);
+(1, '::1', 'yoga', '$2y$12$aXSXJ1rBJhk/h0S2sX1EXeXpzHy/yOHrCIsNGgvCpvEVP8GF.DX32', 'yoga@admin.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1764944386, 1767846308, 1, 'Yoga', 'Yoga', NULL, NULL),
+(2, '::1', 'kombon', '$2y$10$vgF17uW0h9HDdZpLDjJhBen3Ciguusm/pEl63wawjw03xxcDR44Hy', '123456@siswa.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1764944871, 1767847500, 1, 'kombon', 'kombon', NULL, NULL),
+(4, '::1', 'parjo', '$2y$10$uHbMnCj0VZcEUaYTuXTUIOryXTuFRbjEfaQSp0H4dsmXz8kXVa7ie', 'parjo@guru.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1767677088, 1767684787, 1, 'parjo', 'parjo', NULL, NULL),
+(6, '::1', 'budi', '$2y$10$5Pt0r2n77LE1UAWpMhauweNM1XlMqssCHGZ4RWD/a51ZsB8UeJOU6', '0987654321@siswa.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1767687803, NULL, 1, 'budi', 'budi', NULL, NULL),
+(7, '::1', 'tukinem', '$2y$10$SJqQQnw7atzGkfI2DDYJz.YguBVfFkfHIIPPMkWT1zMJa3B2Q8u0C', 'tukinem@guru.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1767712415, 1767804341, 1, 'tukinem', 'tukinem', NULL, NULL),
+(8, '::1', 'tuti', '$2y$10$PeFBaC7JiAFefsbip1hhy.1U9GL7y9g7FfF3oy0K8oLTyAjkVU.QW', '123212343@siswa.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1767765098, NULL, 1, 'tuti', 'tuti', NULL, NULL),
+(9, '::1', 'narti', '$2y$10$LXFgRKsv5rMhqbO9UY/paeEsQQ7Zdfm7ym3VJuCygttN9uKoMBx1y', '654523656@siswa.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1767765251, NULL, 1, 'narti', 'narti', NULL, NULL),
+(10, '::1', 'hermalina', '$2y$10$NvZK3BVIJR9Geee626q3Gu.FiABsbjAkfvR5BoLOZU3sLfPzmULVq', '2026202701@siswa.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1767766343, NULL, 1, 'hermalina', 'hermalina', NULL, NULL),
+(11, '::1', 'siswanto', '$2y$10$WW7g1/zUC3LlOlIsx91pbOogH0.FrfjjEwQ3P8SQQkm67JlERJyE2', '2026202702@siswa.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1767766343, NULL, 1, 'siswanto', 'siswanto', NULL, NULL),
+(12, '::1', 'narto', '$2y$10$W0ZTuCHaN19xg/8MYQ0counm3tbOqGRzN2n1VaFPRQ5XgK7g7n5Dy', '2026202703@siswa.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1767766343, NULL, 1, 'narto', 'narto', NULL, NULL),
+(13, '::1', 'naruto', '$2y$10$59rY6qgPBhB63R.Kz3u4W.qCnJlivcYSn9T11u/N7tfGUK/1T6RLK', '2026202704@siswa.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1767766343, NULL, 1, 'naruto', 'naruto', NULL, NULL),
+(14, '::1', 'wawan', '$2y$10$8rFNgwOIAKaqLWr7LUVAn.2pPWDe.AJNiSoxZD143SSPAhyCQ2nva', '2026202705@siswa.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1767766343, NULL, 1, 'wawan', 'wawan', NULL, NULL),
+(15, '::1', 'senam', '$2y$10$RnESrvVcU66mLDxWOKOAwOzLD0Yj8gMtkl6pIhKAV5.7hysz3ap3q', '2026202708@siswa.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1767766343, NULL, 1, 'senam', 'senam', NULL, NULL),
+(16, '::1', 'parno', '$2y$10$5Ws4y.yH4mDA9EVnG8b10einX8N9Mq.mKxgjaS8IZr..Wy.XoaNTi', '2026202709@siswa.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1767766343, NULL, 1, 'parno', 'parno', NULL, NULL),
+(17, '::1', 'panji', '$2y$10$7M5pvuLavluIvHUr8MDcLed.Wz174LRbsZ0iMIZVNmPtEDDMTgfm.', '20262027010@siswa.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1767766343, 1767796437, 1, 'panji', 'panji', NULL, NULL),
+(18, '::1', 'petualang', '$2y$10$UkoZ4Txock2qz4NzGOckJeHxGn37g1e11bYFohkXyIUM3d4uzWa5m', '20262027011@siswa.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1767766343, NULL, 1, 'petualang', 'petualang', NULL, NULL),
+(19, '::1', 'siapa', '$2y$10$J5ROl37ZBRj2ldSh7tGW9uHv4/9CD8A9cuDCE4Sc7TvftWPBf3cGG', '20262027012@siswa.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1767766344, NULL, 1, 'siapa', 'siapa', NULL, NULL),
+(20, '::1', 'herman', '$2y$10$4pDcErODLKIDwyDERaCi0.ROR21dOArLBIz6QXUrUzqZg50/n1Sei', '20262027013@siswa.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1767766344, NULL, 1, 'herman', 'herman', NULL, NULL),
+(21, '::1', 'sabrina', '$2y$10$9BTnrgcaKbLfWSxtAQMlHOoM/revGsiVK7/WQuA25eh394yMym.pm', '20262027014@siswa.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1767766344, NULL, 1, 'sabrina', 'sabrina', NULL, NULL),
+(22, '::1', 'brimo', '$2y$10$sKFlqdhwfafAMQ9kDHQFbu.fmLSaqoD.lJ/FWGk5qER5b4Lt6ni52', '20262027015@siswa.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1767766344, NULL, 1, 'brimo', 'brimo', NULL, NULL),
+(23, '::1', 'mobile', '$2y$10$3MUkGvlmgbGplBS2DUwoaOVNH32.rlRhDudVcQZQr0sYWQY4fMwR6', '20262027016@siswa.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1767766344, NULL, 1, 'mobile', 'mobile', NULL, NULL),
+(24, '::1', 'suratno', '$2y$10$lwlmYYT5Cj21L7dNcxO1QuRikxyU/cflqEXpNJRkgXY.QeRCOwjWm', '20262027017@siswa.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1767766344, NULL, 1, 'suratno', 'suratno', NULL, NULL),
+(25, '::1', 'herlina', '$2y$10$fy4m0meAVOgqgklj0E.sbufHQKblzKLCidGo7zZVn8Y.iOl98wU.2', '20262027018@siswa.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1767766344, NULL, 1, 'herlina', 'herlina', NULL, NULL),
+(26, '::1', 'wanto', '$2y$10$Azjxb3uWvr8fFPWtmN5n0OG141ZMFWlejjxjlqL4LCXVdLdXEVE.2', '20262027019@siswa.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1767766344, NULL, 1, 'wanto', 'wanto', NULL, NULL),
+(27, '::1', 'sulianto', '$2y$10$GcGVPn0ATypCsS44i4Dmwe2PgMa1NDPK4NGBuE.6nBFMd1UBm6FAC', '20262027020@siswa.com', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1767766344, NULL, 1, 'sulianto', 'sulianto', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -2146,7 +2304,28 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 (1, 1, 1),
 (2, 2, 3),
 (4, 4, 2),
-(5, 5, 2);
+(6, 6, 3),
+(7, 7, 2),
+(8, 8, 3),
+(9, 9, 3),
+(10, 10, 3),
+(11, 11, 3),
+(12, 12, 3),
+(13, 13, 3),
+(14, 14, 3),
+(15, 15, 3),
+(16, 16, 3),
+(17, 17, 3),
+(18, 18, 3),
+(19, 19, 3),
+(20, 20, 3),
+(21, 21, 3),
+(22, 22, 3),
+(23, 23, 3),
+(24, 24, 3),
+(25, 25, 3),
+(26, 26, 3),
+(27, 27, 3);
 
 -- --------------------------------------------------------
 
@@ -2162,28 +2341,9 @@ CREATE TABLE `users_profile` (
   `foto` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `videos`
---
-
-CREATE TABLE `videos` (
-  `id_video` int UNSIGNED NOT NULL,
-  `judul` varchar(255) NOT NULL,
-  `link_youtube` varchar(255) NOT NULL,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `albums`
---
-ALTER TABLE `albums`
-  ADD PRIMARY KEY (`id_album`);
 
 --
 -- Indexes for table `api_setting`
@@ -2339,12 +2499,6 @@ ALTER TABLE `cbt_token`
   ADD PRIMARY KEY (`id_token`) USING BTREE;
 
 --
--- Indexes for table `comments`
---
-ALTER TABLE `comments`
-  ADD PRIMARY KEY (`id_comment`);
-
---
 -- Indexes for table `groups`
 --
 ALTER TABLE `groups`
@@ -2463,12 +2617,6 @@ ALTER TABLE `master_ekstra`
   ADD PRIMARY KEY (`id_ekstra`) USING BTREE;
 
 --
--- Indexes for table `master_gallery`
---
-ALTER TABLE `master_gallery`
-  ADD PRIMARY KEY (`id_gallery`);
-
---
 -- Indexes for table `master_guru`
 --
 ALTER TABLE `master_guru`
@@ -2500,12 +2648,6 @@ ALTER TABLE `master_kelompok_mapel`
   ADD PRIMARY KEY (`id_kel_mapel`) USING BTREE;
 
 --
--- Indexes for table `master_link`
---
-ALTER TABLE `master_link`
-  ADD PRIMARY KEY (`id_link`);
-
---
 -- Indexes for table `master_mapel`
 --
 ALTER TABLE `master_mapel`
@@ -2521,12 +2663,6 @@ ALTER TABLE `master_siswa`
   ADD UNIQUE KEY `nisn` (`nisn`) USING BTREE;
 
 --
--- Indexes for table `master_slider`
---
-ALTER TABLE `master_slider`
-  ADD PRIMARY KEY (`id_slider`);
-
---
 -- Indexes for table `master_smt`
 --
 ALTER TABLE `master_smt`
@@ -2539,22 +2675,10 @@ ALTER TABLE `master_tp`
   ADD PRIMARY KEY (`id_tp`) USING BTREE;
 
 --
--- Indexes for table `photos`
---
-ALTER TABLE `photos`
-  ADD PRIMARY KEY (`id_photo`);
-
---
 -- Indexes for table `post`
 --
 ALTER TABLE `post`
   ADD PRIMARY KEY (`id_post`) USING BTREE;
-
---
--- Indexes for table `posts`
---
-ALTER TABLE `posts`
-  ADD PRIMARY KEY (`id_post`);
 
 --
 -- Indexes for table `post_comments`
@@ -2567,12 +2691,6 @@ ALTER TABLE `post_comments`
 --
 ALTER TABLE `post_reply`
   ADD PRIMARY KEY (`id_reply`) USING BTREE;
-
---
--- Indexes for table `quotes`
---
-ALTER TABLE `quotes`
-  ADD PRIMARY KEY (`id_quote`);
 
 --
 -- Indexes for table `rapor_admin_setting`
@@ -2674,19 +2792,13 @@ ALTER TABLE `running_text`
 -- Indexes for table `school_profile`
 --
 ALTER TABLE `school_profile`
-  ADD PRIMARY KEY (`id_profile`);
+  ADD PRIMARY KEY (`id_school_profile`);
 
 --
 -- Indexes for table `setting`
 --
 ALTER TABLE `setting`
   ADD PRIMARY KEY (`id_setting`) USING BTREE;
-
---
--- Indexes for table `sliders`
---
-ALTER TABLE `sliders`
-  ADD PRIMARY KEY (`id_slider`);
 
 --
 -- Indexes for table `users`
@@ -2712,20 +2824,8 @@ ALTER TABLE `users_profile`
   ADD PRIMARY KEY (`id_user`) USING BTREE;
 
 --
--- Indexes for table `videos`
---
-ALTER TABLE `videos`
-  ADD PRIMARY KEY (`id_video`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
-
---
--- AUTO_INCREMENT for table `albums`
---
-ALTER TABLE `albums`
-  MODIFY `id_album` int UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `api_setting`
@@ -2743,7 +2843,7 @@ ALTER TABLE `api_token`
 -- AUTO_INCREMENT for table `buku_induk`
 --
 ALTER TABLE `buku_induk`
-  MODIFY `id_siswa` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_siswa` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `bulan`
@@ -2755,7 +2855,7 @@ ALTER TABLE `bulan`
 -- AUTO_INCREMENT for table `cbt_bank_soal`
 --
 ALTER TABLE `cbt_bank_soal`
-  MODIFY `id_bank` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_bank` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `cbt_jadwal`
@@ -2797,19 +2897,13 @@ ALTER TABLE `cbt_sesi`
 -- AUTO_INCREMENT for table `cbt_soal`
 --
 ALTER TABLE `cbt_soal`
-  MODIFY `id_soal` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_soal` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `cbt_token`
 --
 ALTER TABLE `cbt_token`
   MODIFY `id_token` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `comments`
---
-ALTER TABLE `comments`
-  MODIFY `id_comment` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `groups`
@@ -2857,31 +2951,25 @@ ALTER TABLE `level_guru`
 -- AUTO_INCREMENT for table `log`
 --
 ALTER TABLE `log`
-  MODIFY `id_log` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id_log` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=157;
 
 --
 -- AUTO_INCREMENT for table `login_attempts`
 --
 ALTER TABLE `login_attempts`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `log_ujian`
 --
 ALTER TABLE `log_ujian`
-  MODIFY `id_log` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1013;
+  MODIFY `id_log` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14032;
 
 --
 -- AUTO_INCREMENT for table `master_ekstra`
 --
 ALTER TABLE `master_ekstra`
   MODIFY `id_ekstra` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `master_gallery`
---
-ALTER TABLE `master_gallery`
-  MODIFY `id_gallery` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `master_guru`
@@ -2905,19 +2993,13 @@ ALTER TABLE `master_jurusan`
 -- AUTO_INCREMENT for table `master_kelas`
 --
 ALTER TABLE `master_kelas`
-  MODIFY `id_kelas` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_kelas` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `master_kelompok_mapel`
 --
 ALTER TABLE `master_kelompok_mapel`
   MODIFY `id_kel_mapel` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `master_link`
---
-ALTER TABLE `master_link`
-  MODIFY `id_link` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `master_mapel`
@@ -2929,13 +3011,7 @@ ALTER TABLE `master_mapel`
 -- AUTO_INCREMENT for table `master_siswa`
 --
 ALTER TABLE `master_siswa`
-  MODIFY `id_siswa` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `master_slider`
---
-ALTER TABLE `master_slider`
-  MODIFY `id_slider` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_siswa` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `master_smt`
@@ -2950,22 +3026,10 @@ ALTER TABLE `master_tp`
   MODIFY `id_tp` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `photos`
---
-ALTER TABLE `photos`
-  MODIFY `id_photo` int UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
   MODIFY `id_post` int NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `posts`
---
-ALTER TABLE `posts`
-  MODIFY `id_post` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `post_comments`
@@ -2978,12 +3042,6 @@ ALTER TABLE `post_comments`
 --
 ALTER TABLE `post_reply`
   MODIFY `id_reply` int NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `quotes`
---
-ALTER TABLE `quotes`
-  MODIFY `id_quote` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `rapor_admin_setting`
@@ -3079,7 +3137,7 @@ ALTER TABLE `running_text`
 -- AUTO_INCREMENT for table `school_profile`
 --
 ALTER TABLE `school_profile`
-  MODIFY `id_profile` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_school_profile` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `setting`
@@ -3088,34 +3146,22 @@ ALTER TABLE `setting`
   MODIFY `id_setting` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `sliders`
---
-ALTER TABLE `sliders`
-  MODIFY `id_slider` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `users_groups`
 --
 ALTER TABLE `users_groups`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `users_profile`
 --
 ALTER TABLE `users_profile`
   MODIFY `id_user` int NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `videos`
---
-ALTER TABLE `videos`
-  MODIFY `id_video` int UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables

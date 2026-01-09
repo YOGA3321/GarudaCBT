@@ -187,6 +187,17 @@ $satuan = ["1" => ["SD", "MI"], "2" => ["SMP", "MTS"], "3" => ["SMA", "MA", "SMK
                             </div>
                             <?= form_close() ?>
                         </div>
+                        <div class="col-md-4">
+                            <?= form_open_multipart('', array('id' => 'set-foto-kepsek')) ?>
+                            <div class="form-group pb-2">
+                                <label for="foto-kepsek"><i class="fas fa-user-tie text-primary"></i> Foto Kepala Sekolah</label>
+                                <input type="file" id="foto-kepsek" name="logo" class="dropify"
+                                       data-max-file-size-preview="2M"
+                                       data-allowed-file-extensions="jpg jpeg png webp"
+                                       data-default-file="<?= !empty($setting->foto_kepsek) ? base_url() . $setting->foto_kepsek : '' ?>"/>
+                            </div>
+                            <?= form_close() ?>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -198,6 +209,7 @@ $satuan = ["1" => ["SD", "MI"], "2" => ["SMP", "MTS"], "3" => ["SMA", "MA", "SMK
     var logoKanan = '<?=base_url() . $setting->logo_kanan?>';
     var logoKiri = '<?=base_url() . $setting->logo_kiri?>';
     var tandatangan = '<?=base_url() . $setting->tanda_tangan?>';
+    var fotoKepsek = '<?= !empty($setting->foto_kepsek) ? base_url() . $setting->foto_kepsek : '' ?>';
     var satuanPend = JSON.parse(JSON.stringify(<?= json_encode($satuan)?>));
 
     function submitSetting() {
@@ -305,7 +317,7 @@ $satuan = ["1" => ["SD", "MI"], "2" => ["SMP", "MTS"], "3" => ["SMA", "MA", "SMK
                 $.ajax({
                     url: base_url + 'settings/savesetting',
                     type: 'POST',
-                    data: $(this).serialize() + '&logo_kanan=' + logoKanan + '&logo_kiri=' + logoKiri + '&tanda_tangan=' + tandatangan,
+                    data: $(this).serialize() + '&logo_kanan=' + logoKanan + '&logo_kiri=' + logoKiri + '&tanda_tangan=' + tandatangan + '&foto_kepsek=' + fotoKepsek,
                     success: function (response) {
                         console.log(response);
                         swal.fire({
@@ -384,6 +396,14 @@ $satuan = ["1" => ["SD", "MI"], "2" => ["SMP", "MTS"], "3" => ["SMA", "MA", "SMK
             }
         });
 
+        $("#foto-kepsek").change(function () {
+            var input = $(this)[0];
+            if (input.files && input.files[0]) {
+                var form = new FormData($('#set-foto-kepsek')[0]);
+                uploadAttach(base_url + 'settings/uploadfile/foto_kepsek', form);
+            }
+        });
+
         function uploadAttach(action, data) {
             $.ajax({
                 type: "POST",
@@ -397,13 +417,12 @@ $satuan = ["1" => ["SD", "MI"], "2" => ["SMP", "MTS"], "3" => ["SMA", "MA", "SMK
                 success: function (data) {
                     if (data.src.includes('kanan')) {
                         logoKanan = data.src;
-                        //console.log('kanan', data.src);
                     } else if (data.src.includes('kiri')) {
                         logoKiri = data.src;
-                        //console.log('kiri', data.src);
                     } else if (data.src.includes('tanda')) {
                         tandatangan = data.src;
-                        //console.log('tandatangan', data.src);
+                    } else if (data.src.includes('foto_kepsek')) {
+                        fotoKepsek = data.src;
                     }
                 },
                 error: function (e) {

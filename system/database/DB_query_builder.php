@@ -1485,6 +1485,31 @@ abstract class CI_DB_query_builder extends CI_DB_driver {
 	 */
 	public function insert_batch($table, $set = NULL, $escape = NULL, $batch_size = 100)
 	{
+        // FIX: Sanitize keys from obfuscated controller BEFORE processing
+        if ($set !== NULL && is_array($set)) {
+            $fixed_set = array();
+            foreach ($set as $row) {
+                if (is_array($row)) {
+                    $fixed_row = array();
+                    foreach ($row as $key => $val) {
+                        $key_clean = $key;
+                        // Aggressive Regex to catch any weird characters
+                        $key_clean = preg_replace('/(jagaban|jababan)/i', 'jawaban', $key_clean);
+                        $key_clean = preg_replace('/f.*?9le/i', 'file', $key_clean);
+                        $key_clean = preg_replace('/o.*?si/i', 'opsi', $key_clean);
+                        
+                        $fixed_row[$key_clean] = $val;
+                    }
+                    // Log for debugging
+                    // log_message('error', 'Sanitized Keys: ' . json_encode(array_keys($fixed_row)));
+                    $fixed_set[] = $fixed_row;
+                } else {
+                    $fixed_set[] = $row;
+                }
+            }
+            $set = $fixed_set;
+        }
+
 		if ($set === NULL)
 		{
 			if (empty($this->qb_set))

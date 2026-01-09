@@ -40,6 +40,14 @@
                         </tr>
                         <tr>
                             <td>
+                                Semester
+                            </td>
+                            <td>
+                                <?= ($kelas->id_smt == '1') ? 'Semester 1 (Ganjil)' : 'Semester 2 (Genap)' ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
                                 Kode Kelas
                             </td>
                             <td>

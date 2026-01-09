@@ -40,6 +40,11 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-12 mb-3">
+                            <div class="callout callout-danger py-2">
+                                <i class="fas fa-info-circle mr-2"></i> Baris berwarna <span class="badge badge-danger">Merah</span> menandakan siswa terdeteksi melakukan pelanggaran (keluar dari halaman ujian).
+                            </div>
+                        </div>
                     </div>
                     <div class="card card-light mb-4">
                         <div class="card-header">
@@ -50,9 +55,24 @@
                                 <div class="col-6 col-md-3 mb-3">
                                     <label>Jadwal</label>
                                     <?php
+                                    $ci =& get_instance();
+                                    $schedules = $ci->db->select('j.id_jadwal, b.bank_kode, m.nama_mapel')
+                                        ->from('cbt_jadwal j')
+                                        ->join('cbt_bank_soal b', 'b.id_bank = j.id_bank')
+                                        ->join('master_mapel m', 'm.id_mapel = b.bank_mapel_id')
+                                        ->where('j.id_tp', $tp_active->id_tp)
+                                        ->where('j.id_smt', $smt_active->id_smt)
+                                        ->where('b.bank_guru_id', $guru->id_guru)
+                                        ->get()->result();
+
+                                    $new_options = ['' => 'Pilih Jadwal'];
+                                    foreach ($schedules as $sch) {
+                                        $new_options[$sch->id_jadwal] = $sch->bank_kode . ' - ' . $sch->nama_mapel;
+                                    }
+
                                     echo form_dropdown(
                                         'jadwal',
-                                        $jadwal,
+                                        $new_options,
                                         null,
                                         'id="jadwal" class="form-control"'
                                     ); ?>

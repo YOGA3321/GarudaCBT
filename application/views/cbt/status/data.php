@@ -40,15 +40,34 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-12 mb-3">
+                            <div class="callout callout-danger py-2">
+                                <i class="fas fa-info-circle mr-2"></i> Baris berwarna <span class="badge badge-danger">Merah</span> menandakan siswa terdeteksi melakukan pelanggaran (keluar dari halaman ujian).
+                            </div>
+                        </div>
                         <div class="col-12 col-md-6 mb-3">
                             <div class="input-group">
                                 <div class="input-group-prepend w-30">
                                     <span class="input-group-text">Jadwal</span>
                                 </div>
                                 <?php
+                                $ci =& get_instance();
+                                $schedules = $ci->db->select('j.id_jadwal, b.bank_kode, m.nama_mapel')
+                                    ->from('cbt_jadwal j')
+                                    ->join('cbt_bank_soal b', 'b.id_bank = j.id_bank')
+                                    ->join('master_mapel m', 'm.id_mapel = b.bank_mapel_id')
+                                    ->where('j.id_tp', $tp_active->id_tp)
+                                    ->where('j.id_smt', $smt_active->id_smt)
+                                    ->get()->result();
+
+                                $new_options = ['' => 'Pilih Jadwal'];
+                                foreach ($schedules as $sch) {
+                                    $new_options[$sch->id_jadwal] = $sch->bank_kode . ' - ' . $sch->nama_mapel;
+                                }
+
                                 echo form_dropdown(
                                     'jadwal',
-                                    $jadwal,
+                                    $new_options,
                                     null,
                                     'id="jadwal" class="form-control"'
                                 ); ?>
@@ -160,6 +179,39 @@
             </div>
         </div>
     </section>
+</div>
+
+<!-- Modal Log -->
+<div class="modal fade" id="logModal" tabindex="-1" role="dialog" aria-labelledby="logLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="logLabel">Riwayat Log Siswa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5 id="log-nama-siswa" class="text-bold mb-3"></h5>
+                <div class="table-responsive">
+                    <table class="table table-sm table-striped table-bordered text-sm">
+                        <thead class="bg-teal">
+                            <tr>
+                                <th class="text-center" width="150">Waktu</th>
+                                <th class="text-center" width="100">Tipe</th>
+                                <th>Keterangan</th>
+                            </tr>
+                        </thead>
+                        <tbody id="log-body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <?= form_open('', array('id' => 'reset')) ?>
@@ -349,6 +401,7 @@
             '<th rowspan="2" class="text-center align-middle">Sesi</th>' +
             '<th rowspan="2" class="text-center align-middle">Ruang</th>' +
             '<th colspan="2" class="text-center align-middle">Status</th>' +
+            '<th rowspan="2" class="text-center align-middle">Log</th>' +
             '<th rowspan="2" class="text-center align-middle ' + dnone + '">Reset<br>Waktu</th>' +
             '<th colspan="3" class="text-center align-middle ' + dnone + '">Aksi</th>' +
             '</tr>' +
@@ -370,7 +423,11 @@
                 var mulai = '- -  :  - -';
                 var selesai = '- -  :  - -';
                 var reset = null;
+                var hasViolation = false;
                 for (let k = 0; k < logging.length; k++) {
+                    if (logging[k].log_type === '9') {
+                        hasViolation = true;
+                    }
                     if (logging[k].log_type === '1') {
                         if (logging[k] != null) {
                             reset = logging[k].reset;
@@ -405,7 +462,12 @@
                 var ruang = data.siswa[i].kode_ruang;
                 var kelas = data.siswa[i].kode_kelas;
 
-                tbody += '<tr data-id="' + idSiswa + '">' +
+                // Prepare log data for button
+                var logData = JSON.stringify(logging).replace(/"/g, '&quot;');
+
+                var rowStyle = hasViolation ? 'style="background-color: #ffcccc;"' : '';
+
+                tbody += '<tr data-id="' + idSiswa + '" ' + rowStyle + '>' +
                     '<td class="text-center align-middle">' + (i + 1) + '</td>' +
                     '<td class="text-center align-middle">' + data.siswa[i].nomor_peserta + '</td>' +
                     '<td class="align-middle">' + data.siswa[i].nama + '</td>' +
@@ -414,6 +476,14 @@
                     '<td class="text-center align-middle">' + ruang + '</td>' +
                     '<td class="text-center align-middle">' + mulai + '</td>' +
                     '<td class="text-center align-middle">' + loading + durasi + '</td>' +
+                    '<td class="text-center align-middle">' +
+                    '   <button type="button" class="btn btn-sm btn-info btn-log" ' +
+                    'data-log="' + logData + '" ' +
+                    'data-nama="' + data.siswa[i].nama + '" ' +
+                    'data-toggle="modal" data-target="#logModal">' +
+                    '<i class="fas fa-history"></i>' +
+                    '</button>' +
+                    '</td>' +
                     '<td class="text-center align-middle '+dnone+'">' +
                     '	<button type="button" class="btn btn-default" ' +
                     'data-siswa="' + idSiswa + '" data-jadwal="' + data.info.id_jadwal + '" ' +
@@ -623,6 +693,54 @@
             idJadwal = $(e.relatedTarget).data('jadwal');
 
             console.log('siswa:' + idSiswa, 'jadwal:' + idJadwal);
+        });
+
+        $('#logModal').on('show.bs.modal', function (e) {
+            var logs = $(e.relatedTarget).data('log');
+            var nama = $(e.relatedTarget).data('nama');
+            $('#log-nama-siswa').text(nama);
+            
+            var html = '';
+            var violationCount = 0;
+            if(logs.length > 0){
+                logs.forEach(function(l){
+                    if(l.log_type == '9') violationCount++;
+                });
+
+                if(violationCount > 0){
+                    html += '<div class="alert alert-danger p-2 mb-2">Ditemukan <b>' + violationCount + '</b> indikasi pelanggaran (keluar dari halaman ujian).</div>';
+                }
+
+                // Sort logs by time desc
+                logs.sort((a,b) => (a.log_time > b.log_time) ? -1 : ((b.log_time > a.log_time) ? 1 : 0));
+                
+                html += '<table class="table table-bordered table-sm table-striped"><thead><tr><th class="text-center">Waktu</th><th class="text-center">Aksi</th><th>Keterangan</th></tr></thead><tbody>';
+                
+                $.each(logs, function(i, v){
+                    var trColor = '';
+                    var typeLabel = '';
+                    if(v.log_type == '1'){
+                        typeLabel = '<span class="badge badge-success">Mulai</span>';
+                    } else if(v.log_type == '2'){
+                        typeLabel = '<span class="badge badge-secondary">Selesai</span>';
+                    } else if(v.log_type == '9'){
+                        trColor = 'table-danger';
+                        typeLabel = '<span class="badge badge-danger">VIOLATION</span>';
+                    } else {
+                        typeLabel = '<span class="badge badge-info">Log</span>';
+                    }
+                    
+                    html += '<tr class="'+trColor+'">';
+                    html += '<td class="text-center">' + v.log_time + '</td>';
+                    html += '<td class="text-center">' + typeLabel + '</td>';
+                    html += '<td>' + v.log_desc + '</td>';
+                    html += '</tr>';
+                });
+                html += '</tbody></table>';
+            } else {
+                html += '<div class="text-center p-3">Belum ada log aktivitas</div>';
+            }
+            $('#log-body').html(html);
         });
 
         $('#reset').on('submit', function (e) {

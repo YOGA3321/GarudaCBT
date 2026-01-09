@@ -88,6 +88,7 @@ class Settings extends CI_Controller {
         $tanda_tangan = str_replace(base_url(), '', $this->input->post('tanda_tangan', true) ?? '');
         $logo_kanan = str_replace(base_url(), '', $this->input->post('logo_kanan', true) ?? '');
         $logo_kiri = str_replace(base_url(), '', $this->input->post('logo_kiri', true) ?? '');
+        $foto_kepsek = str_replace(base_url(), '', $this->input->post('foto_kepsek', true) ?? '');
 
         $insert = [
             'sekolah' => $sekolah,
@@ -112,7 +113,8 @@ class Settings extends CI_Controller {
             'motto' => $motto,
             'tanda_tangan' => $tanda_tangan,
             'logo_kanan' => $logo_kanan,
-            'logo_kiri' => $logo_kiri
+            'logo_kiri' => $logo_kiri,
+            'foto_kepsek' => $foto_kepsek
         ];
 
         // Fetch old setting for cleanup
@@ -131,6 +133,9 @@ class Settings extends CI_Controller {
             }
             if ($old->logo_kiri !== $logo_kiri && !empty($old->logo_kiri)) {
                 if (file_exists('./' . $old->logo_kiri)) @unlink('./' . $old->logo_kiri);
+            }
+            if (isset($old->foto_kepsek) && $old->foto_kepsek !== $foto_kepsek && !empty($old->foto_kepsek)) {
+                if (file_exists('./' . $old->foto_kepsek)) @unlink('./' . $old->foto_kepsek);
             }
         }
         $this->output_json($update);
@@ -289,10 +294,10 @@ class Settings extends CI_Controller {
                 if (file_exists('./' . $old->struktur_organisasi)) @unlink('./' . $old->struktur_organisasi);
             }
 
-            $this->db->where('id_profile', 1);
+            $this->db->where('id_school_profile', 1);
             $this->db->update('school_profile', $data);
         } else {
-            $data['id_profile'] = 1;
+            $data['id_school_profile'] = 1;
             $this->db->insert('school_profile', $data);
         }
 

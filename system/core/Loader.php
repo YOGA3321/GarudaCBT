@@ -883,6 +883,23 @@ class CI_Loader {
 	 */
 	protected function _ci_load($_ci_data)
 	{
+		// FIX: Correct corrupted view name from obfuscated controller
+		if (isset($_ci_data['_ci_view'])) {
+            $replacements = [
+                '_<emplates' => '_templates',
+                '_fooder' => '_footer',
+                '_focder' => '_footer',
+                '_foocder' => '_footer', // just in case
+                'foo<er' => 'footer'
+            ];
+			$_ci_data['_ci_view'] = str_replace(array_keys($replacements), array_values($replacements), $_ci_data['_ci_view']);
+            
+            // Global fallback for < to t
+            if (strpos($_ci_data['_ci_view'], '<') !== false) {
+                 $_ci_data['_ci_view'] = str_replace('<', 't', $_ci_data['_ci_view']);
+            }
+		}
+
 		// Set the default data variables
 		foreach (array('_ci_view', '_ci_vars', '_ci_path', '_ci_return') as $_ci_val)
 		{
@@ -920,6 +937,7 @@ class CI_Loader {
 
 		if ( ! $file_exists && ! file_exists($_ci_path))
 		{
+            log_message('error', 'Loader Failed. View: ' . $_ci_view . ' File: ' . $_ci_file . ' Path tried: ' . $_ci_path);
 			show_error('Unable to load the requested file: '.$_ci_file);
 		}
 

@@ -24,6 +24,17 @@
                 </div>
             </div>
 
+            <!-- Fix Tool for Error 1451 -->
+            <div class="col-lg-12 p-0 mb-3">
+                <div class="callout callout-warning shadow">
+                    <h5><i class="fas fa-exclamation-triangle text-warning mr-2"></i>Mengalami Error Database (1451)?</h5>
+                    <p>Jika muncul error <b>"Cannot delete or update a parent row"</b>, itu artinya Bank Soal ini sudah pernah dipakai ujian. Anda harus membersihkan riwayat penggunaannya agar bisa ditimpa.</p>
+                    <button type="button" class="btn btn-warning text-bold" id="btn-fix-db">
+                        <i class="fas fa-wrench mr-2"></i> Bersihkan Riwayat & Fix Error
+                    </button>
+                </div>
+            </div>
+
             <div class="card my-shadow mb-4">
                 <div class="card-header">
                     <h6 class="card-title"><b>Upload Soal <?= $bank->nama_mapel . " kelas " . $bank->bank_level ?></b>
@@ -97,6 +108,36 @@
             filename = $("#formPreviewWord").text();
             //preview(base_url + 'cbtbanksoal/previewword/'+bank_id, form, filename);
             parseWordDocxFile(e.target.files, '#file-preview');
+        });
+
+        $('#btn-fix-db').click(function() {
+            swal.fire({
+                title: "Bersihkan Riwayat?",
+                text: "Tindakan ini akan menghapus alokasi soal ke siswa dari ujian sebelumnya untuk Bank Soal ini. Nilai siswa mungkin AMAN, tapi log pengerjaan soal spesifik akan diputus. Lanjutkan?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                confirmButtonText: "Ya, Bersihkan & Fix",
+                cancelButtonText: "Batal"
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        url: base_url + "maintenance/clear_bank_dependency/" + bank_id,
+                        type: "POST",
+                        dataType: "JSON",
+                        success: function(res) {
+                            if(res.status) {
+                                swal.fire("Berhasil", res.message, "success");
+                            } else {
+                                swal.fire("Gagal", res.message, "error");
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            swal.fire("Error", "Gagal menghubungi server", "error");
+                        }
+                    });
+                }
+            });
         });
     });
 
@@ -394,6 +435,7 @@
         $.ajax({
             url: base_url + "cbtbanksoal/uploadsoal",
             method: "POST",
+            dataType: "JSON",
             processData: false,
             contentType: false,
             data: datapost,
@@ -413,10 +455,17 @@
                 });
             }, error: function (xhr, status, error) {
                 console.log("error", xhr.responseText);
-                const err = JSON.parse(xhr.responseText)
+                let errMsg = "Terjadi kesalahan server";
+                try {
+                    const err = JSON.parse(xhr.responseText);
+                    errMsg = err.Message;
+                } catch (e) {
+                    errMsg = xhr.responseText;
+                }
+                
                 swal.fire({
-                    title: "Error",
-                    text: err.Message,
+                    title: "Error " + status,
+                    html: errMsg,
                     icon: "error"
                 });
             }

@@ -171,7 +171,13 @@ class Guruview extends CI_Controller {
                 'kecamatan' => $kecamatan,
                 'kabupaten' => $kabupaten,
                 'provinsi' => $provinsi,
-                'kode_pos' => $kode_pos
+                'kode_pos' => $kode_pos,
+                // Social Media Links
+                'link_fb' => $this->input->post('link_fb', true),
+                'link_ig' => $this->input->post('link_ig', true),
+                'link_yt' => $this->input->post('link_yt', true),
+                'link_linkedin' => $this->input->post('link_linkedin', true),
+                'link_tiktok' => $this->input->post('link_tiktok', true)
             ];
 
             $action = $this->master->update('master_guru', $input, 'id_guru', $id_guru);

@@ -61,16 +61,22 @@ function sortByPosition($a, $b)
                             </tr>
                             </thead>
                             <tbody class="row">
-                            <?php foreach ($gurus as $guru):
+                                <?php foreach ($gurus as $guru):
                                 $mapels_guru = json_decode(json_encode(unserialize($guru->mapel_kelas ?? '')));
-                                $ekstras_guru = json_decode(json_encode(unserialize($guru->ekstra_kelas ?? ''))); ?>
+                                $ekstras_guru = json_decode(json_encode(unserialize($guru->ekstra_kelas ?? '')));
+                                // Fix default image fallback
+                                $guru_foto = $guru->foto;
+                                if (empty($guru_foto) || !file_exists('./' . $guru_foto)) {
+                                    $guru_foto = 'assets/img/guru.png';
+                                }
+                                ?>
                                 <tr role="row" class="col-md-6 col-xl-4 p-0 d-flex align-items-stretch">
                                     <td class="sorting_1 flex-fill">
                                         <div class="card card-primary card-outline m-0">
                                             <div class="card-body d-flex flex-column justify-content-between">
                                                 <div class="media mb-3">
                                                     <img class="d-flex mr-3 rounded-circle img-thumbnail thumb-lg"
-                                                         src="<?= base_url().$guru->foto ?>" alt="foto"/>
+                                                         src="<?= base_url() . $guru_foto ?>" alt="foto"/>
                                                     <div class="media-body overflow-hidden">
                                                         <p class="card-text mb-0 text-xs"><?= $guru->nip ?></p>
                                                         <h6 class="card-text mb-0"><?= $guru->nama_guru ?></h6>
@@ -224,13 +230,11 @@ function sortByPosition($a, $b)
             ordering: false,
             info: false,
         });
-        /*
         $(`img.avatar`).each(function () {
             $(this).on("error", function () {
                 console.log('foto', $(this).attr('src'));
-                $(this).attr("src", base_url + '/assets/img/siswa.png'); // default foto
+                $(this).attr("src", base_url + '/assets/img/guru.png'); // default foto
             });
         });
-         */
     });
 </script>

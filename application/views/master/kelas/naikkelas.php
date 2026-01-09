@@ -62,7 +62,39 @@
                             <div class="col-md-3 mb-2">
                                 <label>Kelas <?= $tpBefore->tahun ?></label>
                                 <select name="kelas_lama" id="opsi-kelas1" class="form-control">
-                                    <?php foreach ($kelas_lama as $key => $kls) :
+                                    <?php
+                                    // PATCH: Fix missing classes by forcing correct Previous TP lookup
+                                    // Logic: Find TP by Year (Current-1) instead of ID-1, avoiding ID gaps/mismatches.
+                                    $ci = &get_instance();
+                                    $actTp = $ci->db->get_where('master_tp', ['active' => 1])->row();
+                                    if ($actTp) {
+                                        $prevYear = explode('/', $actTp->tahun)[0] - 1;
+                                        $realPrevTp = $ci->db->like('tahun', $prevYear . '/', 'after')->get('master_tp')->row();
+                                        
+                                        if ($realPrevTp) {
+                                            $rawKls = $ci->db->where('id_tp', $realPrevTp->id_tp)->where('id_smt', 2)->order_by('nama_kelas')->get('master_kelas')->result();
+                                            
+                                            // Check if Smt 2 classes have students
+                                            $hasStudents = false;
+                                            if (!empty($rawKls)) {
+                                                $ids = array_column($rawKls, 'id_kelas');
+                                                $sCount = $ci->db->where_in('id_kelas', $ids)->count_all_results('kelas_siswa');
+                                                if ($sCount > 0) $hasStudents = true;
+                                            }
+
+                                            // If Smt 2 empty or has no students, Fallback to Smt 1
+                                            if (empty($rawKls) || !$hasStudents) {
+                                                $rawKls = $ci->db->where('id_tp', $realPrevTp->id_tp)->where('id_smt', 1)->order_by('nama_kelas')->get('master_kelas')->result();
+                                            }
+                                            
+                                            if (!empty($rawKls)) {
+                                                $kelas_lama = [];
+                                                foreach ($rawKls as $rk) $kelas_lama[$rk->id_kelas] = $rk->nama_kelas;
+                                            }
+                                        }
+                                    }
+                                    
+                                    foreach ($kelas_lama as $key => $kls) :
                                         $selected = $key == $kelas_selected ? 'selected="selected"' : ''; ?>
                                         <option value="<?= $key ?>" <?= $selected ?>><?= $kls ?></option>
                                     <?php endforeach; ?>
@@ -81,7 +113,26 @@
                                 </div>
                             <?php endif; ?>
                         </div>
-                        <?php if (isset($siswas)) :
+                        <?php 
+                        // PATCH: Bypass Controller Empty Student Result
+                        // If Controller returns empty siswas (likely because class ID belongs to Old TP and Controller filters by Active TP),
+                        // We fetch students manually for the SELECTED Class.
+                        if ((!isset($siswas) || empty($siswas)) && isset($kelas_selected) && !empty($kelas_selected)) {
+                            $ci = &get_instance();
+                            $siswas = $ci->db->select('master_siswa.*, kelas_siswa.id_kelas, master_kelas.nama_kelas')
+                                ->from('kelas_siswa')
+                                ->join('master_siswa', 'master_siswa.id_siswa = kelas_siswa.id_siswa')
+                                ->join('master_kelas', 'master_kelas.id_kelas = kelas_siswa.id_kelas')
+                                ->where('kelas_siswa.id_kelas', $kelas_selected)
+                                ->get()->result();
+                                
+                            // Ensure $siswa_kelas_baru is distinct
+                            if (!isset($siswa_kelas_baru)) {
+                                $siswa_kelas_baru = [];
+                            }
+                        }
+                        
+                        if (isset($siswas) && !empty($siswas)) :
                         //echo '<pre>';
                         //var_dump($siswa_kelas_baru);
                         //echo '</pre>';
@@ -250,6 +301,28 @@
             //console.log(base_url + 'datakelas/kenaikan?kelas='+ $(this).val())
         });
 
+        // PATCH: Auto-populate Target Dropdown from ALL HISTORICAL CLASSES (Distinct)
+        // This ensures "Kelas 1" - "Kelas 6" are available even if they don't exist in Old TP
+        // Using 'distinct' as keyword for TP ID in KelasAction
+        $.getJSON(base_url + 'KelasAction/getClassesJSON/distinct/0', function(data) {
+                var options = '<option value="0">Pilih Kelas Baru (Auto-Create)</option>';
+                var count = 0;
+                $.each(data, function(key, val) {
+                    options += '<option value="' + key + '">' + val + '</option>';
+                    count++;
+                });
+                
+                if (count > 0) {
+                    // FORCE UPDATE ALL DROPDOWNS
+                    // Target: #select-kelas (Bulk) and select[data-name="kelas-baru"] (Per-student)
+                    
+                    $('#select-kelas').html(options);
+                    $('select[data-name="kelas-baru"]').html(options);
+                    
+                    console.log('Patched Dropdowns forced with ' + count + ' DISTINCT historical classes.');
+                }
+        });
+
         $('#naikkankelas').submit(function (e) {
             e.preventDefault();
             e.stopImmediatePropagation();
@@ -308,7 +381,7 @@
 
             if (jsonKelas.length > 0) {
                 $.ajax({
-                    url: base_url + 'datakelas/naikkelas',
+                    url: base_url + 'KelasAction/naikKelas',
                     type: "POST",
                     data: dataPost,
                     success: function (data) {

@@ -12,6 +12,14 @@ if ($att !== false) {
     $dataFileAttach = unserialize($soal->file ?? '');
 }
 
+// FIX: Initialize undefined variables to prevent crash
+if (!isset($soal_belum_komplit)) {
+    $soal_belum_komplit = [];
+}
+if (!isset($soal_ada)) {
+    $soal_ada = [];
+}
+
 $pg_belum_komplit = [];
 $pg2_belum_komplit = [];
 $jodohkan_belum_komplit = [];
@@ -57,7 +65,7 @@ foreach ($soal_ada as $key => $value) {
     <section class="content-header">
         <div class="container-fluid">
             <div class="d-sm-flex justify-content-between mb-2">
-                <h1><?= $subjudul ?></h1>
+                <h1><?= str_replace('B}at', 'Buat', $subjudul) ?></h1>
                 <a href="<?= base_url('cbtbanksoal/detail/' . $bank->id_bank) ?>" type="button"
                    class="btn btn-sm btn-danger float-right">
                     <i class="fas fa-arrow-circle-left"></i><span

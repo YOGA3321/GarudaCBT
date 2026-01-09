@@ -131,50 +131,90 @@
 
                     <!-- Panel 2: Guru (Width 50%) -->
                     <div class="w-1/2 pl-3 md:pl-6 align-top shrink-0">
-                        <div class="mb-8 flex justify-between items-center px-1">
-                            <p class="text-slate-500 text-sm font-medium bg-slate-50 px-3 py-1 rounded-lg border border-slate-100 inline-block">
-                                <i class="ri-briefcase-line mr-1 align-middle"></i>
-                                Dewan Guru & Staff
-                            </p>
-                        </div>
-
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 pb-10 min-h-[400px]">
-                            <?php if(!empty($teachers)): ?>
-                                <?php foreach($teachers as $g): ?>
-                                    <?php 
-                                        $g_foto = $g->foto;
-                                        if(!empty($g_foto)) {
-                                            if(file_exists('./'.$g_foto)){
-                                                $foto_guru = base_url($g_foto);
-                                            } elseif(file_exists('./uploads/profiles/'.$g_foto)) {
-                                                $foto_guru = base_url('uploads/profiles/'.$g_foto);
-                                            } else {
-                                                // Default avatar based on gender or general
-                                                $foto_guru = base_url('assets/img/guru.png');
-                                            }
-                                        } else {
-                                            $foto_guru = base_url('assets/img/guru.png');
-                                        }
-                                        $jabatan = $g->level ?? 'Tenaga Pendidik';
-                                    ?>
-                                    <div class="group bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-lg shadow-slate-100/50 hover:shadow-2xl hover:shadow-sky-900/10 transition-all duration-300 hover:-translate-y-1">
-                                        <!-- Portrait Photo -->
-                                        <div class="relative w-full aspect-[4/5] overflow-hidden bg-gradient-to-b from-sky-50 to-slate-50">
-                                            <img src="<?= $foto_guru ?>" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy" alt="<?= $g->nama_guru ?>">
+                        <?php if(!empty($teachers_grouped)): ?>
+                            <?php foreach($teachers_grouped as $jabatan => $group_teachers): ?>
+                                <!-- Jabatan Group Header -->
+                                <div class="mb-6">
+                                    <div class="flex items-center gap-3 mb-4 px-1">
+                                        <div class="w-10 h-10 rounded-xl bg-sky-100 flex items-center justify-center">
+                                            <i class="ri-user-star-line text-sky-600 text-xl"></i>
                                         </div>
-                                        <!-- Info -->
-                                        <div class="p-4 text-center">
-                                            <h3 class="font-bold text-slate-800 text-base leading-tight mb-2 truncate"><?= $g->nama_guru ?></h3>
-                                            <p class="text-xs font-bold text-sky-600 bg-sky-50 inline-block px-3 py-1 rounded-full uppercase tracking-wider text-[10px]"><?= $jabatan ?></p>
-                                        </div>
+                                        <h3 class="text-lg font-bold text-slate-800"><?= $jabatan ?></h3>
+                                        <span class="text-xs text-slate-400 bg-slate-100 px-2 py-1 rounded-lg"><?= count($group_teachers) ?> orang</span>
                                     </div>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <div class="col-span-full py-20 text-center">
-                                    <p class="text-slate-500 italic">Belum ada data guru.</p>
+                                    
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                                        <?php foreach($group_teachers as $g): ?>
+                                            <?php 
+                                                $g_foto = $g->foto;
+                                                if(!empty($g_foto)) {
+                                                    if(file_exists('./'.$g_foto)){
+                                                        $foto_guru = base_url($g_foto);
+                                                    } elseif(file_exists('./uploads/profiles/'.$g_foto)) {
+                                                        $foto_guru = base_url('uploads/profiles/'.$g_foto);
+                                                    } else {
+                                                        $foto_guru = base_url('assets/img/guru.png');
+                                                    }
+                                                } else {
+                                                    $foto_guru = base_url('assets/img/guru.png');
+                                                }
+                                            ?>
+                                            <div class="group bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-lg shadow-slate-100/50 hover:shadow-2xl hover:shadow-sky-900/10 transition-all duration-300 hover:-translate-y-1">
+                                                <!-- Portrait Photo -->
+                                                <div class="relative w-full aspect-[4/5] overflow-hidden bg-gradient-to-b from-sky-50 to-slate-50">
+                                                    <img src="<?= $foto_guru ?>" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" loading="lazy" alt="<?= $g->nama_guru ?>">
+                                                </div>
+                                                <!-- Info -->
+                                                <div class="p-4 text-center">
+                                                    <h3 class="font-bold text-slate-800 text-base leading-tight mb-2 truncate"><?= $g->nama_guru ?></h3>
+                                                    
+                                                    <!-- Social Media Icons - Only show if filled -->
+                                                    <?php 
+                                                    $has_social = !empty($g->link_fb) || !empty($g->link_ig) || !empty($g->link_yt) || !empty($g->link_linkedin) || !empty($g->link_tiktok);
+                                                    if($has_social): ?>
+                                                    <div class="flex items-center justify-center gap-2 mt-2">
+                                                        <?php if(!empty($g->link_fb)): ?>
+                                                        <a href="<?= $g->link_fb ?>" target="_blank" class="w-8 h-8 rounded-full flex items-center justify-center text-white text-sm transition-transform hover:scale-110" style="background:#1877f2;" title="Facebook">
+                                                            <i class="ri-facebook-fill"></i>
+                                                        </a>
+                                                        <?php endif; ?>
+                                                        
+                                                        <?php if(!empty($g->link_ig)): ?>
+                                                        <a href="<?= $g->link_ig ?>" target="_blank" class="w-8 h-8 rounded-full flex items-center justify-center text-white text-sm transition-transform hover:scale-110" style="background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);" title="Instagram">
+                                                            <i class="ri-instagram-line"></i>
+                                                        </a>
+                                                        <?php endif; ?>
+                                                        
+                                                        <?php if(!empty($g->link_yt)): ?>
+                                                        <a href="<?= $g->link_yt ?>" target="_blank" class="w-8 h-8 rounded-full flex items-center justify-center text-white text-sm transition-transform hover:scale-110" style="background:#ff0000;" title="YouTube">
+                                                            <i class="ri-youtube-fill"></i>
+                                                        </a>
+                                                        <?php endif; ?>
+                                                        
+                                                        <?php if(!empty($g->link_linkedin)): ?>
+                                                        <a href="<?= $g->link_linkedin ?>" target="_blank" class="w-8 h-8 rounded-full flex items-center justify-center text-white text-sm transition-transform hover:scale-110" style="background:#0077b5;" title="LinkedIn">
+                                                            <i class="ri-linkedin-fill"></i>
+                                                        </a>
+                                                        <?php endif; ?>
+                                                        
+                                                        <?php if(!empty($g->link_tiktok)): ?>
+                                                        <a href="<?= $g->link_tiktok ?>" target="_blank" class="w-8 h-8 rounded-full flex items-center justify-center text-white text-sm transition-transform hover:scale-110" style="background:#000;" title="TikTok">
+                                                            <i class="ri-tiktok-fill"></i>
+                                                        </a>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                    <?php endif; ?>
+                                                </div>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    </div>
                                 </div>
-                            <?php endif; ?>
-                        </div>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <div class="col-span-full py-20 text-center">
+                                <p class="text-slate-500 italic">Belum ada data guru.</p>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

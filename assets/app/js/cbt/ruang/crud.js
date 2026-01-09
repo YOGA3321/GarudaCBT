@@ -24,8 +24,12 @@ $(document).ready(function () {
 		serverSide: true,
 		ajax: {
 			url: base_url + "cbtruang/data",
-			type: "POST"
-			//data: csrf
+			type: "POST",
+            data: function (d) {
+                if (window.csrf_name && window.csrf_hash) {
+                    d[window.csrf_name] = window.csrf_hash;
+                }
+            }
 		},
 		columns: [
 			{

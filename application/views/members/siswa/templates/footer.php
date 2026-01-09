@@ -113,7 +113,53 @@
         $.ajaxSetup({
             "data": csrf
         });
+        
+        // Global AJAX error handler for session expiry
+        $(document).ajaxError(function(event, jqXHR, settings, thrownError) {
+            if (jqXHR.status === 401 || jqXHR.status === 403) {
+                window.location.href = base_url + 'auth?session_expired=1';
+            }
+            if (jqXHR.responseText && jqXHR.responseText.indexOf('id="login-form"') > -1) {
+                window.location.href = base_url + 'auth?session_expired=1';
+            }
+        });
     }
+    
+    // Idle timeout detection
+    var idleTimeout = 7200000, warningTime = 6900000;
+    var idleTimer, warningTimer, isWarningShown = false;
+    
+    function resetIdleTimer() {
+        if (isWarningShown) return;
+        clearTimeout(idleTimer); clearTimeout(warningTimer);
+        warningTimer = setTimeout(function() { isWarningShown = true; showIdleWarning(); }, warningTime);
+        idleTimer = setTimeout(function() { window.location.href = base_url + 'logout?reason=idle'; }, idleTimeout);
+    }
+    
+    function showIdleWarning() {
+        var countdown = 300, countdownInterval;
+        swal.fire({
+            title: 'Sesi Akan Berakhir',
+            html: 'Logout otomatis dalam <b id="idle-countdown">5:00</b> menit.<br>Klik untuk melanjutkan.',
+            icon: 'warning', showCancelButton: true, confirmButtonText: 'Lanjutkan', cancelButtonText: 'Logout',
+            allowOutsideClick: false, allowEscapeKey: false,
+            didOpen: function() {
+                countdownInterval = setInterval(function() {
+                    countdown--;
+                    var min = Math.floor(countdown / 60), sec = countdown % 60;
+                    document.getElementById('idle-countdown').textContent = min + ':' + (sec < 10 ? '0' : '') + sec;
+                    if (countdown <= 0) { clearInterval(countdownInterval); window.location.href = base_url + 'logout?reason=idle'; }
+                }, 1000);
+            },
+            willClose: function() { clearInterval(countdownInterval); }
+        }).then(function(result) {
+            if (result.isConfirmed) { isWarningShown = false; resetIdleTimer(); $.get(base_url + 'auth/check_session'); }
+            else { window.location.href = base_url + 'logout'; }
+        });
+    }
+    
+    $(document).on('mousemove keydown click scroll', function() { resetIdleTimer(); });
+    resetIdleTimer();
 
     function reload_ajax() {
         table.ajax.reload();

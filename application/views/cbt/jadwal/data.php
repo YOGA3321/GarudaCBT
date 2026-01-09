@@ -592,11 +592,8 @@ if (isset($jadwal_ujian)) {
                 swal.fire({
                     text: "Silahkan tunggu....",
                     button: false,
-                    closeOnClickOutside: false,
-                    closeOnEsc: false,
-                    allowEscapeKey: false,
                     allowOutsideClick: false,
-                    onOpen: () => {
+                    onBeforeOpen: () => {
                         swal.showLoading();
                     }
                 });
@@ -619,7 +616,44 @@ if (isset($jadwal_ujian)) {
                             swal.fire({
                                 title: "Gagal",
                                 text: "Tidak bisa menghapus, " + respon.message,
-                                icon: "error"
+                                icon: "error",
+                                showCancelButton: true,
+                                confirmButtonColor: "#d33",
+                                cancelButtonColor: "#3085d6",
+                                confirmButtonText: "Paksa Hapus?",
+                                cancelButtonText: "Tutup"
+                            }).then(forceResult => {
+                                if (forceResult.value) {
+                                    // FORCE DELETE LOGIC
+                                    swal.fire({
+                                        title: "Hapus Paksa!",
+                                        text: "Ini akan menghapus JADWAL beserta SEMUA NILAI & LOG siswa terkait jadwal ini. Data tidak bisa dikembalikan!",
+                                        icon: "warning",
+                                        showCancelButton: true,
+                                        confirmButtonColor: "#d33",
+                                        confirmButtonText: "Ya, Hapus Semuanya!"
+                                    }).then(finalRes => {
+                                      if(finalRes.value) {
+                                          $.ajax({
+                                              url: base_url + 'maintenance/force_delete_jadwal/' + id,
+                                              type: "GET", // CHANGED TO GET TO BYPASS CSRF
+                                              dataType: "JSON",
+                                              success: function(fixRes) {
+                                                  if(fixRes.status) {
+                                                      swal.fire("Terhapus!", fixRes.message, "success").then(() => {
+                                                          window.location.reload();
+                                                      });
+                                                  } else {
+                                                      swal.fire("Gagal!", fixRes.message, "error");
+                                                  }
+                                              },
+                                              error: function(xhr) {
+                                                  swal.fire("Error", "Gagal menghubungi server maintenance (" + xhr.status + ")", "error");
+                                              }
+                                          });
+                                      }
+                                    });
+                                }
                             });
                         }
                     },

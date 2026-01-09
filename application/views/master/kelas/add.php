@@ -80,8 +80,9 @@
                             <div class="form-group row">
                                 <label class="col-md-3 control-label">Kode Kelas</label>
                                 <div class="col-md-9">
-                                    <input type='text' name='kode_kelas' class='form-control'
+                                    <input type='text' name='kode_kelas' id='kode_kelas' class='form-control'
                                            value="<?= $kelas->kode_kelas ?>" required/>
+                                    <small class="text-muted">Bisa diisi manual atau otomatis (Format: YYYYMMDD##)</small>
                                 </div>
                             </div>
                             <?php if ($setting->jenjang == '3') : ?>
@@ -211,10 +212,43 @@
 <script>
     const arrAllSiswa = JSON.parse(JSON.stringify(<?= json_encode($siswas)?>));
     const arrSelSiswa = JSON.parse(JSON.stringify(<?= json_encode($jjs)?>));
+    // Get active academic year from PHP
+    const tpActive = "<?= isset($tp_active) ? $tp_active->tahun : date('Y/Y') ?>"; 
+
     $(document).ready(function () {
         $("#guru_id option:first").attr('disabled', 'disabled');
         $("#jurusan_id option:first").attr('disabled', 'disabled');
         $("#level_id option:first").attr('disabled', 'disabled');
+
+        // Auto name class when level changes
+        $("#level_id").on("change", function() {
+            var selectedLevel = $("#level_id option:selected").text().trim();
+            var namaKelas = "Kelas " + selectedLevel;
+            $("#nama_kelas").val(namaKelas);
+        });
+
+        // Auto generate code if empty (Add Mode) - and allow manual edit
+        if ($('#kode_kelas').val() === '') {
+            generateKodeKelas();
+        }
+        // User can now edit freely
     });
+    
+    // Generate Kode Kelas with format: YYYYMMDD## (last 2 digits random 00-99)
+    // Updated: Uses TP Active (e.g. 2025/2026 -> 20252026##)
+    function generateKodeKelas() {
+        // Remove slash from TP (e.g. 2025/2026 -> 20252026)
+        var cleanTp = tpActive.replace(/[^0-9]/g, '');
+        
+        // If cleanTp is invalid or empty, fallback to date
+        if (cleanTp.length < 8) { // Expecting roughly 8 chars like 20252026
+             var now = new Date();
+             cleanTp = now.getFullYear() + String(now.getMonth() + 1).padStart(2, '0') + String(now.getDate()).padStart(2, '0');
+        }
+
+        var random = String(Math.floor(Math.random() * 100)).padStart(2, '0'); // 00-99
+        var kode = cleanTp + random;
+        document.getElementById('kode_kelas').value = kode;
+    }
 </script>
 <script src="<?= base_url() ?>/assets/app/js/master/kelas/add.js"></script>
